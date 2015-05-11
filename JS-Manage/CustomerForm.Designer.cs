@@ -37,6 +37,7 @@
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.btSave = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxIsAttendRewardPointProgram = new System.Windows.Forms.CheckBox();
             this.cboxIsContact = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -64,6 +65,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtDemandDescription = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtCustIdFind = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grvCustomer)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -136,6 +139,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxIsAttendRewardPointProgram);
             this.groupBox1.Controls.Add(this.cboxIsContact);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
@@ -149,10 +153,22 @@
             this.groupBox1.Controls.Add(this.btSave);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(556, 272);
+            this.groupBox1.Size = new System.Drawing.Size(663, 272);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Khách hàng";
+            // 
+            // checkBoxIsAttendRewardPointProgram
+            // 
+            this.checkBoxIsAttendRewardPointProgram.AutoSize = true;
+            this.checkBoxIsAttendRewardPointProgram.Checked = true;
+            this.checkBoxIsAttendRewardPointProgram.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxIsAttendRewardPointProgram.Location = new System.Drawing.Point(295, 218);
+            this.checkBoxIsAttendRewardPointProgram.Name = "checkBoxIsAttendRewardPointProgram";
+            this.checkBoxIsAttendRewardPointProgram.Size = new System.Drawing.Size(75, 17);
+            this.checkBoxIsAttendRewardPointProgram.TabIndex = 78;
+            this.checkBoxIsAttendRewardPointProgram.Text = "Tích điểm";
+            this.checkBoxIsAttendRewardPointProgram.UseVisualStyleBackColor = true;
             // 
             // cboxIsContact
             // 
@@ -249,7 +265,7 @@
             // 
             // btFindCust
             // 
-            this.btFindCust.Location = new System.Drawing.Point(415, 22);
+            this.btFindCust.Location = new System.Drawing.Point(500, 21);
             this.btFindCust.Name = "btFindCust";
             this.btFindCust.Size = new System.Drawing.Size(49, 23);
             this.btFindCust.TabIndex = 30;
@@ -259,7 +275,7 @@
             // 
             // txtCustNameSearch
             // 
-            this.txtCustNameSearch.Location = new System.Drawing.Point(147, 312);
+            this.txtCustNameSearch.Location = new System.Drawing.Point(232, 24);
             this.txtCustNameSearch.Name = "txtCustNameSearch";
             this.txtCustNameSearch.Size = new System.Drawing.Size(133, 20);
             this.txtCustNameSearch.TabIndex = 20;
@@ -268,11 +284,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 314);
+            this.label4.Location = new System.Drawing.Point(148, 27);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(119, 13);
+            this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 19;
-            this.label4.Text = "Tên khách hàng / SĐT";
+            this.label4.Text = "Tên KH / SĐT";
             // 
             // grvCustomer
             // 
@@ -280,7 +296,7 @@
             this.grvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvCustomer.Location = new System.Drawing.Point(19, 342);
             this.grvCustomer.Name = "grvCustomer";
-            this.grvCustomer.Size = new System.Drawing.Size(543, 337);
+            this.grvCustomer.Size = new System.Drawing.Size(650, 337);
             this.grvCustomer.TabIndex = 35;
             this.grvCustomer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvCustomer_CellClick);
             this.grvCustomer.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvCustomer_CellDoubleClick);
@@ -289,12 +305,17 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.AutoSize = true;
+            this.groupBox2.Controls.Add(this.txtCustIdFind);
+            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.cboxHasNote);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.txtCustNameSearch);
             this.groupBox2.Controls.Add(this.cboxIsContactFind);
             this.groupBox2.Controls.Add(this.btFindCust);
             this.groupBox2.Location = new System.Drawing.Point(13, 288);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(555, 401);
+            this.groupBox2.Size = new System.Drawing.Size(662, 401);
             this.groupBox2.TabIndex = 23;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tìm &khách hàng";
@@ -302,7 +323,7 @@
             // cboxHasNote
             // 
             this.cboxHasNote.AutoSize = true;
-            this.cboxHasNote.Location = new System.Drawing.Point(278, 25);
+            this.cboxHasNote.Location = new System.Drawing.Point(370, 26);
             this.cboxHasNote.Name = "cboxHasNote";
             this.cboxHasNote.Size = new System.Drawing.Size(63, 17);
             this.cboxHasNote.TabIndex = 22;
@@ -313,7 +334,7 @@
             // cboxIsContactFind
             // 
             this.cboxIsContactFind.AutoSize = true;
-            this.cboxIsContactFind.Location = new System.Drawing.Point(348, 25);
+            this.cboxIsContactFind.Location = new System.Drawing.Point(436, 25);
             this.cboxIsContactFind.Name = "cboxIsContactFind";
             this.cboxIsContactFind.Size = new System.Drawing.Size(61, 17);
             this.cboxIsContactFind.TabIndex = 25;
@@ -324,9 +345,10 @@
             // grvTransactionHistory
             // 
             this.grvTransactionHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grvTransactionHistory.Location = new System.Drawing.Point(6, 6);
+            this.grvTransactionHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grvTransactionHistory.Location = new System.Drawing.Point(3, 3);
             this.grvTransactionHistory.Name = "grvTransactionHistory";
-            this.grvTransactionHistory.Size = new System.Drawing.Size(580, 622);
+            this.grvTransactionHistory.Size = new System.Drawing.Size(477, 629);
             this.grvTransactionHistory.TabIndex = 100;
             // 
             // grvRewardPointHistory
@@ -342,10 +364,10 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(574, 12);
+            this.tabControl1.Location = new System.Drawing.Point(681, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(598, 661);
+            this.tabControl1.Size = new System.Drawing.Size(491, 661);
             this.tabControl1.TabIndex = 63;
             // 
             // tabPage1
@@ -354,7 +376,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(590, 635);
+            this.tabPage1.Size = new System.Drawing.Size(483, 635);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Lịch sử mua hàng";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -365,7 +387,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(590, 635);
+            this.tabPage2.Size = new System.Drawing.Size(483, 635);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Điểm tích lũy";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -417,6 +439,23 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Mô tả nhu cầu";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(14, 25);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(38, 13);
+            this.label10.TabIndex = 31;
+            this.label10.Text = "MSKH";
+            // 
+            // txtCustIdFind
+            // 
+            this.txtCustIdFind.Location = new System.Drawing.Point(59, 23);
+            this.txtCustIdFind.Name = "txtCustIdFind";
+            this.txtCustIdFind.Size = new System.Drawing.Size(83, 20);
+            this.txtCustIdFind.TabIndex = 10;
+            this.txtCustIdFind.TextChanged += new System.EventHandler(this.txtCustIdFind_TextChanged);
+            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -424,8 +463,6 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1184, 682);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.txtCustNameSearch);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.grvCustomer);
             this.Controls.Add(this.txtPhone);
             this.Controls.Add(this.txtCustAddress);
@@ -495,5 +532,8 @@
         private System.Windows.Forms.CheckBox cboxIsContactFind;
         private System.Windows.Forms.CheckBox cboxIsContact;
         private System.Windows.Forms.CheckBox cboxHasNote;
+        private System.Windows.Forms.CheckBox checkBoxIsAttendRewardPointProgram;
+        private System.Windows.Forms.TextBox txtCustIdFind;
+        private System.Windows.Forms.Label label10;
     }
 }

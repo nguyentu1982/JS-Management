@@ -1293,6 +1293,11 @@ namespace JS_Manage
 
         private void InsertRewardPointEarn(int custId, int purchaseReceiptOrderId)
         {
+            if (!custTableAdapter.GetDataByCustomerId(custId)[0].IsAttendRewardPointProgram)
+            {
+                return;
+            }
+
             decimal totalAmountPaid = decimal.Parse(txtTotalAmountPaid.Text);
             decimal rewardPointForPurchaseEachSetting = Setting.GetDecimalSetting(Reward_Point_For_Purchase_Each);
             int rewardPointEarnSetting = Setting.GetIntergerSetting(Reward_Point_Earn);
@@ -1310,6 +1315,11 @@ namespace JS_Manage
 
         private void UpdateRewardPointEarn(int custId, int purchaseReceiptOrderId)
         {
+            if (!custTableAdapter.GetDataByCustomerId(custId)[0].IsAttendRewardPointProgram)
+            {
+                return;
+            }
+
             decimal totalAmount = decimal.Parse(txtTotalAmount.Text);
             decimal rewardPointForPurchaseEachSetting = Setting.GetDecimalSetting(Reward_Point_For_Purchase_Each);
             int rewardPointEarnSetting = Setting.GetIntergerSetting(Reward_Point_Earn);
@@ -1369,6 +1379,21 @@ namespace JS_Manage
 
         private void CalcuateRewardPoints(int custId)
         {
+            if (custTableAdapter.GetDataByCustomerId(custId).Rows.Count ==0)
+            {
+                lbAvaiableRewardPoint.Text = "0";
+                lbPointsBalanceAmount.Text = "0";
+                return;
+            }
+
+
+            if (!custTableAdapter.GetDataByCustomerId(custId)[0].IsAttendRewardPointProgram)
+            {
+                lbAvaiableRewardPoint.Text = "0";
+                lbPointsBalanceAmount.Text = "0";
+                return;
+            }
+
             int purchaseReceiptOrderId = int.Parse(lbPurchaseReceiptOrderId.Text);
             int pointsBalance;
             DateTime date = DateTime.Now;

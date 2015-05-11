@@ -131,10 +131,12 @@ namespace JS_Manage
 
         private void btFindCust_Click(object sender, EventArgs e)
         {
+            int custId = 0;
+            int.TryParse(txtCustIdFind.Text, out custId);
             string searchText = txtCustNameSearch.Text;
             bool isContact = cboxIsContactFind.Checked;
             bool hasNote = cboxHasNote.Checked;
-            grvCustomer.DataSource = this.customerTableAdapter.GetCustomers(searchText,hasNote,isContact);
+            grvCustomer.DataSource = this.customerTableAdapter.GetCustomers(custId, searchText,hasNote,isContact);
         }
 
         private void btAdd_Click(object sender, EventArgs e)
@@ -189,15 +191,15 @@ namespace JS_Manage
         {
             int registrationRewardPoint = 0;
             int custId = 0;
-            if (Setting.GetBoolSetting(Reward_Point_Enable))
+            if (Setting.GetBoolSetting(Reward_Point_Enable) && checkBoxIsAttendRewardPointProgram.Checked) 
             {
                 registrationRewardPoint = Setting.GetIntergerSetting(Reward_Point_For_Registration);
                 
             }
-            object returnValue = customerTableAdapter.InsertReturnId(txtCustName.Text, txtCustAddress.Text, txtPhone.Text, txtNote.Text, int.Parse( comboBoxCustomerType.SelectedValue.ToString()), registrationRewardPoint,cboxIsContact.Checked);
+            object returnValue = customerTableAdapter.InsertReturnId(txtCustName.Text, txtCustAddress.Text, txtPhone.Text, txtNote.Text, int.Parse( comboBoxCustomerType.SelectedValue.ToString()), registrationRewardPoint,cboxIsContact.Checked, checkBoxIsAttendRewardPointProgram.Checked) ;
             if (int.TryParse(returnValue.ToString(), out custId))
             {
-                if (Setting.GetBoolSetting(Reward_Point_Enable))
+                if (Setting.GetBoolSetting(Reward_Point_Enable) && checkBoxIsAttendRewardPointProgram.Checked)
                 {
                     rewardPointsHistoryTableAdapter.Insert(custId, 0, registrationRewardPoint, registrationRewardPoint, 0, "Điểm thưởng từ đăng ký thành viên", new DateTime(1990, 01, 01));
                 }
@@ -209,7 +211,7 @@ namespace JS_Manage
 
         private bool UpdateCustomer()
         {
-            if (customerTableAdapter.UpdateCustomerById(txtCustName.Text, txtCustAddress.Text, txtPhone.Text, txtNote.Text, int.Parse(comboBoxCustomerType.SelectedValue.ToString()) ,cboxIsContact.Checked,int.Parse(lbCustId.Text)) > 0)
+            if (customerTableAdapter.UpdateCustomerById(txtCustName.Text, txtCustAddress.Text, txtPhone.Text, txtNote.Text, int.Parse(comboBoxCustomerType.SelectedValue.ToString()) ,cboxIsContact.Checked,checkBoxIsAttendRewardPointProgram.Checked,int.Parse(lbCustId.Text)) > 0)
             {
                 return true;
             }
@@ -290,6 +292,7 @@ namespace JS_Manage
             txtNote.Text = custNote;
             comboBoxCustomerType.SelectedValue = custData[0].CustTypeId;
             cboxIsContact.Checked = custData[0].IsContact;
+            checkBoxIsAttendRewardPointProgram.Checked = custData[0].IsAttendRewardPointProgram;
             lbHeader.Text = string.Format("Sửa thông tin khách hàng").ToUpper();
 
             grvTransactionHistory.DataSource = getProductInOutDetailTableAdapter.GetProductInOutDetailByCustomerId(custID);
@@ -409,6 +412,7 @@ namespace JS_Manage
             txtNote.Text = string.Empty;
             lbCustId.Text = "0";
             comboBoxCustomerType.SelectedValue = 0;
+            checkBoxIsAttendRewardPointProgram.Checked = Setting.GetBoolSetting(Constant.Setting.REWARD_POINT_ENABLED);
             lbHeader.Text = "Thêm khách hàng".ToUpper();
         }
 
@@ -676,6 +680,11 @@ namespace JS_Manage
                 }
             }
             return false;
+        }
+
+        private void txtCustIdFind_TextChanged(object sender, EventArgs e)
+        {
+            btFindCust_Click(sender, e);
         }                
     }
 }

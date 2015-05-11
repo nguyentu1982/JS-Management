@@ -275,6 +275,7 @@ namespace JS_Manage
         {
             public const string Select_Multi_Product_On_Input = "SelectMultiProductOnInput";
             public const string ALLOW_USER_VIEW_ALL_COST = "AllowUserViewAllCost";
+            public const string REWARD_POINT_ENABLED = "RewardPointEnable";
         }
 
         public static class ProductsSelectedDialog

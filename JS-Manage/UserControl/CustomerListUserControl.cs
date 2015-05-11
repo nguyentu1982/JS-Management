@@ -81,7 +81,7 @@ namespace JS_Manage
         
         private void btFindCust_Click(object sender, EventArgs e)
         {            
-            grvCustomer.DataSource = this.customerTableAdapter1.GetDataByCustomerNameOrTelephone(string.Format("%{0}%", txtCustNameSearch.Text));
+            //grvCustomer.DataSource = this.customerTableAdapter1.GetDataByCustomerNameOrTelephone(string.Format("%{0}%", txtCustNameSearch.Text));
         }
 
         private void btAdd_Click(object sender, EventArgs e)
@@ -96,7 +96,7 @@ namespace JS_Manage
 
         private void txtCustNameSearch_TextChanged(object sender, EventArgs e)
         {            
-            grvCustomer.DataSource = this.customerTableAdapter1.GetDataByCustomerNameOrTelephone(string.Format("%{0}%", txtCustNameSearch.Text));
+           // grvCustomer.DataSource = this.customerTableAdapter1.GetDataByCustomerNameOrTelephone(string.Format("%{0}%", txtCustNameSearch.Text));
         }
         
     }
