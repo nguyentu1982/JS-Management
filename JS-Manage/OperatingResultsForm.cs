@@ -14,6 +14,7 @@ namespace JS_Manage
 		private const string TOTAL_COST_COLUMN_NAME = "TotalCost";
 		private const string OPERATION_COST_COLUMN_NAME = "OperationCost";
 		private const string TOTAL_AMOUNT_COLUMN_NAME  = "TotalAmount";
+        private const string REWARD_POINT_USED_AMOUNT_COLUMN_NAME = "RewardPointUsedAmount";
 		private const string REVENUE_COLUMN_NAME = "Revenue";
         private const string RUNNING_TOTAL_COLUMN_NAME = "RunningTotal";
 
@@ -21,7 +22,8 @@ namespace JS_Manage
         private const string TOTAL_COST_COLUMN_HEADER_TEXT = "Giá vốn (1)";
         private const string OPERATION_COST_COLUMN_HEADER_TEXT = "CP HĐKD (2)";
         private const string TOTAL_AMOUNT_COLUMN_HEADER_TEXT = "Doanh Thu (3)";
-        private const string REVENUE_COLUMN_HEADER_TEXT = "Lợi nhuận (4) = (3) - (2) - (1)";
+        private const string REWARD_POINT_USED_AMOUNT_HEADER_TEXT = "Điểm thưởng (5)";
+        private const string REVENUE_COLUMN_HEADER_TEXT = "Lợi nhuận (4) = (3) - (2) - (1) - (5)";
         private const string RUNNING_TOTAL_COLUMN_HEADER_TEXT = "Lũy kế";
 
         private const string NUMBER_FORMAT = "N0";
@@ -51,6 +53,7 @@ namespace JS_Manage
             grvOperationResult.Columns[TOTAL_COST_COLUMN_NAME].HeaderText = TOTAL_COST_COLUMN_HEADER_TEXT;
             grvOperationResult.Columns[OPERATION_COST_COLUMN_NAME].HeaderText = OPERATION_COST_COLUMN_HEADER_TEXT;
             grvOperationResult.Columns[TOTAL_AMOUNT_COLUMN_NAME].HeaderText = TOTAL_AMOUNT_COLUMN_HEADER_TEXT;
+            grvOperationResult.Columns[REWARD_POINT_USED_AMOUNT_COLUMN_NAME].HeaderText = REWARD_POINT_USED_AMOUNT_HEADER_TEXT;
             grvOperationResult.Columns[REVENUE_COLUMN_NAME].HeaderText = REVENUE_COLUMN_HEADER_TEXT;
             grvOperationResult.Columns[RUNNING_TOTAL_COLUMN_NAME].HeaderText = RUNNING_TOTAL_COLUMN_HEADER_TEXT;
 
@@ -59,6 +62,7 @@ namespace JS_Manage
             grvOperationResult.Columns[TOTAL_AMOUNT_COLUMN_NAME].DefaultCellStyle.Format = NUMBER_FORMAT;
             grvOperationResult.Columns[REVENUE_COLUMN_NAME].DefaultCellStyle.Format = NUMBER_FORMAT;
             grvOperationResult.Columns[RUNNING_TOTAL_COLUMN_NAME].DefaultCellStyle.Format = NUMBER_FORMAT;
+            grvOperationResult.Columns[REWARD_POINT_USED_AMOUNT_COLUMN_NAME].DefaultCellStyle.Format = NUMBER_FORMAT;
         }
 
         private void OperatingResultsForm_Load(object sender, EventArgs e)

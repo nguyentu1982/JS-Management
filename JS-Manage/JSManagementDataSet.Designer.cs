@@ -6342,6 +6342,8 @@ namespace JS_Manage {
             
             private global::System.Data.DataColumn columnRunningTotal;
             
+            private global::System.Data.DataColumn columnRewardPointUsedAmount;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public RevenueDetailDataTable() {
@@ -6425,6 +6427,14 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn RewardPointUsedAmountColumn {
+                get {
+                    return this.columnRewardPointUsedAmount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -6460,7 +6470,7 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public RevenueDetailRow AddRevenueDetailRow(System.DateTime OrderDate, decimal TotalCost, decimal OperationCost, decimal TotalAmount, decimal Revenue, decimal RunningTotal) {
+            public RevenueDetailRow AddRevenueDetailRow(System.DateTime OrderDate, decimal TotalCost, decimal OperationCost, decimal TotalAmount, decimal Revenue, decimal RunningTotal, decimal RewardPointUsedAmount) {
                 RevenueDetailRow rowRevenueDetailRow = ((RevenueDetailRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         OrderDate,
@@ -6468,7 +6478,8 @@ namespace JS_Manage {
                         OperationCost,
                         TotalAmount,
                         Revenue,
-                        RunningTotal};
+                        RunningTotal,
+                        RewardPointUsedAmount};
                 rowRevenueDetailRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowRevenueDetailRow);
                 return rowRevenueDetailRow;
@@ -6497,6 +6508,7 @@ namespace JS_Manage {
                 this.columnTotalAmount = base.Columns["TotalAmount"];
                 this.columnRevenue = base.Columns["Revenue"];
                 this.columnRunningTotal = base.Columns["RunningTotal"];
+                this.columnRewardPointUsedAmount = base.Columns["RewardPointUsedAmount"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6514,6 +6526,9 @@ namespace JS_Manage {
                 base.Columns.Add(this.columnRevenue);
                 this.columnRunningTotal = new global::System.Data.DataColumn("RunningTotal", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRunningTotal);
+                this.columnRewardPointUsedAmount = new global::System.Data.DataColumn("RewardPointUsedAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRewardPointUsedAmount);
+                this.columnRewardPointUsedAmount.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -16586,6 +16601,22 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal RewardPointUsedAmount {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableRevenueDetail.RewardPointUsedAmountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'RewardPointUsedAmount\' in table \'RevenueDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableRevenueDetail.RewardPointUsedAmountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsOrderDateNull() {
                 return this.IsNull(this.tableRevenueDetail.OrderDateColumn);
             }
@@ -16654,6 +16685,18 @@ namespace JS_Manage {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetRunningTotalNull() {
                 this[this.tableRevenueDetail.RunningTotalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRewardPointUsedAmountNull() {
+                return this.IsNull(this.tableRevenueDetail.RewardPointUsedAmountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRewardPointUsedAmountNull() {
+                this[this.tableRevenueDetail.RewardPointUsedAmountColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -29576,6 +29619,7 @@ SELECT SettingId, SettingName, SettingValue, Description FROM Setting WHERE (Set
             tableMapping.ColumnMappings.Add("Revenue", "Revenue");
             tableMapping.ColumnMappings.Add("RunningTotal", "RunningTotal");
             tableMapping.ColumnMappings.Add("OperationCost", "OperationCost");
+            tableMapping.ColumnMappings.Add("RewardPointUsedAmount", "RewardPointUsedAmount");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -29583,7 +29627,7 @@ SELECT SettingId, SettingName, SettingValue, Description FROM Setting WHERE (Set
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
