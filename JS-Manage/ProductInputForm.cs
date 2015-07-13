@@ -161,7 +161,7 @@ namespace JS_Manage
                     //check whether costid existed
                     JSManagementDataSet.CostDataTable costData = costTableAdapter.GetCostsByProductInputOrderId(productInputOrderId);
                     //delete all
-                    for (int i = 0; i < costData.Rows.Count - 1; i++)
+                    for (int i = 0; i < costData.Rows.Count; i++)
                     {
                         costTableAdapter.DeleteCostById(costData[i].CostId);
                     }  
