@@ -196,7 +196,7 @@ namespace JS_Manage
                 registrationRewardPoint = Setting.GetIntergerSetting(Reward_Point_For_Registration);
                 
             }
-            object returnValue = customerTableAdapter.InsertReturnId(txtCustName.Text, txtCustAddress.Text, txtPhone.Text, txtNote.Text, int.Parse( comboBoxCustomerType.SelectedValue.ToString()), registrationRewardPoint,cboxIsContact.Checked, checkBoxIsAttendRewardPointProgram.Checked) ;
+            object returnValue = customerTableAdapter.InsertReturnId(txtCustName.Text, txtCustAddress.Text, txtPhone.Text.Trim(), txtNote.Text, int.Parse( comboBoxCustomerType.SelectedValue.ToString()), registrationRewardPoint,cboxIsContact.Checked, checkBoxIsAttendRewardPointProgram.Checked) ;
             if (int.TryParse(returnValue.ToString(), out custId))
             {
                 if (Setting.GetBoolSetting(Reward_Point_Enable) && checkBoxIsAttendRewardPointProgram.Checked)
@@ -211,7 +211,7 @@ namespace JS_Manage
 
         private bool UpdateCustomer()
         {
-            if (customerTableAdapter.UpdateCustomerById(txtCustName.Text, txtCustAddress.Text, txtPhone.Text, txtNote.Text, int.Parse(comboBoxCustomerType.SelectedValue.ToString()) ,cboxIsContact.Checked,checkBoxIsAttendRewardPointProgram.Checked,int.Parse(lbCustId.Text)) > 0)
+            if (customerTableAdapter.UpdateCustomerById(txtCustName.Text, txtCustAddress.Text, txtPhone.Text.Trim(), txtNote.Text, int.Parse(comboBoxCustomerType.SelectedValue.ToString()) ,cboxIsContact.Checked,checkBoxIsAttendRewardPointProgram.Checked,int.Parse(lbCustId.Text)) > 0)
             {
                 return true;
             }
