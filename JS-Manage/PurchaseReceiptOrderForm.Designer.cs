@@ -37,7 +37,6 @@
             this.dateTimePickerPerchaseReceiptDate = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.txtCustomerCode = new System.Windows.Forms.TextBox();
-            this.btFindCustomer = new System.Windows.Forms.Button();
             this.lbCustomerInfo = new System.Windows.Forms.Label();
             this.grvProducts = new System.Windows.Forms.DataGridView();
             this.ProductCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,7 +55,6 @@
             this.btSave = new System.Windows.Forms.Button();
             this.btDelete = new System.Windows.Forms.Button();
             this.btAddNew = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtBillNumber = new System.Windows.Forms.TextBox();
             this.cboxIsCod = new System.Windows.Forms.CheckBox();
@@ -66,7 +64,6 @@
             this.txtBillNumberFind = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lbCustInforFind = new System.Windows.Forms.Label();
-            this.btFindCustomerFind = new System.Windows.Forms.Button();
             this.txtCustomerCodeFind = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.dateTimePickerPurchaseReceiptFromFind = new System.Windows.Forms.DateTimePicker();
@@ -75,10 +72,13 @@
             this.Đến = new System.Windows.Forms.Label();
             this.btFind = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtProductCodeFind = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.checkedListBoxOutputType = new System.Windows.Forms.CheckedListBox();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSoldBy = new System.Windows.Forms.ComboBox();
             this.chkListBox = new System.Windows.Forms.CheckedListBox();
+            this.btFindCustomerFind = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.txtTotalAmount = new System.Windows.Forms.TextBox();
             this.btPrintPostOfficeLetter = new System.Windows.Forms.Button();
@@ -97,21 +97,27 @@
             this.cboxPaymentMethod = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.cboxBankAccount = new System.Windows.Forms.ComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btFindCustomer = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.productTypeBrandSizeUserControl1 = new JS_Manage.ProductTypeBrandSizeUserControl();
+            this.paymentMethodUserControl1 = new JS_Manage.PaymentMethodUserControl();
             ((System.ComponentModel.ISupportInitialize)(this.grvProducts)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvPurchaseReceiptOrderSumary)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbPerchaseReceiptOrderHeader
             // 
             this.lbPerchaseReceiptOrderHeader.AutoSize = true;
-            this.lbPerchaseReceiptOrderHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPerchaseReceiptOrderHeader.Location = new System.Drawing.Point(407, 4);
+            this.lbPerchaseReceiptOrderHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPerchaseReceiptOrderHeader.Location = new System.Drawing.Point(324, 4);
             this.lbPerchaseReceiptOrderHeader.Name = "lbPerchaseReceiptOrderHeader";
-            this.lbPerchaseReceiptOrderHeader.Size = new System.Drawing.Size(102, 25);
+            this.lbPerchaseReceiptOrderHeader.Size = new System.Drawing.Size(267, 24);
             this.lbPerchaseReceiptOrderHeader.TabIndex = 0;
-            this.lbPerchaseReceiptOrderHeader.Text = "Xuất hàng";
+            this.lbPerchaseReceiptOrderHeader.Text = "LẬP PHIẾU XUẤT HÀNG BÁN";
             // 
             // label1
             // 
@@ -148,16 +154,6 @@
             this.txtCustomerCode.Size = new System.Drawing.Size(50, 20);
             this.txtCustomerCode.TabIndex = 40;
             this.txtCustomerCode.TextChanged += new System.EventHandler(this.txtCustomerCode_TextChanged);
-            // 
-            // btFindCustomer
-            // 
-            this.btFindCustomer.Image = global::JS_Manage.Properties.Resources.cute_ball_search1;
-            this.btFindCustomer.Location = new System.Drawing.Point(274, 60);
-            this.btFindCustomer.Name = "btFindCustomer";
-            this.btFindCustomer.Size = new System.Drawing.Size(22, 22);
-            this.btFindCustomer.TabIndex = 50;
-            this.btFindCustomer.UseVisualStyleBackColor = true;
-            this.btFindCustomer.Click += new System.EventHandler(this.btFindCustomer_Click);
             // 
             // lbCustomerInfo
             // 
@@ -312,16 +308,6 @@
             this.btAddNew.UseVisualStyleBackColor = true;
             this.btAddNew.Click += new System.EventHandler(this.btAddNew_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::JS_Manage.Properties.Resources.jeans_style_flying;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(72, 74);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 55;
-            this.pictureBox1.TabStop = false;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -372,16 +358,17 @@
             // 
             this.grvPurchaseReceiptOrderSumary.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grvPurchaseReceiptOrderSumary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grvPurchaseReceiptOrderSumary.Location = new System.Drawing.Point(7, 73);
+            this.grvPurchaseReceiptOrderSumary.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.grvPurchaseReceiptOrderSumary.Location = new System.Drawing.Point(3, 100);
             this.grvPurchaseReceiptOrderSumary.Name = "grvPurchaseReceiptOrderSumary";
-            this.grvPurchaseReceiptOrderSumary.Size = new System.Drawing.Size(920, 179);
+            this.grvPurchaseReceiptOrderSumary.Size = new System.Drawing.Size(996, 357);
             this.grvPurchaseReceiptOrderSumary.TabIndex = 59;
             this.grvPurchaseReceiptOrderSumary.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvPurchaseReceiptOrderDetail_CellClick);
             this.grvPurchaseReceiptOrderSumary.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvPurchaseReceiptOrderDetail_CellEnter);
             // 
             // txtBillNumberFind
             // 
-            this.txtBillNumberFind.Location = new System.Drawing.Point(536, 441);
+            this.txtBillNumberFind.Location = new System.Drawing.Point(541, 43);
             this.txtBillNumberFind.Name = "txtBillNumberFind";
             this.txtBillNumberFind.Size = new System.Drawing.Size(127, 20);
             this.txtBillNumberFind.TabIndex = 200;
@@ -389,7 +376,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(450, 448);
+            this.label4.Location = new System.Drawing.Point(455, 50);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 68;
@@ -404,19 +391,9 @@
             this.lbCustInforFind.TabIndex = 66;
             this.lbCustInforFind.Text = "CustomerInfo";
             // 
-            // btFindCustomerFind
-            // 
-            this.btFindCustomerFind.Image = global::JS_Manage.Properties.Resources.cute_ball_search1;
-            this.btFindCustomerFind.Location = new System.Drawing.Point(590, 19);
-            this.btFindCustomerFind.Name = "btFindCustomerFind";
-            this.btFindCustomerFind.Size = new System.Drawing.Size(22, 22);
-            this.btFindCustomerFind.TabIndex = 190;
-            this.btFindCustomerFind.UseVisualStyleBackColor = true;
-            this.btFindCustomerFind.Click += new System.EventHandler(this.btFindCustomerFind_Click);
-            // 
             // txtCustomerCodeFind
             // 
-            this.txtCustomerCodeFind.Location = new System.Drawing.Point(536, 417);
+            this.txtCustomerCodeFind.Location = new System.Drawing.Point(541, 20);
             this.txtCustomerCodeFind.Name = "txtCustomerCodeFind";
             this.txtCustomerCodeFind.Size = new System.Drawing.Size(50, 20);
             this.txtCustomerCodeFind.TabIndex = 180;
@@ -424,7 +401,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(449, 421);
+            this.label6.Location = new System.Drawing.Point(454, 24);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(84, 13);
             this.label6.TabIndex = 62;
@@ -434,7 +411,7 @@
             // 
             this.dateTimePickerPurchaseReceiptFromFind.Checked = false;
             this.dateTimePickerPurchaseReceiptFromFind.CustomFormat = "dd-mm-yyyy";
-            this.dateTimePickerPurchaseReceiptFromFind.Location = new System.Drawing.Point(43, 419);
+            this.dateTimePickerPurchaseReceiptFromFind.Location = new System.Drawing.Point(39, 19);
             this.dateTimePickerPurchaseReceiptFromFind.Name = "dateTimePickerPurchaseReceiptFromFind";
             this.dateTimePickerPurchaseReceiptFromFind.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerPurchaseReceiptFromFind.TabIndex = 150;
@@ -452,7 +429,7 @@
             // 
             this.dateTimePickerPurchaseReceiptToFind.Checked = false;
             this.dateTimePickerPurchaseReceiptToFind.CustomFormat = "dd-mm-yyyy";
-            this.dateTimePickerPurchaseReceiptToFind.Location = new System.Drawing.Point(43, 445);
+            this.dateTimePickerPurchaseReceiptToFind.Location = new System.Drawing.Point(39, 45);
             this.dateTimePickerPurchaseReceiptToFind.Name = "dateTimePickerPurchaseReceiptToFind";
             this.dateTimePickerPurchaseReceiptToFind.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerPurchaseReceiptToFind.TabIndex = 160;
@@ -478,6 +455,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.productTypeBrandSizeUserControl1);
+            this.groupBox1.Controls.Add(this.txtProductCodeFind);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.paymentMethodUserControl1);
             this.groupBox1.Controls.Add(this.checkedListBoxOutputType);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.comboBoxSoldBy);
@@ -488,12 +469,35 @@
             this.groupBox1.Controls.Add(this.grvPurchaseReceiptOrderSumary);
             this.groupBox1.Controls.Add(this.Từ);
             this.groupBox1.Controls.Add(this.Đến);
-            this.groupBox1.Location = new System.Drawing.Point(3, 398);
+            this.groupBox1.Controls.Add(this.dateTimePickerPurchaseReceiptFromFind);
+            this.groupBox1.Controls.Add(this.dateTimePickerPurchaseReceiptToFind);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.txtCustomerCodeFind);
+            this.groupBox1.Controls.Add(this.txtBillNumberFind);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox1.Location = new System.Drawing.Point(0, 413);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(936, 260);
+            this.groupBox1.Size = new System.Drawing.Size(1002, 460);
             this.groupBox1.TabIndex = 145;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tìm hàn&g xuất";
+            // 
+            // txtProductCodeFind
+            // 
+            this.txtProductCodeFind.Location = new System.Drawing.Point(62, 74);
+            this.txtProductCodeFind.Name = "txtProductCodeFind";
+            this.txtProductCodeFind.Size = new System.Drawing.Size(68, 20);
+            this.txtProductCodeFind.TabIndex = 217;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 78);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(51, 13);
+            this.label11.TabIndex = 216;
+            this.label11.Text = "Mã Hàng";
             // 
             // checkedListBoxOutputType
             // 
@@ -539,6 +543,16 @@
             this.chkListBox.Size = new System.Drawing.Size(96, 49);
             this.chkListBox.TabIndex = 170;
             this.chkListBox.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkListBox_ItemCheck);
+            // 
+            // btFindCustomerFind
+            // 
+            this.btFindCustomerFind.Image = global::JS_Manage.Properties.Resources.cute_ball_search1;
+            this.btFindCustomerFind.Location = new System.Drawing.Point(590, 19);
+            this.btFindCustomerFind.Name = "btFindCustomerFind";
+            this.btFindCustomerFind.Size = new System.Drawing.Size(22, 22);
+            this.btFindCustomerFind.TabIndex = 190;
+            this.btFindCustomerFind.UseVisualStyleBackColor = true;
+            this.btFindCustomerFind.Click += new System.EventHandler(this.btFindCustomerFind_Click);
             // 
             // label5
             // 
@@ -723,13 +737,64 @@
             this.cboxBankAccount.TabIndex = 76;
             this.cboxBankAccount.Visible = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::JS_Manage.Properties.Resources.jeans_style_flying;
+            this.pictureBox1.Location = new System.Drawing.Point(4, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(72, 74);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 55;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btFindCustomer
+            // 
+            this.btFindCustomer.Image = global::JS_Manage.Properties.Resources.cute_ball_search1;
+            this.btFindCustomer.Location = new System.Drawing.Point(274, 60);
+            this.btFindCustomer.Name = "btFindCustomer";
+            this.btFindCustomer.Size = new System.Drawing.Size(22, 22);
+            this.btFindCustomer.TabIndex = 50;
+            this.btFindCustomer.UseVisualStyleBackColor = true;
+            this.btFindCustomer.Click += new System.EventHandler(this.btFindCustomer_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lbPerchaseReceiptOrderHeader);
+            this.panel1.Location = new System.Drawing.Point(3, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(995, 402);
+            this.panel1.TabIndex = 1018;
+            // 
+            // productTypeBrandSizeUserControl1
+            // 
+            this.productTypeBrandSizeUserControl1.Brand = "";
+            this.productTypeBrandSizeUserControl1.BrandComboboxDataSource = null;
+            this.productTypeBrandSizeUserControl1.Location = new System.Drawing.Point(136, 69);
+            this.productTypeBrandSizeUserControl1.Name = "productTypeBrandSizeUserControl1";
+            this.productTypeBrandSizeUserControl1.ProductComboboxDataSource = null;
+            this.productTypeBrandSizeUserControl1.ProductSize = null;
+            this.productTypeBrandSizeUserControl1.ProductType = null;
+            this.productTypeBrandSizeUserControl1.Size = new System.Drawing.Size(428, 27);
+            this.productTypeBrandSizeUserControl1.SizeComboboxDataSource = null;
+            this.productTypeBrandSizeUserControl1.TabIndex = 218;
+            // 
+            // paymentMethodUserControl1
+            // 
+            this.paymentMethodUserControl1.BankAccountId = 0;
+            this.paymentMethodUserControl1.Location = new System.Drawing.Point(568, 66);
+            this.paymentMethodUserControl1.Name = "paymentMethodUserControl1";
+            this.paymentMethodUserControl1.PaymentMethod = "Tiền mặt";
+            this.paymentMethodUserControl1.Size = new System.Drawing.Size(359, 31);
+            this.paymentMethodUserControl1.TabIndex = 215;
+            // 
             // PurchaseReceiptOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1001, 662);
+            this.ClientSize = new System.Drawing.Size(1002, 873);
             this.Controls.Add(this.cboxBankAccount);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.cboxPaymentMethod);
@@ -748,12 +813,6 @@
             this.Controls.Add(this.btPrintPostOfficeLetter);
             this.Controls.Add(this.txtTotalAmount);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.dateTimePickerPurchaseReceiptToFind);
-            this.Controls.Add(this.txtBillNumberFind);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtCustomerCodeFind);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.dateTimePickerPurchaseReceiptFromFind);
             this.Controls.Add(this.lbPurchaseReceiptOrderId);
             this.Controls.Add(this.btPrint);
             this.Controls.Add(this.cboxIsCod);
@@ -770,8 +829,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dateTimePickerPerchaseReceiptDate);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lbPerchaseReceiptOrderHeader);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "PurchaseReceiptOrderForm";
@@ -780,10 +839,12 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PurchaseReceiptOrderForm_KeyDown);
             this.Resize += new System.EventHandler(this.PurchaseReceiptOrderForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.grvProducts)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvPurchaseReceiptOrderSumary)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -856,5 +917,10 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox cboxBankAccount;
         private System.Windows.Forms.CheckedListBox checkedListBoxOutputType;
+        private PaymentMethodUserControl paymentMethodUserControl1;
+        private System.Windows.Forms.TextBox txtProductCodeFind;
+        private System.Windows.Forms.Label label11;
+        private ProductTypeBrandSizeUserControl productTypeBrandSizeUserControl1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

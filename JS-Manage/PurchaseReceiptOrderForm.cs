@@ -39,6 +39,10 @@ namespace JS_Manage
         JSManagementDataSetTableAdapters.PurchaseReceiptOrderDetailTableAdapter purchaseOrderDetailTableAdapter;
         JSManagementDataSetTableAdapters.JS_UserTableAdapter userTableAdapter;
         JSManagementDataSetTableAdapters.RewardPointsHistoryTableAdapter rewardPointHistoryTableAdapters;
+        private JSManagementDataSetTableAdapters.BrandTableAdapter brandTableAdapter;
+        private JSManagementDataSetTableAdapters.ProductTypeTableAdapter productTypeTableAdapter;
+        private JSManagementDataSetTableAdapters.SizeTableAdapter sizeTableAdapter;
+        private JSManagementDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter;
 
         private const string SOLD_BY = "SoldBy";
         private const string USER_NAME = "UserName";
@@ -89,10 +93,24 @@ namespace JS_Manage
         private const string Reward_Point_Earn = "RewardPointEarn";
 
         private const string NUMBER_FORMAT = "N0";
-
+        private const string BANK_ACCOUNT_NAME_DISPLAY_MEMBER ="BankAccountName";
+        private const string BANK_ACCOUNT_ID_Value_MEMBER  = "BankAccountId";
         public PurchaseReceiptOrderForm()
         {
+            //
             InitializeComponent();
+            //User control
+            brandTableAdapter = new JSManagementDataSetTableAdapters.BrandTableAdapter();
+            brandTableAdapter.Connection = CommonHelper.GetSQLConnection();
+            productTypeBrandSizeUserControl1.BrandComboboxDataSource = brandTableAdapter.GetDistinctBrand();
+
+            productTypeTableAdapter = new JSManagementDataSetTableAdapters.ProductTypeTableAdapter();
+            productTypeTableAdapter.Connection = CommonHelper.GetSQLConnection();
+            productTypeBrandSizeUserControl1.ProductComboboxDataSource = productTypeTableAdapter.GetDistinctProductType();
+            
+            sizeTableAdapter = new JSManagementDataSetTableAdapters.SizeTableAdapter();
+            sizeTableAdapter.Connection = CommonHelper.GetSQLConnection();
+            productTypeBrandSizeUserControl1.SizeComboboxDataSource = sizeTableAdapter.GetDistinctSize();            
 
             custTableAdapter = new JSManagementDataSetTableAdapters.CustomerTableAdapter();
             custTableAdapter.Connection = CommonHelper.GetSQLConnection();
@@ -128,6 +146,11 @@ namespace JS_Manage
             this.prnPreviewPostOfficeLetter = new System.Windows.Forms.PrintPreviewDialog();
             this.prnDocumentPostOfficeLetter = new System.Drawing.Printing.PrintDocument();
             prnDocumentPostOfficeLetter.PrintPage += prnDocumentPostOfficeLetter_PrintPage;
+
+            //payment method usercontrol
+            bankAccountTableAdapter = new JSManagementDataSetTableAdapters.BankAccountTableAdapter();
+            bankAccountTableAdapter.Connection = CommonHelper.GetSQLConnection();
+            
         }
 
         #region ProductsGridview Event Handler
@@ -523,7 +546,22 @@ namespace JS_Manage
                     break;
             }
 
-            
+            string productType = string.Empty;
+            productType = productTypeBrandSizeUserControl1.ProductType;
+
+            string brand = string.Empty;
+            brand = productTypeBrandSizeUserControl1.Brand;
+
+            string size = string.Empty;
+            size = productTypeBrandSizeUserControl1.ProductSize;
+
+            string productCode = string.Empty;
+            productCode = txtProductCodeFind.Text.TrimStart().TrimEnd();
+
+            string paymentMethodCashOrBankTransfer = paymentMethodUserControl1.PaymentMethod;
+            int bankAccountId = 0;
+            bankAccountId = paymentMethodUserControl1.BankAccountId;
+
             DateTime startDate = new DateTime(dateTimePickerPurchaseReceiptFromFind.Value.Year, dateTimePickerPurchaseReceiptFromFind.Value.Month, dateTimePickerPurchaseReceiptFromFind.Value.Day);
             DateTime endDate = new DateTime(dateTimePickerPurchaseReceiptToFind.Value.Year, dateTimePickerPurchaseReceiptToFind.Value.Month, dateTimePickerPurchaseReceiptToFind.Value.Day, 23, 59, 59);
             grvPurchaseReceiptOrderSumary.DataSource = purchaseOrderSumaryTableAdapter.GetPurchaseReceiptOrderSumary(startDate, endDate, custId, txtBillNumberFind.Text, isCOD, int.Parse(comboBoxSoldBy.SelectedValue.ToString()),isReturnSupplier);
@@ -907,7 +945,7 @@ namespace JS_Manage
             cboxIsRewardPointUse.Enabled = true;
             cboxIsRewardPointUse.Checked = false;
             cboxIsCod.CheckedChanged -= cboxIsCod_CheckedChanged;
-            cboxPaymentMethod.SelectedItem = "Tiền mặt";
+            cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.CASH;
             cboxBankAccount.Visible = false;
         }
 
@@ -2020,8 +2058,12 @@ namespace JS_Manage
             comboBoxSoldBy.DisplayMember = USER_NAME;
             comboBoxSoldBy.ValueMember = USER_ID;
 
-            cboxPaymentMethod.SelectedItem = "Tiền mặt";
+            cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.CASH;
 
+            paymentMethodUserControl1.BankAccountDataTable = bankAccountTableAdapter.GetData();
+            paymentMethodUserControl1.CboxBankAccountDisplayMember = BANK_ACCOUNT_NAME_DISPLAY_MEMBER;
+            paymentMethodUserControl1.CboxBankAccountValueMember = BANK_ACCOUNT_ID_Value_MEMBER;
+            
             this.WindowState = FormWindowState.Maximized;
 
             if (PurchaseOrderId != 0)

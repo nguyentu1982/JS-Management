@@ -23,6 +23,7 @@ namespace JS_Manage
         public const string PurchaseReceiptOrder_UsedAmount = "Điểm thưởng";
         public const string PurchaseReceiptOrder_Amount = "Thành tiền";
         public const string PurchaseReceiptOrder_Header = "Sửa phiếu xuất";
+       
 
         public const string PurchaseReceiptOrder_SoldBy = "Người bán";
         public const string Not_Allow_User_Edit_On_Other_CreatedDate = "NotAllowUserEditOnOtherCreatedDate";

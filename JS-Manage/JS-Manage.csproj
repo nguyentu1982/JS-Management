@@ -143,6 +143,18 @@
     <Compile Include="PurchaseOrderMessageBoxForm.Designer.cs">
       <DependentUpon>PurchaseOrderMessageBoxForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\PaymentMethodUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\PaymentMethodUserControl.Designer.cs">
+      <DependentUpon>PaymentMethodUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\ProductTypeBrandSizeUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\ProductTypeBrandSizeUserControl.Designer.cs">
+      <DependentUpon>ProductTypeBrandSizeUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\SupplierSelectUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -361,6 +373,12 @@
     </Compile>
     <EmbeddedResource Include="RewardPointSettingForm.resx">
       <DependentUpon>RewardPointSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\PaymentMethodUserControl.resx">
+      <DependentUpon>PaymentMethodUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\ProductTypeBrandSizeUserControl.resx">
+      <DependentUpon>ProductTypeBrandSizeUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\SupplierSelectUserControl.resx">
       <DependentUpon>SupplierSelectUserControl.cs</DependentUpon>
