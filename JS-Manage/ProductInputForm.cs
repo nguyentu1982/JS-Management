@@ -24,7 +24,7 @@ namespace JS_Manage
         JSManagementDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter;
         JSManagementDataSetTableAdapters.CostTableAdapter costTableAdapter;
         JSManagementDataSetTableAdapters.CostTypeTableAdapter costTypeTableAdapter;
-        CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+        CultureInfo cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
 
         public bool isAdmin = false;
         int rowIndex=0;

@@ -509,7 +509,7 @@ namespace JS_Manage
                         {
                             purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, int.Parse(txtCustomerCode.Text), txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, checkBoxProductReturn.Checked, DateTime.Now, LoginInfor.UserName, bankAccountId, purchaseReceiptOrderId);
                         }
-                        incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, null);
+                        incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, null, int.Parse(txtCustomerCode.Text));
                         tran.Complete();
                     }
                 }
@@ -558,13 +558,30 @@ namespace JS_Manage
             string productCode = string.Empty;
             productCode = txtProductCodeFind.Text.TrimStart().TrimEnd();
 
-            string paymentMethodCashOrBankTransfer = paymentMethodUserControl1.PaymentMethod;
-            int bankAccountId = 0;
-            bankAccountId = paymentMethodUserControl1.BankAccountId;
+            paymentMethod = paymentMethodUserControl1.PaymentMethod;
+            List<int> bankAccountList = paymentMethodUserControl1.BankAccountIds;
+            string bankAccountIds = string.Empty;
+
+            for (int i = 0; i < bankAccountList.Count;i++ )
+            {
+                if(i==bankAccountList.Count -1)
+                {
+                    bankAccountIds += bankAccountList[i];
+                }
+                else
+                {
+                    bankAccountIds += bankAccountList[i] + ",";
+                }
+            }
+
+            if (paymentMethod.ToString().ToLower() == Constant.PaymentMethod.ALL.ToLower())
+            {
+                bankAccountIds = "-1";
+            }
 
             DateTime startDate = new DateTime(dateTimePickerPurchaseReceiptFromFind.Value.Year, dateTimePickerPurchaseReceiptFromFind.Value.Month, dateTimePickerPurchaseReceiptFromFind.Value.Day);
             DateTime endDate = new DateTime(dateTimePickerPurchaseReceiptToFind.Value.Year, dateTimePickerPurchaseReceiptToFind.Value.Month, dateTimePickerPurchaseReceiptToFind.Value.Day, 23, 59, 59);
-            grvPurchaseReceiptOrderSumary.DataSource = purchaseOrderSumaryTableAdapter.GetPurchaseReceiptOrderSumary(startDate, endDate, custId, txtBillNumberFind.Text, isCOD, int.Parse(comboBoxSoldBy.SelectedValue.ToString()),isReturnSupplier);
+            grvPurchaseReceiptOrderSumary.DataSource = purchaseOrderSumaryTableAdapter.GetPurchaseReceiptOrderSumary(startDate, endDate, custId, txtBillNumberFind.Text, isCOD, int.Parse(comboBoxSoldBy.SelectedValue.ToString()),isReturnSupplier, bankAccountIds);
             RenderPurchaseReceiptOrderGridview(grvPurchaseReceiptOrderSumary);
         }
 
@@ -727,11 +744,11 @@ namespace JS_Manage
                     {
                         if (incomeIds == 0)
                         {
-                            incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount - usedAmountRewardPoint, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId,null,null);
+                            incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount - usedAmountRewardPoint, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId,null,null, int.Parse(txtCustomerCode.Text));
                         }
                         else
                         {
-                            incomeTableAdapter.UpdateIncomeById(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount - usedAmountRewardPoint, LoginInfor.UserName, DateTime.Now, null, null, incomeIds, purchaseReceiptOrderId, null, null);
+                            incomeTableAdapter.UpdateIncomeById(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount - usedAmountRewardPoint, LoginInfor.UserName, DateTime.Now, null, null, incomeIds, purchaseReceiptOrderId, null, null, int.Parse(txtCustomerCode.Text));
                         }
                     }
                     tran.Complete();
@@ -818,7 +835,7 @@ namespace JS_Manage
 
                 if (!cboxIsCod.Checked && !checkBoxProductReturn.Checked)
                 {
-                    incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount - usedAmountRewardPoint, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId,null,null);
+                    incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount - usedAmountRewardPoint, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId,null,null, int.Parse(txtCustomerCode.Text));
                 }
 
                 tran.Complete();
@@ -1639,7 +1656,7 @@ namespace JS_Manage
                 CurrentY = CurrentY + 25;
                 g.DrawLine(new Pen(HeadBrush), new Point(10, CurrentY), new Point(360, CurrentY));
 
-                CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+                CultureInfo cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
                 int quantity = 0;
                 decimal total = 0;
                 decimal discount = 0;
@@ -1865,7 +1882,7 @@ namespace JS_Manage
                 CurrentY = CurrentY + 25;
                 g.DrawLine(new Pen(HeadBrush), new Point(10, CurrentY), new Point(360, CurrentY));
 
-                CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+                CultureInfo cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
                 int quantity = 0;
                 decimal discountPerProduct = 0;
                 decimal totalDiscount = 0;

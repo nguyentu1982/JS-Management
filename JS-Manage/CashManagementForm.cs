@@ -51,7 +51,7 @@ namespace JS_Manage
             cashSumaryTableAdapter = new JSManagementDataSetTableAdapters.CashSumaryTableAdapter();
             cashSumaryTableAdapter.Connection = CommonHelper.GetSQLConnection();
 
-            cul = new CultureInfo(Constant.VN_CULTURE_FORMAT);
+            cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
             this.WindowState = FormWindowState.Maximized;
         }
 

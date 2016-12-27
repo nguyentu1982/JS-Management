@@ -254,7 +254,7 @@ namespace JS_Manage
             curentY += 25;
             g.DrawLine(p, new Point(10, curentY), new Point(1000, curentY));
 
-            CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");   
+            CultureInfo cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);   
 
             while(rowIndex<grvProductList.Rows.Count)
             {

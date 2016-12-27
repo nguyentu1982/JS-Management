@@ -85,6 +85,7 @@ namespace JS_Manage
         {
             public const string CASH = "Tiền mặt";
             public const string BANK_TRANSFER = "Chuyển khoản";
+            public const string ALL = "Tất cả";
         }
 
         public static class ReceiveableFromCustomer

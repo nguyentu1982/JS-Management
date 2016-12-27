@@ -30,7 +30,7 @@ namespace JS_Manage
             bankAccountDetailTableAdapter = new JSManagementDataSetTableAdapters.BankAccountDetailTableAdapter();
             bankAccountDetailTableAdapter.Connection = CommonHelper.GetSQLConnection();
 
-            cul = new CultureInfo(Constant.VN_CULTURE_FORMAT);
+            cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
         }
 
         private void BankAccountManagementForm_Load(object sender, EventArgs e)

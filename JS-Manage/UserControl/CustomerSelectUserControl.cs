@@ -13,8 +13,21 @@ namespace JS_Manage
     {
         public int CustId
         {
-            get;
-            set;
+            get
+            {
+                int custId = 0;
+                int.TryParse(txtCustId.Text, out custId);
+                return custId;
+            }
+            set
+            {
+                if(value != 0)
+                txtCustId.Text = value.ToString();
+                else
+                {
+                    txtCustId.Text = string.Empty;
+                }
+            }
         }
         JSManagementDataSetTableAdapters.CustomerTableAdapter custTableAdapter;
 
@@ -37,7 +50,7 @@ namespace JS_Manage
 
         private void txtCustId_TextChanged(object sender, EventArgs e)
         {           
-            CustId = 0;
+            
             custTableAdapter.Connection = CommonHelper.GetSQLConnection();
             if (string.IsNullOrEmpty(txtCustId.Text))
             {

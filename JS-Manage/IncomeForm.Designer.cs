@@ -36,7 +36,6 @@
             this.txtPayerName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtReason = new System.Windows.Forms.TextBox();
-            this.txtAmount = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtIncomeNumber = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -50,6 +49,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.btFind = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtPurchaseReceiptOrderIdFind = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.cboxFromBankAccountFind = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -68,16 +69,18 @@
             this.lableFromBankAccount = new System.Windows.Forms.Label();
             this.lbToAccount = new System.Windows.Forms.Label();
             this.cboxFromBankAccount = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtPurchaseReceiptOrderIdFind = new System.Windows.Forms.TextBox();
+            this.ucTextBoxCurrency1 = new JS_Manage.UCTextBoxCurrency();
+            this.customerSelectUserControl1 = new JS_Manage.CustomerSelectUserControl();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.grvIncome)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbIncomeHeader
             // 
             this.lbIncomeHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbIncomeHeader.Location = new System.Drawing.Point(200, 5);
+            this.lbIncomeHeader.Location = new System.Drawing.Point(200, 12);
             this.lbIncomeHeader.Name = "lbIncomeHeader";
             this.lbIncomeHeader.Size = new System.Drawing.Size(349, 27);
             this.lbIncomeHeader.TabIndex = 0;
@@ -87,7 +90,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(120, 94);
+            this.label2.Location = new System.Drawing.Point(121, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 1;
@@ -95,16 +98,16 @@
             // 
             // dateTimePickerIncome
             // 
-            this.dateTimePickerIncome.Location = new System.Drawing.Point(200, 88);
+            this.dateTimePickerIncome.Location = new System.Drawing.Point(201, 48);
             this.dateTimePickerIncome.Name = "dateTimePickerIncome";
             this.dateTimePickerIncome.Size = new System.Drawing.Size(144, 20);
-            this.dateTimePickerIncome.TabIndex = 4;
+            this.dateTimePickerIncome.TabIndex = 10;
             this.dateTimePickerIncome.ValueChanged += new System.EventHandler(this.dateTimePickerIncome_ValueChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(120, 118);
+            this.label3.Location = new System.Drawing.Point(120, 105);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 13);
             this.label3.TabIndex = 3;
@@ -112,15 +115,15 @@
             // 
             // txtPayerName
             // 
-            this.txtPayerName.Location = new System.Drawing.Point(200, 114);
+            this.txtPayerName.Location = new System.Drawing.Point(200, 101);
             this.txtPayerName.Name = "txtPayerName";
             this.txtPayerName.Size = new System.Drawing.Size(144, 20);
-            this.txtPayerName.TabIndex = 6;
+            this.txtPayerName.TabIndex = 70;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(121, 143);
+            this.label4.Location = new System.Drawing.Point(121, 133);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 5;
@@ -128,22 +131,15 @@
             // 
             // txtReason
             // 
-            this.txtReason.Location = new System.Drawing.Point(200, 138);
+            this.txtReason.Location = new System.Drawing.Point(200, 128);
             this.txtReason.Name = "txtReason";
-            this.txtReason.Size = new System.Drawing.Size(440, 20);
-            this.txtReason.TabIndex = 8;
-            // 
-            // txtAmount
-            // 
-            this.txtAmount.Location = new System.Drawing.Point(200, 162);
-            this.txtAmount.Name = "txtAmount";
-            this.txtAmount.Size = new System.Drawing.Size(144, 20);
-            this.txtAmount.TabIndex = 10;
+            this.txtReason.Size = new System.Drawing.Size(475, 20);
+            this.txtReason.TabIndex = 90;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(120, 167);
+            this.label5.Location = new System.Drawing.Point(120, 158);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 13);
             this.label5.TabIndex = 7;
@@ -151,15 +147,15 @@
             // 
             // txtIncomeNumber
             // 
-            this.txtIncomeNumber.Location = new System.Drawing.Point(201, 64);
+            this.txtIncomeNumber.Location = new System.Drawing.Point(201, 75);
             this.txtIncomeNumber.Name = "txtIncomeNumber";
             this.txtIncomeNumber.Size = new System.Drawing.Size(143, 20);
-            this.txtIncomeNumber.TabIndex = 1;
+            this.txtIncomeNumber.TabIndex = 50;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(120, 71);
+            this.label6.Location = new System.Drawing.Point(120, 82);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(49, 13);
             this.label6.TabIndex = 9;
@@ -167,10 +163,10 @@
             // 
             // btSave
             // 
-            this.btSave.Location = new System.Drawing.Point(200, 194);
+            this.btSave.Location = new System.Drawing.Point(200, 185);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(75, 23);
-            this.btSave.TabIndex = 12;
+            this.btSave.TabIndex = 110;
             this.btSave.Text = "&Save";
             this.btSave.UseVisualStyleBackColor = true;
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
@@ -186,20 +182,20 @@
             // 
             // btDelete
             // 
-            this.btDelete.Location = new System.Drawing.Point(281, 194);
+            this.btDelete.Location = new System.Drawing.Point(281, 185);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(75, 23);
-            this.btDelete.TabIndex = 14;
+            this.btDelete.TabIndex = 120;
             this.btDelete.Text = "&Xóa";
             this.btDelete.UseVisualStyleBackColor = true;
             this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
             // 
             // btAddNew
             // 
-            this.btAddNew.Location = new System.Drawing.Point(362, 194);
+            this.btAddNew.Location = new System.Drawing.Point(362, 185);
             this.btAddNew.Name = "btAddNew";
             this.btAddNew.Size = new System.Drawing.Size(75, 23);
-            this.btAddNew.TabIndex = 16;
+            this.btAddNew.TabIndex = 130;
             this.btAddNew.Text = "&Tiếp tục thu";
             this.btAddNew.UseVisualStyleBackColor = true;
             this.btAddNew.Click += new System.EventHandler(this.btAddNew_Click);
@@ -267,6 +263,22 @@
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tìm &phiếu thu";
+            // 
+            // txtPurchaseReceiptOrderIdFind
+            // 
+            this.txtPurchaseReceiptOrderIdFind.Location = new System.Drawing.Point(674, 15);
+            this.txtPurchaseReceiptOrderIdFind.Name = "txtPurchaseReceiptOrderIdFind";
+            this.txtPurchaseReceiptOrderIdFind.Size = new System.Drawing.Size(54, 20);
+            this.txtPurchaseReceiptOrderIdFind.TabIndex = 36;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(598, 21);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(73, 13);
+            this.label9.TabIndex = 35;
+            this.label9.Text = "MS Đơn hàng";
             // 
             // label12
             // 
@@ -347,7 +359,7 @@
             // lbIncomeId
             // 
             this.lbIncomeId.AutoSize = true;
-            this.lbIncomeId.Location = new System.Drawing.Point(627, 5);
+            this.lbIncomeId.Location = new System.Drawing.Point(627, 13);
             this.lbIncomeId.Name = "lbIncomeId";
             this.lbIncomeId.Size = new System.Drawing.Size(13, 13);
             this.lbIncomeId.TabIndex = 19;
@@ -356,7 +368,7 @@
             // lbOrderId
             // 
             this.lbOrderId.AutoSize = true;
-            this.lbOrderId.Location = new System.Drawing.Point(627, 40);
+            this.lbOrderId.Location = new System.Drawing.Point(852, 50);
             this.lbOrderId.Name = "lbOrderId";
             this.lbOrderId.Size = new System.Drawing.Size(13, 13);
             this.lbOrderId.TabIndex = 21;
@@ -365,10 +377,10 @@
             // cboxReceivableFromCustomer
             // 
             this.cboxReceivableFromCustomer.AutoSize = true;
-            this.cboxReceivableFromCustomer.Location = new System.Drawing.Point(538, 39);
+            this.cboxReceivableFromCustomer.Location = new System.Drawing.Point(763, 49);
             this.cboxReceivableFromCustomer.Name = "cboxReceivableFromCustomer";
             this.cboxReceivableFromCustomer.Size = new System.Drawing.Size(87, 17);
-            this.cboxReceivableFromCustomer.TabIndex = 2;
+            this.cboxReceivableFromCustomer.TabIndex = 40;
             this.cboxReceivableFromCustomer.Text = "Th&u công nợ";
             this.cboxReceivableFromCustomer.UseVisualStyleBackColor = true;
             this.cboxReceivableFromCustomer.CheckedChanged += new System.EventHandler(this.cboxReceivableFromCustomer_CheckedChanged);
@@ -376,7 +388,7 @@
             // lbCostId
             // 
             this.lbCostId.AutoSize = true;
-            this.lbCostId.Location = new System.Drawing.Point(627, 63);
+            this.lbCostId.Location = new System.Drawing.Point(852, 73);
             this.lbCostId.Name = "lbCostId";
             this.lbCostId.Size = new System.Drawing.Size(13, 13);
             this.lbCostId.TabIndex = 23;
@@ -387,18 +399,19 @@
             this.cboxPaymentMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxPaymentMethod.FormattingEnabled = true;
             this.cboxPaymentMethod.Items.AddRange(new object[] {
+            "",
             "Tiền mặt",
             "Chuyển khoản"});
-            this.cboxPaymentMethod.Location = new System.Drawing.Point(201, 38);
+            this.cboxPaymentMethod.Location = new System.Drawing.Point(446, 47);
             this.cboxPaymentMethod.Name = "cboxPaymentMethod";
             this.cboxPaymentMethod.Size = new System.Drawing.Size(103, 21);
-            this.cboxPaymentMethod.TabIndex = 27;
+            this.cboxPaymentMethod.TabIndex = 20;
             this.cboxPaymentMethod.SelectedIndexChanged += new System.EventHandler(this.cboxPaymentMethod_SelectedIndexChanged);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(121, 44);
+            this.label10.Location = new System.Drawing.Point(363, 53);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(45, 13);
             this.label10.TabIndex = 28;
@@ -408,16 +421,16 @@
             // 
             this.cboxToBankAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxToBankAccount.FormattingEnabled = true;
-            this.cboxToBankAccount.Location = new System.Drawing.Point(410, 38);
+            this.cboxToBankAccount.Location = new System.Drawing.Point(613, 45);
             this.cboxToBankAccount.Name = "cboxToBankAccount";
             this.cboxToBankAccount.Size = new System.Drawing.Size(121, 21);
-            this.cboxToBankAccount.TabIndex = 29;
+            this.cboxToBankAccount.TabIndex = 30;
             this.cboxToBankAccount.Visible = false;
             // 
             // lableFromBankAccount
             // 
             this.lableFromBankAccount.AutoSize = true;
-            this.lableFromBankAccount.Location = new System.Drawing.Point(364, 118);
+            this.lableFromBankAccount.Location = new System.Drawing.Point(265, 98);
             this.lableFromBankAccount.Name = "lableFromBankAccount";
             this.lableFromBankAccount.Size = new System.Drawing.Size(37, 13);
             this.lableFromBankAccount.TabIndex = 30;
@@ -426,7 +439,7 @@
             // lbToAccount
             // 
             this.lbToAccount.AutoSize = true;
-            this.lbToAccount.Location = new System.Drawing.Point(361, 42);
+            this.lbToAccount.Location = new System.Drawing.Point(564, 49);
             this.lbToAccount.Name = "lbToAccount";
             this.lbToAccount.Size = new System.Drawing.Size(44, 13);
             this.lbToAccount.TabIndex = 31;
@@ -437,36 +450,50 @@
             // 
             this.cboxFromBankAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxFromBankAccount.FormattingEnabled = true;
-            this.cboxFromBankAccount.Location = new System.Drawing.Point(410, 113);
+            this.cboxFromBankAccount.Location = new System.Drawing.Point(331, 94);
             this.cboxFromBankAccount.Name = "cboxFromBankAccount";
             this.cboxFromBankAccount.Size = new System.Drawing.Size(121, 21);
-            this.cboxFromBankAccount.TabIndex = 32;
+            this.cboxFromBankAccount.TabIndex = 80;
             // 
-            // label9
+            // ucTextBoxCurrency1
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(598, 21);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(73, 13);
-            this.label9.TabIndex = 35;
-            this.label9.Text = "MS Đơn hàng";
+            this.ucTextBoxCurrency1.Location = new System.Drawing.Point(200, 156);
+            this.ucTextBoxCurrency1.Name = "ucTextBoxCurrency1";
+            this.ucTextBoxCurrency1.Size = new System.Drawing.Size(552, 24);
+            this.ucTextBoxCurrency1.TabIndex = 100;
+            this.ucTextBoxCurrency1.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             // 
-            // txtPurchaseReceiptOrderIdFind
+            // customerSelectUserControl1
             // 
-            this.txtPurchaseReceiptOrderIdFind.Location = new System.Drawing.Point(674, 15);
-            this.txtPurchaseReceiptOrderIdFind.Name = "txtPurchaseReceiptOrderIdFind";
-            this.txtPurchaseReceiptOrderIdFind.Size = new System.Drawing.Size(54, 20);
-            this.txtPurchaseReceiptOrderIdFind.TabIndex = 36;
+            this.customerSelectUserControl1.CustId = 0;
+            this.customerSelectUserControl1.Location = new System.Drawing.Point(261, 67);
+            this.customerSelectUserControl1.Name = "customerSelectUserControl1";
+            this.customerSelectUserControl1.Size = new System.Drawing.Size(488, 23);
+            this.customerSelectUserControl1.TabIndex = 60;
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.customerSelectUserControl1);
+            this.panel1.Controls.Add(this.cboxFromBankAccount);
+            this.panel1.Controls.Add(this.lableFromBankAccount);
+            this.panel1.Location = new System.Drawing.Point(96, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(848, 214);
+            this.panel1.TabIndex = 35;
             // 
             // IncomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1184, 750);
-            this.Controls.Add(this.cboxFromBankAccount);
+            this.ClientSize = new System.Drawing.Size(1184, 741);
+            this.Controls.Add(this.ucTextBoxCurrency1);
             this.Controls.Add(this.lbToAccount);
-            this.Controls.Add(this.lableFromBankAccount);
             this.Controls.Add(this.cboxToBankAccount);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.cboxPaymentMethod);
@@ -482,7 +509,6 @@
             this.Controls.Add(this.btSave);
             this.Controls.Add(this.txtIncomeNumber);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtAmount);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtReason);
             this.Controls.Add(this.label4);
@@ -492,6 +518,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbIncomeHeader);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "IncomeForm";
@@ -501,6 +528,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.grvIncome)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -515,7 +544,6 @@
         private System.Windows.Forms.TextBox txtPayerName;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtReason;
-        private System.Windows.Forms.TextBox txtAmount;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtIncomeNumber;
         private System.Windows.Forms.Label label6;
@@ -549,5 +577,8 @@
         private System.Windows.Forms.ComboBox cboxPaymentMethodFind;
         private System.Windows.Forms.TextBox txtPurchaseReceiptOrderIdFind;
         private System.Windows.Forms.Label label9;
+        private UCTextBoxCurrency ucTextBoxCurrency1;
+        private CustomerSelectUserControl customerSelectUserControl1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

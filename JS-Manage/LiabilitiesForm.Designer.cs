@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.customerSelectUserControl1 = new JS_Manage.CustomerSelectUserControl();
             this.btFind = new System.Windows.Forms.Button();
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
@@ -41,7 +42,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lbLiabilitiesOpening = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.customerSelectUserControl1 = new JS_Manage.CustomerSelectUserControl();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLiabilities)).BeginInit();
@@ -78,6 +78,14 @@
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Từ --> Đến";
+            // 
+            // customerSelectUserControl1
+            // 
+            this.customerSelectUserControl1.CustId = 0;
+            this.customerSelectUserControl1.Location = new System.Drawing.Point(7, 45);
+            this.customerSelectUserControl1.Name = "customerSelectUserControl1";
+            this.customerSelectUserControl1.Size = new System.Drawing.Size(511, 23);
+            this.customerSelectUserControl1.TabIndex = 3;
             // 
             // btFind
             // 
@@ -126,6 +134,7 @@
             this.dataGridViewLiabilities.Name = "dataGridViewLiabilities";
             this.dataGridViewLiabilities.Size = new System.Drawing.Size(1012, 581);
             this.dataGridViewLiabilities.TabIndex = 0;
+            this.dataGridViewLiabilities.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewLiabilities_MouseClick);
             // 
             // lbLiabilitiesClosing
             // 
@@ -163,19 +172,11 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Số dư đầu kỳ";
             // 
-            // customerSelectUserControl1
-            // 
-            this.customerSelectUserControl1.CustId = 0;
-            this.customerSelectUserControl1.Location = new System.Drawing.Point(7, 45);
-            this.customerSelectUserControl1.Name = "customerSelectUserControl1";
-            this.customerSelectUserControl1.Size = new System.Drawing.Size(511, 23);
-            this.customerSelectUserControl1.TabIndex = 3;
-            // 
             // LiabilitiesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 742);
+            this.ClientSize = new System.Drawing.Size(1184, 741);
             this.Controls.Add(this.lbLiabilitiesClosing);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label4);

@@ -110,17 +110,24 @@ namespace JS_Manage
                 
             decimal totalAmount = 0;
             decimal totalIncome = 0;
+            int custId = 0;
             foreach (DataRow r in receivableFromCustDataTable.Rows)
             {                    
                 totalAmount += decimal.Parse(r.ItemArray[3].ToString());
                 totalIncome += decimal.Parse(r.ItemArray[4].ToString());
+                custId = int.Parse(r.ItemArray[6].ToString());
             }
 
             lbOrderId.Text = purchaseOrderId.ToString();
             TextBox txtreason = incomeForm.Controls.Find("txtReason", true)[0] as TextBox;
             txtreason.Text = string.Format("Thu nợ tiền hàng ngày {0} / Mã số bưu gửi: {1} / Đơn hàng: {2}", DateTime.Parse(row.Cells["OrderDate"].Value.ToString()).ToShortDateString(), row.Cells["BillNumber"].Value.ToString(), row.Cells["PurchaseReceiptOrderId"].Value.ToString());
-            TextBox txtAmount = incomeForm.Controls.Find("txtAmount", true)[0] as TextBox;
-            txtAmount.Text = (totalAmount - totalIncome).ToString();                    
+            UCTextBoxCurrency txtAmount = incomeForm.Controls.Find("ucTextBoxCurrency1", true)[0] as UCTextBoxCurrency;
+            
+            txtAmount.Value = totalAmount - totalIncome;
+
+            CustomerSelectUserControl customerSelectUserControl = incomeForm.Controls.Find("customerSelectUserControl1", true)[0] as CustomerSelectUserControl;
+            customerSelectUserControl.Enabled = false;
+            customerSelectUserControl.CustId = custId;
             
             this.Close();
         }

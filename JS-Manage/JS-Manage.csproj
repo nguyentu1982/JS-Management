@@ -70,8 +70,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -106,7 +109,16 @@
     </Compile>
     <Compile Include="CommonHelper.cs" />
     <Compile Include="Constant.cs" />
-    <Compile Include="JSManagementDataSet.Designer.cs">
+    <Compile Include="JSDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JSDataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="JSManagementDataSet.cs">
+      <DependentUpon>JSManagementDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="JSManagementDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>JSManagementDataSet.xsd</DependentUpon>
@@ -142,6 +154,12 @@
     </Compile>
     <Compile Include="PurchaseOrderMessageBoxForm.Designer.cs">
       <DependentUpon>PurchaseOrderMessageBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCTextBoxCurrency.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCTextBoxCurrency.Designer.cs">
+      <DependentUpon>UCTextBoxCurrency.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControl\PaymentMethodUserControl.cs">
       <SubType>UserControl</SubType>
@@ -202,10 +220,6 @@
     </Compile>
     <Compile Include="IncomeForm.Designer.cs">
       <DependentUpon>IncomeForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="JSManagementDataSet.cs">
-      <DependentUpon>JSManagementDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -374,6 +388,9 @@
     <EmbeddedResource Include="RewardPointSettingForm.resx">
       <DependentUpon>RewardPointSettingForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UCTextBoxCurrency.resx">
+      <DependentUpon>UCTextBoxCurrency.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControl\PaymentMethodUserControl.resx">
       <DependentUpon>PaymentMethodUserControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -395,17 +412,29 @@
     <EmbeddedResource Include="UserControl\CustomerUserControl.resx">
       <DependentUpon>CustomerUserControl.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="JSDataSet2.xsc">
+      <DependentUpon>JSDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="JSDataSet2.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>JSDataSet2.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="JSDataSet2.xss">
+      <DependentUpon>JSDataSet2.xsd</DependentUpon>
+    </None>
     <None Include="JSManagementDataSet.xsc">
       <DependentUpon>JSManagementDataSet.xsd</DependentUpon>
     </None>
     <None Include="JSManagementDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>JSManagementDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>JSManagementDataSet1.Designer.cs</LastGenOutput>
     </None>
     <None Include="JSManagementDataSet.xss">
       <DependentUpon>JSManagementDataSet.xsd</DependentUpon>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -442,6 +471,9 @@
     <None Include="Resources\cute_ball_search1.jpg" />
     <None Include="Resources\cute_ball_search.jpg" />
     <None Include="Resources\jeans-style-flying.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

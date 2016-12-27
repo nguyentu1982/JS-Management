@@ -12,7 +12,7 @@ namespace JS_Manage
     public partial class PaymentMethodUserControl : UserControl
     {
         private string _paymentMethod;
-        private int _bankAccountId;
+        private List<int> _bankAccountIds;
         private string _cboxBankAccountDisplayMember;
         private string _cboxBankAccountValueMember;
         private JSManagementDataSet.BankAccountDataTable _bankAccountDataTable;
@@ -24,21 +24,27 @@ namespace JS_Manage
 
         private void PaymentMethodUserControl_Load(object sender, EventArgs e)
         {
-            cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.CASH;
+            cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.ALL;
+           
         }        
 
         private void cboxPaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboxPaymentMethod.SelectedItem.ToString() == Constant.PaymentMethod.BANK_TRANSFER)
+            _bankAccountIds = new List<int>();
+            if (cboxPaymentMethod.SelectedItem.ToString().ToLower() == Constant.PaymentMethod.BANK_TRANSFER.ToLower())
             {
-                cboxBankAccount.Visible = true;
-                cboxBankAccount.DataSource = _bankAccountDataTable;
-                cboxBankAccount.DisplayMember = _cboxBankAccountDisplayMember;
-                cboxBankAccount.ValueMember = _cboxBankAccountValueMember;
+                checkedListBoxBankAccount.Visible = true;
+                btShowHide.Visible = true;
+                checkedListBoxBankAccount.DataSource = _bankAccountDataTable;
+                checkedListBoxBankAccount.DisplayMember = _cboxBankAccountDisplayMember;
+                checkedListBoxBankAccount.ValueMember = _cboxBankAccountValueMember;
+                checkedListBoxBankAccount.Height = _bankAccountDataTable.Rows.Count * 20;
             }
             else
             {
-                cboxBankAccount.Visible = false;
+                checkedListBoxBankAccount.Visible = false;
+                btShowHide.Visible = false;
+                checkedListBoxBankAccount.DataSource = null;
             }
 
             _paymentMethod = cboxPaymentMethod.SelectedItem.ToString();
@@ -50,10 +56,10 @@ namespace JS_Manage
             set { _paymentMethod = value; }
         }
 
-        public int BankAccountId
+        public List<int> BankAccountIds
         {
-            get { return _bankAccountId; }
-            set { _bankAccountId = value; }
+            get { return _bankAccountIds; }
+            set { _bankAccountIds = value; }
         }
 
         public string CboxBankAccountDisplayMember
@@ -71,13 +77,48 @@ namespace JS_Manage
             set { _bankAccountDataTable = value; }
         }
 
-        private void cboxBankAccount_SelectedIndexChanged(object sender, EventArgs e)
-        {            
-            if (cboxBankAccount.Visible)
+        private void btShowHide_Click(object sender, EventArgs e)
+        {
+            if(checkedListBoxBankAccount.Height >20)
             {
-                int.TryParse(cboxBankAccount.SelectedValue.ToString(), out _bankAccountId);
+                checkedListBoxBankAccount.Height = 20;
             }
-         
+            else
+            {
+                checkedListBoxBankAccount.Height = _bankAccountDataTable.Rows.Count * 20;
+            }
         }
+
+        private void checkedListBoxBankAccount_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkedListBoxBankAccount_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            int id;
+            CheckedListBox checkedListBoxBankAccount = sender as CheckedListBox;
+
+            DataRowView row =  checkedListBoxBankAccount.Items[e.Index] as DataRowView;
+            id = int.Parse(row.Row.ItemArray[0].ToString());
+            if(e.NewValue == CheckState.Checked)
+            {
+                
+                if(!_bankAccountIds.Contains(id))
+                {
+                    _bankAccountIds.Add(id);
+                }
+            }
+            else
+            {
+                if(_bankAccountIds.Contains(id))
+                {
+                    _bankAccountIds.Remove(id);
+                }
+            }
+
+        }
+
+        
     }
 }
