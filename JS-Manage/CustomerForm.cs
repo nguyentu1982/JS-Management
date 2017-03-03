@@ -323,8 +323,8 @@ namespace JS_Manage
                         if (((bool.Parse(r.Cells["IsReturnSupplier"].Value.ToString())) && r.Cells["Action"].Value.ToString().Trim().ToLower() == "xuất") || r.Cells["Action"].Value.ToString() == "nhập")
                         {
                             r.Cells["Price"].Value = 0;
-                            r.Cells["Amount"].Value = 0;
-                            r.Cells["ClosingBalanceAmount"].Value = 0;
+                            //r.Cells["Amount"].Value = 0;
+                            //r.Cells["ClosingBalanceAmount"].Value = 0;
                             //r.Cells["ClosingBalance"].Value = 0;
                         }
                     }

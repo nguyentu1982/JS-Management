@@ -295,11 +295,11 @@ namespace JS_Manage
 
         private void btProductChecking_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Chức năng này đang phát triển");
-            //return;
-            ProductCheckingForm proCheck = new ProductCheckingForm();
-            proCheck.StartPosition = FormStartPosition.CenterScreen;
-            proCheck.Show();
+            ////MessageBox.Show("Chức năng này đang phát triển");
+            ////return;
+            ////ProductCheckingForm proCheck = new ProductCheckingForm();
+            //proCheck.StartPosition = FormStartPosition.CenterScreen;
+            //proCheck.Show();
         }
 
         private void btBankAccountManagement_Click(object sender, EventArgs e)

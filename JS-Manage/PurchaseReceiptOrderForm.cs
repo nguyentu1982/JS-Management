@@ -1212,7 +1212,7 @@ namespace JS_Manage
             int quantity = 0;
             int bankAccountId = 0;
             bool isReturnToSupplier = purchaseReceiptOrderData[0].IsReturnSupplier;
-
+            int storeId = purchaseReceiptOrderData[0].StoreId;
             lbPerchaseReceiptOrderHeader.Text = Constant.PurchaseReceiptOrder_Header.ToUpper();
             lbPurchaseReceiptOrderId.Text = purchaseReceiptOrderId.ToString();
             dateTimePickerPerchaseReceiptDate.Value = orderDate;
@@ -1258,13 +1258,13 @@ namespace JS_Manage
                 grvProducts.Rows.Add(1);
                 int productId = purchaseReceiptOrderDetailTable[i].ProductId;
 
-                if (productTableAdapter.GetProductById(productId).Rows.Count > 0)
+                if (productTableAdapter.GetProductById(productId, storeId).Rows.Count > 0)
                 {
-                    grvProducts.Rows[i].Cells[PRODUCT_CODE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId)[0].ProductCode;
-                    grvProducts.Rows[i].Cells[PRODUCT_TYPE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId)[0].ProductType;
-                    grvProducts.Rows[i].Cells[BRAND_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId)[0].Brand;
-                    grvProducts.Rows[i].Cells[SIZE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId)[0].Size;
-                    grvProducts.Rows[i].Cells[PRICE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId)[0].Price;
+                    grvProducts.Rows[i].Cells[PRODUCT_CODE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId, storeId)[0].ProductCode;
+                    grvProducts.Rows[i].Cells[PRODUCT_TYPE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId, storeId)[0].ProductType;
+                    grvProducts.Rows[i].Cells[BRAND_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId, storeId)[0].Brand;
+                    grvProducts.Rows[i].Cells[SIZE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId, storeId)[0].Size;
+                    grvProducts.Rows[i].Cells[PRICE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId, storeId)[0].Price;
                     grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value = purchaseReceiptOrderDetailTable[i].Quantity;
 
                     quantity = int.Parse(grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
@@ -1282,7 +1282,7 @@ namespace JS_Manage
                     grvProducts.Rows[i].Cells[SOLD_PRICE_PRODUCT_GRID_COLUMN_NAME].Value = soldPrice;
                     grvProducts.Rows[i].Cells[AMOUNT_PRODUCT_GRID_COLUMN_NAME].Value = amount;
                     grvProducts.Rows[i].Cells[PRODUCT_ID_PRODUCT_GRID_COLUMN_NAME].Value = purchaseReceiptOrderDetailTable[i].ProductId;
-                    grvProducts.Rows[i].Cells[CLOSING_BALLANCE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId)[0].ClosingBalance + purchaseReceiptOrderDetailTable[i].Quantity;
+                    grvProducts.Rows[i].Cells[CLOSING_BALLANCE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId,storeId)[0].ClosingBalance + purchaseReceiptOrderDetailTable[i].Quantity;
                     grvProducts.Rows[i].Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value = purchaseReceiptOrderDetailTable[i].OrderId;
                     DataGridViewComboBoxCell cboxSoldBy = grvProducts.Rows[i].Cells[SOLD_BY] as DataGridViewComboBoxCell;
                     cboxSoldBy.DisplayMember = USER_NAME;
@@ -1303,9 +1303,6 @@ namespace JS_Manage
             UpdateTotalAmountTextBox();
             cboxIsCod.CheckedChanged += cboxIsCod_CheckedChanged;
         }
-
-
-
         private void UpdateTotalAmountTextBox()
         {
             decimal totalAmount = 0;

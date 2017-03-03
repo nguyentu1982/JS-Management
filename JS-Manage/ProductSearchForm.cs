@@ -79,8 +79,14 @@ namespace JS_Manage
             bool isInStock = chkIsInStock.Checked;
             if (cboxStoreFind.SelectedValue != null)
                 storeId = int.Parse(cboxStoreFind.SelectedValue.ToString());
-            
-            grvProductList.DataSource = productTableAdapter.SearchProducts(productCode, comboBoxProductTypeFind.Text, comboBoxBrandFind.Text, comboBoxSizeFind.Text, isInStock, storeId);
+            if (isOpenedByInputProduct)
+            {
+                grvProductList.DataSource = productTableAdapter.SearchProductCode(productCode, comboBoxProductTypeFind.Text, comboBoxBrandFind.Text, comboBoxSizeFind.Text);
+            }
+            else
+            {
+                grvProductList.DataSource = productTableAdapter.SearchProducts(productCode, comboBoxProductTypeFind.Text, comboBoxBrandFind.Text, comboBoxSizeFind.Text, isInStock, storeId);
+            }           
             
             FormatProductListGridview();
 
@@ -369,27 +375,32 @@ namespace JS_Manage
 
         private void BindData(DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == -1 || e.RowIndex == grvProductList.RowCount-1)
+            if (e.RowIndex == -1 || e.RowIndex == grvProductList.RowCount-1|| e.RowIndex == 0)
                 return;
             btDelete.Visible = true;
             btAddNew.Visible = true;
             DataGridViewRow row = grvProductList.Rows[e.RowIndex];
-            string productId = row.Cells[Constant.ProductSearch.ProductGridColumnName.PRODUCT_ID].Value.ToString();
-            string productCode = row.Cells[Constant.ProductSearch.ProductGridColumnName.PRODUCT_CODE].Value.ToString();
-            string brand = row.Cells[Constant.ProductSearch.ProductGridColumnName.BRAND].Value.ToString();
-            string productType = row.Cells[Constant.ProductSearch.ProductGridColumnName.PRODUCT_TYPE].Value.ToString();
-            string productCost = row.Cells[Constant.ProductSearch.ProductGridColumnName.PRODUCT_COST].Value.ToString();
-            string price = row.Cells[Constant.ProductSearch.ProductGridColumnName.PRICE].Value.ToString();
-            string size = row.Cells[Constant.ProductSearch.ProductGridColumnName.SIZE].Value.ToString();
-            string openingBalance = row.Cells[Constant.ProductSearch.ProductGridColumnName.OPENING_BALANCE].Value.ToString();
-            string input = row.Cells[Constant.ProductSearch.ProductGridColumnName.INPUT].Value.ToString();
-            string output = row.Cells[Constant.ProductSearch.ProductGridColumnName.OUTPUT].Value.ToString();
+            int productId = int.Parse(row.Cells[Constant.ProductSearch.ProductGridColumnName.PRODUCT_ID].Value.ToString());
+            if(cboxStoreFind.SelectedValue != null)
+                  storeId = int.Parse(cboxStoreFind.SelectedValue.ToString());
+            JSManagementDataSet.ProductDataTable productDataTable =  productTableAdapter.GetProductById(productId, storeId);
+           
+
+            string productCode = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.PRODUCT_CODE].ToString();
+            string brand = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.BRAND].ToString();
+            string productType = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.PRODUCT_TYPE].ToString();
+            string productCost = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.PRODUCT_COST].ToString();
+            string price = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.PRICE].ToString();
+            string size = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.SIZE].ToString();
+            string openingBalance = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.OPENING_BALANCE].ToString();
+            string input = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.INPUT].ToString();
+            string output = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.OUTPUT].ToString();
             string closingBalance = row.Cells[Constant.ProductSearch.ProductGridColumnName.CLOSING_BALANCE].Value.ToString();
             lbProductHeader.Text = string.Format("Sửa mã hàng {0} Hiệu:{1} Size:{2}", productCode, brand, size);
             txtProductCode.Text = productCode;
             cbBoxProductType.Text = productType;
             cbBoxBrand.Text = brand;
-            lbProductId.Text = productId;
+            lbProductId.Text = productId.ToString();
             txtPrice.Text = price;
             cbBoxSize.Text = size;
             txtInputPrice.Text = productCost;
@@ -398,7 +409,7 @@ namespace JS_Manage
             numericUpDownOutput.Value = decimal.Parse(output == string.Empty ? "0" : output);
             numericUpDownClosingBalance.Value = decimal.Parse(closingBalance == string.Empty ? "0" : closingBalance);
 
-            grvProductInOutDetail.DataSource = getProductInOutDetailTableAdapter.GetProductInOutDetailByProductId(int.Parse(productId));
+            grvProductInOutDetail.DataSource = getProductInOutDetailTableAdapter.GetProductInOutDetailByProductId(productId,storeId);
             FormatProductInOutDetailGridview();
             
         }
@@ -750,9 +761,9 @@ namespace JS_Manage
 
         private void btLowStockReport_Click(object sender, EventArgs e)
         {
-            LowStockProductReportForm lowstockReportForm = new LowStockProductReportForm();
-            lowstockReportForm.StartPosition = FormStartPosition.CenterScreen;
-            lowstockReportForm.Show();
+            //LowStockProductReportForm lowstockReportForm = new LowStockProductReportForm();
+            //lowstockReportForm.StartPosition = FormStartPosition.CenterScreen;
+            //lowstockReportForm.Show();
         }           
     }
 }
