@@ -5713,27 +5713,9 @@ namespace JS_Manage {
             
             private global::System.Data.DataColumn columnQuantity;
             
-            private global::System.Data.DataColumn columnClosingBalance;
-            
-            private global::System.Data.DataColumn columnProductCode;
-            
-            private global::System.Data.DataColumn columnBrand;
-            
-            private global::System.Data.DataColumn columnProductType;
-            
-            private global::System.Data.DataColumn columnSize;
-            
-            private global::System.Data.DataColumn columnPrice;
-            
-            private global::System.Data.DataColumn columnIsReturnSupplier;
-            
-            private global::System.Data.DataColumn columnProInOutDetailId;
-            
-            private global::System.Data.DataColumn columnClosingBalanceAmount;
-            
-            private global::System.Data.DataColumn columnAmount;
-            
             private global::System.Data.DataColumn columnID;
+            
+            private global::System.Data.DataColumn columnClosingBalance;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -5794,89 +5776,17 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ClosingBalanceColumn {
-                get {
-                    return this.columnClosingBalance;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ProductCodeColumn {
-                get {
-                    return this.columnProductCode;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn BrandColumn {
-                get {
-                    return this.columnBrand;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ProductTypeColumn {
-                get {
-                    return this.columnProductType;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn SizeColumn {
-                get {
-                    return this.columnSize;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn PriceColumn {
-                get {
-                    return this.columnPrice;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn IsReturnSupplierColumn {
-                get {
-                    return this.columnIsReturnSupplier;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ProInOutDetailIdColumn {
-                get {
-                    return this.columnProInOutDetailId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ClosingBalanceAmountColumn {
-                get {
-                    return this.columnClosingBalanceAmount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn AmountColumn {
-                get {
-                    return this.columnAmount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn IDColumn {
                 get {
                     return this.columnID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ClosingBalanceColumn {
+                get {
+                    return this.columnClosingBalance;
                 }
             }
             
@@ -5917,23 +5827,14 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public GetProductInOutDetailRow AddGetProductInOutDetailRow(string Action, System.DateTime DATE, int Quantity, int ClosingBalance, string ProductCode, string Brand, string ProductType, string Size, string Price, bool IsReturnSupplier, int ProInOutDetailId, decimal ClosingBalanceAmount, decimal Amount, int ID) {
+            public GetProductInOutDetailRow AddGetProductInOutDetailRow(string Action, System.DateTime DATE, int Quantity, int ID, int ClosingBalance) {
                 GetProductInOutDetailRow rowGetProductInOutDetailRow = ((GetProductInOutDetailRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Action,
                         DATE,
                         Quantity,
-                        ClosingBalance,
-                        ProductCode,
-                        Brand,
-                        ProductType,
-                        Size,
-                        Price,
-                        IsReturnSupplier,
-                        ProInOutDetailId,
-                        ClosingBalanceAmount,
-                        Amount,
-                        ID};
+                        ID,
+                        ClosingBalance};
                 rowGetProductInOutDetailRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowGetProductInOutDetailRow);
                 return rowGetProductInOutDetailRow;
@@ -5959,17 +5860,8 @@ namespace JS_Manage {
                 this.columnAction = base.Columns["Action"];
                 this.columnDATE = base.Columns["DATE"];
                 this.columnQuantity = base.Columns["Quantity"];
-                this.columnClosingBalance = base.Columns["ClosingBalance"];
-                this.columnProductCode = base.Columns["ProductCode"];
-                this.columnBrand = base.Columns["Brand"];
-                this.columnProductType = base.Columns["ProductType"];
-                this.columnSize = base.Columns["Size"];
-                this.columnPrice = base.Columns["Price"];
-                this.columnIsReturnSupplier = base.Columns["IsReturnSupplier"];
-                this.columnProInOutDetailId = base.Columns["ProInOutDetailId"];
-                this.columnClosingBalanceAmount = base.Columns["ClosingBalanceAmount"];
-                this.columnAmount = base.Columns["Amount"];
                 this.columnID = base.Columns["ID"];
+                this.columnClosingBalance = base.Columns["ClosingBalance"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5981,28 +5873,10 @@ namespace JS_Manage {
                 base.Columns.Add(this.columnDATE);
                 this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQuantity);
-                this.columnClosingBalance = new global::System.Data.DataColumn("ClosingBalance", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnClosingBalance);
-                this.columnProductCode = new global::System.Data.DataColumn("ProductCode", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnProductCode);
-                this.columnBrand = new global::System.Data.DataColumn("Brand", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBrand);
-                this.columnProductType = new global::System.Data.DataColumn("ProductType", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnProductType);
-                this.columnSize = new global::System.Data.DataColumn("Size", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSize);
-                this.columnPrice = new global::System.Data.DataColumn("Price", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPrice);
-                this.columnIsReturnSupplier = new global::System.Data.DataColumn("IsReturnSupplier", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIsReturnSupplier);
-                this.columnProInOutDetailId = new global::System.Data.DataColumn("ProInOutDetailId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnProInOutDetailId);
-                this.columnClosingBalanceAmount = new global::System.Data.DataColumn("ClosingBalanceAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnClosingBalanceAmount);
-                this.columnAmount = new global::System.Data.DataColumn("Amount", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAmount);
                 this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
+                this.columnClosingBalance = new global::System.Data.DataColumn("ClosingBalance", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClosingBalance);
                 this.columnAction.MaxLength = 10;
             }
             
@@ -17161,6 +17035,22 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int ID {
+                get {
+                    try {
+                        return ((int)(this[this.tableGetProductInOutDetail.IDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ID\' in table \'GetProductInOutDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGetProductInOutDetail.IDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int ClosingBalance {
                 get {
                     try {
@@ -17173,169 +17063,6 @@ namespace JS_Manage {
                 }
                 set {
                     this[this.tableGetProductInOutDetail.ClosingBalanceColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string ProductCode {
-                get {
-                    try {
-                        return ((string)(this[this.tableGetProductInOutDetail.ProductCodeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ProductCode\' in table \'GetProductInOutDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableGetProductInOutDetail.ProductCodeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Brand {
-                get {
-                    try {
-                        return ((string)(this[this.tableGetProductInOutDetail.BrandColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Brand\' in table \'GetProductInOutDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableGetProductInOutDetail.BrandColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string ProductType {
-                get {
-                    try {
-                        return ((string)(this[this.tableGetProductInOutDetail.ProductTypeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ProductType\' in table \'GetProductInOutDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableGetProductInOutDetail.ProductTypeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Size {
-                get {
-                    try {
-                        return ((string)(this[this.tableGetProductInOutDetail.SizeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Size\' in table \'GetProductInOutDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableGetProductInOutDetail.SizeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Price {
-                get {
-                    try {
-                        return ((string)(this[this.tableGetProductInOutDetail.PriceColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Price\' in table \'GetProductInOutDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableGetProductInOutDetail.PriceColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsReturnSupplier {
-                get {
-                    try {
-                        return ((bool)(this[this.tableGetProductInOutDetail.IsReturnSupplierColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IsReturnSupplier\' in table \'GetProductInOutDetail\' is DBNul" +
-                                "l.", e);
-                    }
-                }
-                set {
-                    this[this.tableGetProductInOutDetail.IsReturnSupplierColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int ProInOutDetailId {
-                get {
-                    try {
-                        return ((int)(this[this.tableGetProductInOutDetail.ProInOutDetailIdColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ProInOutDetailId\' in table \'GetProductInOutDetail\' is DBNul" +
-                                "l.", e);
-                    }
-                }
-                set {
-                    this[this.tableGetProductInOutDetail.ProInOutDetailIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal ClosingBalanceAmount {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableGetProductInOutDetail.ClosingBalanceAmountColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ClosingBalanceAmount\' in table \'GetProductInOutDetail\' is D" +
-                                "BNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableGetProductInOutDetail.ClosingBalanceAmountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal Amount {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableGetProductInOutDetail.AmountColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Amount\' in table \'GetProductInOutDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableGetProductInOutDetail.AmountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int ID {
-                get {
-                    try {
-                        return ((int)(this[this.tableGetProductInOutDetail.IDColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ID\' in table \'GetProductInOutDetail\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableGetProductInOutDetail.IDColumn] = value;
                 }
             }
             
@@ -17377,126 +17104,6 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsClosingBalanceNull() {
-                return this.IsNull(this.tableGetProductInOutDetail.ClosingBalanceColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetClosingBalanceNull() {
-                this[this.tableGetProductInOutDetail.ClosingBalanceColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsProductCodeNull() {
-                return this.IsNull(this.tableGetProductInOutDetail.ProductCodeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetProductCodeNull() {
-                this[this.tableGetProductInOutDetail.ProductCodeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsBrandNull() {
-                return this.IsNull(this.tableGetProductInOutDetail.BrandColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetBrandNull() {
-                this[this.tableGetProductInOutDetail.BrandColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsProductTypeNull() {
-                return this.IsNull(this.tableGetProductInOutDetail.ProductTypeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetProductTypeNull() {
-                this[this.tableGetProductInOutDetail.ProductTypeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsSizeNull() {
-                return this.IsNull(this.tableGetProductInOutDetail.SizeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetSizeNull() {
-                this[this.tableGetProductInOutDetail.SizeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsPriceNull() {
-                return this.IsNull(this.tableGetProductInOutDetail.PriceColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetPriceNull() {
-                this[this.tableGetProductInOutDetail.PriceColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsIsReturnSupplierNull() {
-                return this.IsNull(this.tableGetProductInOutDetail.IsReturnSupplierColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetIsReturnSupplierNull() {
-                this[this.tableGetProductInOutDetail.IsReturnSupplierColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsProInOutDetailIdNull() {
-                return this.IsNull(this.tableGetProductInOutDetail.ProInOutDetailIdColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetProInOutDetailIdNull() {
-                this[this.tableGetProductInOutDetail.ProInOutDetailIdColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsClosingBalanceAmountNull() {
-                return this.IsNull(this.tableGetProductInOutDetail.ClosingBalanceAmountColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetClosingBalanceAmountNull() {
-                this[this.tableGetProductInOutDetail.ClosingBalanceAmountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsAmountNull() {
-                return this.IsNull(this.tableGetProductInOutDetail.AmountColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetAmountNull() {
-                this[this.tableGetProductInOutDetail.AmountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsIDNull() {
                 return this.IsNull(this.tableGetProductInOutDetail.IDColumn);
             }
@@ -17505,6 +17112,18 @@ namespace JS_Manage {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetIDNull() {
                 this[this.tableGetProductInOutDetail.IDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsClosingBalanceNull() {
+                return this.IsNull(this.tableGetProductInOutDetail.ClosingBalanceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetClosingBalanceNull() {
+                this[this.tableGetProductInOutDetail.ClosingBalanceColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -26510,7 +26129,7 @@ SELECT ProductId, ProductCode, Brand, Size, ProductCost, ISNULL(Price, 0) AS Pri
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[20];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[21];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT ProductId, ProductCode,Brand, Size, ProductCost, isnull(Price,0) as Price," +
@@ -26581,6 +26200,7 @@ SELECT ProductId, ProductCode, Brand, Size, ProductCost, ISNULL(Price, 0) AS Pri
             this._commandCollection[10].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[10].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[10].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[10].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@storeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[11] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[11].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
             this._commandCollection[11].CommandText = "dbo.GetProducts";
@@ -26631,43 +26251,52 @@ SELECT SCOPE_IDENTITY()";
             this._commandCollection[16].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@lowerQuantity", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[17] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[17].Connection = this.Connection;
-            this._commandCollection[17].CommandText = "dbo.SearchProducts";
+            this._commandCollection[17].CommandText = "dbo.SearchProductCodes";
             this._commandCollection[17].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[17].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[17].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productCode", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[17].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productType", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[17].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@brand", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[17].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.NChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[17].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@isInStock", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[17].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@storeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[18] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[18].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
-            this._commandCollection[18].CommandText = @"UPDATE [dbo].[Product] SET [ProductCode] = @ProductCode, [Brand] = @Brand, [Size] = @Size, [ProductCost] = @ProductCost, [Price] = @Price, [ProductType] = @ProductType, [OpeningBalance] = @OpeningBalance, [Input] = @Input, [Output] = @Output, [ClosingBalance] = @ClosingBalance WHERE ProductId = @ProductId";
-            this._commandCollection[18].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductCode", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "ProductCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Brand", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "Brand", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Size", global::System.Data.SqlDbType.NChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "Size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductCost", global::System.Data.SqlDbType.Money, 8, global::System.Data.ParameterDirection.Input, 0, 0, "ProductCost", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Money, 8, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductType", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "ProductType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OpeningBalance", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "OpeningBalance", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Input", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Input", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Output", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Output", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ClosingBalance", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ClosingBalance", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ProductId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[18].Connection = this.Connection;
+            this._commandCollection[18].CommandText = "dbo.SearchProducts";
+            this._commandCollection[18].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productCode", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productType", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@brand", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@size", global::System.Data.SqlDbType.NChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@isInStock", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@storeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[19] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[19].Connection = this.Connection;
-            this._commandCollection[19].CommandText = "UPDATE [dbo].[Product] SET [ProductCode] = @ProductCode, [Brand] = @Brand, [Size]" +
-                " = @Size, [ProductCost] = @ProductCost, [ProductType] = @ProductType, [Price] = " +
-                "@Price  WHERE ([ProductId] = @Original_ProductId)";
+            this._commandCollection[19].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[19].CommandText = @"UPDATE [dbo].[Product] SET [ProductCode] = @ProductCode, [Brand] = @Brand, [Size] = @Size, [ProductCost] = @ProductCost, [Price] = @Price, [ProductType] = @ProductType, [OpeningBalance] = @OpeningBalance, [Input] = @Input, [Output] = @Output, [ClosingBalance] = @ClosingBalance WHERE ProductId = @ProductId";
             this._commandCollection[19].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductCode", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "ProductCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Brand", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "Brand", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Size", global::System.Data.SqlDbType.NVarChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "Size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Size", global::System.Data.SqlDbType.NChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "Size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductCost", global::System.Data.SqlDbType.Money, 8, global::System.Data.ParameterDirection.Input, 0, 0, "ProductCost", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductType", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "ProductType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Money, 8, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ProductId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ProductId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductType", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "ProductType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OpeningBalance", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "OpeningBalance", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Input", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Input", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Output", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Output", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ClosingBalance", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ClosingBalance", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ProductId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[20] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[20].Connection = this.Connection;
+            this._commandCollection[20].CommandText = "UPDATE [dbo].[Product] SET [ProductCode] = @ProductCode, [Brand] = @Brand, [Size]" +
+                " = @Size, [ProductCost] = @ProductCost, [ProductType] = @ProductType, [Price] = " +
+                "@Price  WHERE ([ProductId] = @Original_ProductId)";
+            this._commandCollection[20].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[20].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductCode", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "ProductCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Brand", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "Brand", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Size", global::System.Data.SqlDbType.NVarChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "Size", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductCost", global::System.Data.SqlDbType.Money, 8, global::System.Data.ParameterDirection.Input, 0, 0, "ProductCost", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductType", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "ProductType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Money, 8, global::System.Data.ParameterDirection.Input, 0, 0, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ProductId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ProductId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -26937,13 +26566,19 @@ SELECT SCOPE_IDENTITY()";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual JSManagementDataSet.ProductDataTable GetProductById(global::System.Nullable<int> productId) {
+        public virtual JSManagementDataSet.ProductDataTable GetProductById(global::System.Nullable<int> productId, global::System.Nullable<int> storeId) {
             this.Adapter.SelectCommand = this.CommandCollection[10];
             if ((productId.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(productId.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((storeId.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((int)(storeId.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             JSManagementDataSet.ProductDataTable dataTable = new JSManagementDataSet.ProductDataTable();
             this.Adapter.Fill(dataTable);
@@ -27057,8 +26692,43 @@ SELECT SCOPE_IDENTITY()";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual JSManagementDataSet.ProductDataTable SearchProducts(string productCode, string productType, string brand, string size, global::System.Nullable<bool> isInStock, global::System.Nullable<int> storeId) {
+        public virtual JSManagementDataSet.ProductDataTable SearchProductCode(string productCode, string productType, string brand, string size) {
             this.Adapter.SelectCommand = this.CommandCollection[17];
+            if ((productCode == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(productCode));
+            }
+            if ((productType == null)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((string)(productType));
+            }
+            if ((brand == null)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((string)(brand));
+            }
+            if ((size == null)) {
+                this.Adapter.SelectCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[4].Value = ((string)(size));
+            }
+            JSManagementDataSet.ProductDataTable dataTable = new JSManagementDataSet.ProductDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual JSManagementDataSet.ProductDataTable SearchProducts(string productCode, string productType, string brand, string size, global::System.Nullable<bool> isInStock, global::System.Nullable<int> storeId) {
+            this.Adapter.SelectCommand = this.CommandCollection[18];
             if ((productCode == null)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
@@ -27585,7 +27255,7 @@ SELECT SCOPE_IDENTITY()";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateProductById(string ProductCode, string Brand, string Size, global::System.Nullable<decimal> ProductCost, global::System.Nullable<decimal> Price, string ProductType, global::System.Nullable<int> OpeningBalance, global::System.Nullable<int> Input, global::System.Nullable<int> Output, global::System.Nullable<int> ClosingBalance, int ProductId) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[18];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[19];
             if ((ProductCode == null)) {
                 command.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -27669,7 +27339,7 @@ SELECT SCOPE_IDENTITY()";
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateProductCommonInfoById(string ProductCode, string Brand, string Size, global::System.Nullable<decimal> ProductCost, string ProductType, global::System.Nullable<decimal> Price, int Original_ProductId) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[19];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[20];
             if ((ProductCode == null)) {
                 command.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -30474,8 +30144,8 @@ SELECT ActiveDateId, Date, IsActive FROM ActiveDate WHERE (ActiveDateId = @Activ
             tableMapping.ColumnMappings.Add("Action", "Action");
             tableMapping.ColumnMappings.Add("DATE", "DATE");
             tableMapping.ColumnMappings.Add("Quantity", "Quantity");
-            tableMapping.ColumnMappings.Add("ClosingBallance", "ClosingBalance");
             tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("ClosingBallance", "ClosingBalance");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -30483,7 +30153,7 @@ SELECT ActiveDateId, Date, IsActive FROM ActiveDate WHERE (ActiveDateId = @Activ
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.nanhtuNoIpOrgJeansStyleManagement_DEVConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -30496,6 +30166,7 @@ SELECT ActiveDateId, Date, IsActive FROM ActiveDate WHERE (ActiveDateId = @Activ
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@storeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
             this._commandCollection[1].CommandText = "dbo.GetProductInOutDetail";
@@ -30520,13 +30191,19 @@ SELECT ActiveDateId, Date, IsActive FROM ActiveDate WHERE (ActiveDateId = @Activ
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual JSManagementDataSet.GetProductInOutDetailDataTable GetProductInOutDetailByProductId(global::System.Nullable<int> productId) {
+        public virtual JSManagementDataSet.GetProductInOutDetailDataTable GetProductInOutDetailByProductId(global::System.Nullable<int> productId, global::System.Nullable<int> storeId) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((productId.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((int)(productId.Value));
             }
             else {
                 this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((storeId.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((int)(storeId.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             JSManagementDataSet.GetProductInOutDetailDataTable dataTable = new JSManagementDataSet.GetProductInOutDetailDataTable();
             this.Adapter.Fill(dataTable);
