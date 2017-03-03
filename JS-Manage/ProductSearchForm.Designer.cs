@@ -66,6 +66,8 @@
             this.btLowStockReport = new System.Windows.Forms.Button();
             this.btCopyProduct = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cboxStoreFind = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.comboBoxProductTypeFind = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.btPrint = new System.Windows.Forms.Button();
@@ -74,8 +76,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.comboBoxSizeFind = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.cboxStoreFind = new System.Windows.Forms.ComboBox();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.jSManagementDataSet = new JS_Manage.JSManagementDataSet();
             this.getProductInOutDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -114,6 +114,7 @@
             this.grvProductList.Size = new System.Drawing.Size(1146, 367);
             this.grvProductList.TabIndex = 3;
             this.grvProductList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvProductList_CellDoubleClick);
+            this.grvProductList.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
             this.grvProductList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             // 
             // label1
@@ -265,6 +266,7 @@
             // 
             // numericUpDownOpeningBalance
             // 
+            this.numericUpDownOpeningBalance.Enabled = false;
             this.numericUpDownOpeningBalance.Location = new System.Drawing.Point(103, 118);
             this.numericUpDownOpeningBalance.Minimum = new decimal(new int[] {
             100,
@@ -481,6 +483,23 @@
             this.groupBox3.TabIndex = 65;
             this.groupBox3.TabStop = false;
             // 
+            // cboxStoreFind
+            // 
+            this.cboxStoreFind.FormattingEnabled = true;
+            this.cboxStoreFind.Location = new System.Drawing.Point(768, 16);
+            this.cboxStoreFind.Name = "cboxStoreFind";
+            this.cboxStoreFind.Size = new System.Drawing.Size(121, 21);
+            this.cboxStoreFind.TabIndex = 73;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(733, 21);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(29, 13);
+            this.label13.TabIndex = 72;
+            this.label13.Text = "Kho ";
+            // 
             // comboBoxProductTypeFind
             // 
             this.comboBoxProductTypeFind.DisplayMember = "ProductType";
@@ -563,23 +582,6 @@
             this.comboBoxSizeFind.TabIndex = 68;
             this.comboBoxSizeFind.ValueMember = "Size";
             this.comboBoxSizeFind.SelectedIndexChanged += new System.EventHandler(this.comboBoxSizeFind_SelectedIndexChanged);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(733, 21);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(29, 13);
-            this.label13.TabIndex = 72;
-            this.label13.Text = "Kho ";
-            // 
-            // cboxStoreFind
-            // 
-            this.cboxStoreFind.FormattingEnabled = true;
-            this.cboxStoreFind.Location = new System.Drawing.Point(768, 16);
-            this.cboxStoreFind.Name = "cboxStoreFind";
-            this.cboxStoreFind.Size = new System.Drawing.Size(121, 21);
-            this.cboxStoreFind.TabIndex = 73;
             // 
             // productBindingSource
             // 
