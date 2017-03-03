@@ -19,6 +19,7 @@ namespace JS_Manage
                 return Role.ToLower() == "Admin".ToLower() ? true : false; 
             }
         }
+        public static int StoreId { get; set; }
 
     }
 }

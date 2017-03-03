@@ -32,8 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductSearchForm));
             this.txtProductCodeSearch = new System.Windows.Forms.TextBox();
             this.grvProductList = new System.Windows.Forms.DataGridView();
-            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.jSManagementDataSet = new JS_Manage.JSManagementDataSet();
             this.label1 = new System.Windows.Forms.Label();
             this.chkIsInStock = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -63,10 +61,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grvProductInOutDetail = new System.Windows.Forms.DataGridView();
-            this.getProductInOutDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.jSManagementDataSet1 = new JS_Manage.JSManagementDataSet();
-            this.productTableAdapter1 = new JS_Manage.JSManagementDataSetTableAdapters.ProductTableAdapter();
-            this.getProductInOutDetailTableAdapter = new JS_Manage.JSManagementDataSetTableAdapters.GetProductInOutDetailTableAdapter();
             this.lbProductHeader = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btLowStockReport = new System.Windows.Forms.Button();
@@ -80,26 +74,34 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.comboBoxSizeFind = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cboxStoreFind = new System.Windows.Forms.ComboBox();
+            this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.jSManagementDataSet = new JS_Manage.JSManagementDataSet();
+            this.getProductInOutDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.jSManagementDataSet1 = new JS_Manage.JSManagementDataSet();
+            this.productTableAdapter1 = new JS_Manage.JSManagementDataSetTableAdapters.ProductTableAdapter();
+            this.getProductInOutDetailTableAdapter = new JS_Manage.JSManagementDataSetTableAdapters.GetProductInOutDetailTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.grvProductList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jSManagementDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpeningBalance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOutput)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownClosingBalance)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grvProductInOutDetail)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.getProductInOutDetailBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jSManagementDataSet1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jSManagementDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.getProductInOutDetailBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jSManagementDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtProductCodeSearch
             // 
             this.txtProductCodeSearch.Location = new System.Drawing.Point(92, 275);
             this.txtProductCodeSearch.Name = "txtProductCodeSearch";
-            this.txtProductCodeSearch.Size = new System.Drawing.Size(158, 20);
+            this.txtProductCodeSearch.Size = new System.Drawing.Size(89, 20);
             this.txtProductCodeSearch.TabIndex = 0;
             this.txtProductCodeSearch.TextChanged += new System.EventHandler(this.txtProductCode_TextChanged);
             // 
@@ -113,16 +115,6 @@
             this.grvProductList.TabIndex = 3;
             this.grvProductList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvProductList_CellDoubleClick);
             this.grvProductList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
-            // 
-            // productBindingSource
-            // 
-            this.productBindingSource.DataMember = "Product";
-            this.productBindingSource.DataSource = this.jSManagementDataSet;
-            // 
-            // jSManagementDataSet
-            // 
-            this.jSManagementDataSet.DataSetName = "JSManagementDataSet";
-            this.jSManagementDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // label1
             // 
@@ -138,7 +130,7 @@
             this.chkIsInStock.AutoSize = true;
             this.chkIsInStock.Checked = true;
             this.chkIsInStock.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIsInStock.Location = new System.Drawing.Point(680, 17);
+            this.chkIsInStock.Location = new System.Drawing.Point(614, 17);
             this.chkIsInStock.Name = "chkIsInStock";
             this.chkIsInStock.Size = new System.Drawing.Size(72, 17);
             this.chkIsInStock.TabIndex = 1;
@@ -317,9 +309,9 @@
             // 
             // btSearch
             // 
-            this.btSearch.Location = new System.Drawing.Point(798, 14);
+            this.btSearch.Location = new System.Drawing.Point(895, 15);
             this.btSearch.Name = "btSearch";
-            this.btSearch.Size = new System.Drawing.Size(140, 23);
+            this.btSearch.Size = new System.Drawing.Size(82, 23);
             this.btSearch.TabIndex = 2;
             this.btSearch.Text = "Tìm sản phẩm";
             this.btSearch.UseVisualStyleBackColor = true;
@@ -410,24 +402,6 @@
             this.grvProductInOutDetail.TabIndex = 100;
             this.grvProductInOutDetail.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvProductInOutDetail_CellDoubleClick);
             // 
-            // getProductInOutDetailBindingSource
-            // 
-            this.getProductInOutDetailBindingSource.DataMember = "GetProductInOutDetail";
-            this.getProductInOutDetailBindingSource.DataSource = this.jSManagementDataSet1;
-            // 
-            // jSManagementDataSet1
-            // 
-            this.jSManagementDataSet1.DataSetName = "JSManagementDataSet";
-            this.jSManagementDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // productTableAdapter1
-            // 
-            this.productTableAdapter1.ClearBeforeFill = true;
-            // 
-            // getProductInOutDetailTableAdapter
-            // 
-            this.getProductInOutDetailTableAdapter.ClearBeforeFill = true;
-            // 
             // lbProductHeader
             // 
             this.lbProductHeader.AutoSize = true;
@@ -489,6 +463,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.cboxStoreFind);
+            this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.comboBoxProductTypeFind);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.btPrint);
@@ -510,7 +486,7 @@
             this.comboBoxProductTypeFind.DisplayMember = "ProductType";
             this.comboBoxProductTypeFind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxProductTypeFind.FormattingEnabled = true;
-            this.comboBoxProductTypeFind.Location = new System.Drawing.Point(302, 15);
+            this.comboBoxProductTypeFind.Location = new System.Drawing.Point(236, 15);
             this.comboBoxProductTypeFind.Name = "comboBoxProductTypeFind";
             this.comboBoxProductTypeFind.Size = new System.Drawing.Size(100, 21);
             this.comboBoxProductTypeFind.TabIndex = 66;
@@ -520,7 +496,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(243, 19);
+            this.label10.Location = new System.Drawing.Point(177, 19);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(56, 13);
             this.label10.TabIndex = 69;
@@ -541,7 +517,7 @@
             this.comboBoxBrandFind.DisplayMember = "Brand";
             this.comboBoxBrandFind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxBrandFind.FormattingEnabled = true;
-            this.comboBoxBrandFind.Location = new System.Drawing.Point(462, 15);
+            this.comboBoxBrandFind.Location = new System.Drawing.Point(396, 15);
             this.comboBoxBrandFind.Name = "comboBoxBrandFind";
             this.comboBoxBrandFind.Size = new System.Drawing.Size(100, 21);
             this.comboBoxBrandFind.TabIndex = 67;
@@ -550,9 +526,9 @@
             // 
             // btPrintPreview
             // 
-            this.btPrintPreview.Location = new System.Drawing.Point(944, 14);
+            this.btPrintPreview.Location = new System.Drawing.Point(983, 14);
             this.btPrintPreview.Name = "btPrintPreview";
-            this.btPrintPreview.Size = new System.Drawing.Size(118, 23);
+            this.btPrintPreview.Size = new System.Drawing.Size(79, 23);
             this.btPrintPreview.TabIndex = 0;
             this.btPrintPreview.Text = "Print Preview";
             this.btPrintPreview.UseVisualStyleBackColor = true;
@@ -561,7 +537,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(404, 19);
+            this.label11.Location = new System.Drawing.Point(338, 19);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(56, 13);
             this.label11.TabIndex = 70;
@@ -570,7 +546,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(571, 19);
+            this.label12.Location = new System.Drawing.Point(505, 19);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(27, 13);
             this.label12.TabIndex = 71;
@@ -581,12 +557,57 @@
             this.comboBoxSizeFind.DisplayMember = "Size";
             this.comboBoxSizeFind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSizeFind.FormattingEnabled = true;
-            this.comboBoxSizeFind.Location = new System.Drawing.Point(608, 14);
+            this.comboBoxSizeFind.Location = new System.Drawing.Point(542, 14);
             this.comboBoxSizeFind.Name = "comboBoxSizeFind";
             this.comboBoxSizeFind.Size = new System.Drawing.Size(54, 21);
             this.comboBoxSizeFind.TabIndex = 68;
             this.comboBoxSizeFind.ValueMember = "Size";
             this.comboBoxSizeFind.SelectedIndexChanged += new System.EventHandler(this.comboBoxSizeFind_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(733, 21);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(29, 13);
+            this.label13.TabIndex = 72;
+            this.label13.Text = "Kho ";
+            // 
+            // cboxStoreFind
+            // 
+            this.cboxStoreFind.FormattingEnabled = true;
+            this.cboxStoreFind.Location = new System.Drawing.Point(768, 16);
+            this.cboxStoreFind.Name = "cboxStoreFind";
+            this.cboxStoreFind.Size = new System.Drawing.Size(121, 21);
+            this.cboxStoreFind.TabIndex = 73;
+            // 
+            // productBindingSource
+            // 
+            this.productBindingSource.DataMember = "Product";
+            this.productBindingSource.DataSource = this.jSManagementDataSet;
+            // 
+            // jSManagementDataSet
+            // 
+            this.jSManagementDataSet.DataSetName = "JSManagementDataSet";
+            this.jSManagementDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // getProductInOutDetailBindingSource
+            // 
+            this.getProductInOutDetailBindingSource.DataMember = "GetProductInOutDetail";
+            this.getProductInOutDetailBindingSource.DataSource = this.jSManagementDataSet1;
+            // 
+            // jSManagementDataSet1
+            // 
+            this.jSManagementDataSet1.DataSetName = "JSManagementDataSet";
+            this.jSManagementDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // productTableAdapter1
+            // 
+            this.productTableAdapter1.ClearBeforeFill = true;
+            // 
+            // getProductInOutDetailTableAdapter
+            // 
+            this.getProductInOutDetailTableAdapter.ClearBeforeFill = true;
             // 
             // ProductSearchForm
             // 
@@ -616,20 +637,20 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ProductSearchForm_KeyDown);
             this.Resize += new System.EventHandler(this.ProductSearchForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.grvProductList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jSManagementDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpeningBalance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOutput)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownClosingBalance)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grvProductInOutDetail)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.getProductInOutDetailBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jSManagementDataSet1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jSManagementDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.getProductInOutDetailBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jSManagementDataSet1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -688,6 +709,8 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox comboBoxSizeFind;
         private System.Windows.Forms.Button btLowStockReport;
+        private System.Windows.Forms.ComboBox cboxStoreFind;
+        private System.Windows.Forms.Label label13;
     }
 }
 

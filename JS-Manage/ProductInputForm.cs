@@ -24,6 +24,7 @@ namespace JS_Manage
         JSManagementDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter;
         JSManagementDataSetTableAdapters.CostTableAdapter costTableAdapter;
         JSManagementDataSetTableAdapters.CostTypeTableAdapter costTypeTableAdapter;
+        JSManagementDataSetTableAdapters.StoreTableAdapter storeTableAdapter;
         CultureInfo cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
 
         public bool isAdmin = false;
@@ -55,6 +56,9 @@ namespace JS_Manage
             productInputSumaryTableAdapter = new JSManagementDataSetTableAdapters.ProductInputSumaryTableAdapter();
             productInputSumaryTableAdapter.Connection = CommonHelper.GetSQLConnection();
 
+            storeTableAdapter = new JSManagementDataSetTableAdapters.StoreTableAdapter();
+            storeTableAdapter.Connection = CommonHelper.GetSQLConnection();
+
             this.prnPreview = new System.Windows.Forms.PrintPreviewDialog();
             this.prnDocument = new System.Drawing.Printing.PrintDocument();
             // the Event of 'PrintPage'
@@ -70,7 +74,11 @@ namespace JS_Manage
             dateTimePickerProductInput_ValueChanged(new object(), new EventArgs());
             dateTimePickerProductInput.Focus();
             cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.CASH;
-
+            cboxStore.DataSource = storeTableAdapter.GetData();
+            cboxStore.DisplayMember = Constant.Store.DISPLAY_MEMBER;
+            cboxStore.ValueMember = Constant.Store.VALUE_MEMBER;
+            cboxStore.SelectedValue = LoginInfor.StoreId;
+            cboxStore.Enabled = LoginInfor.IsAdmin;
             if (this.ProductInputOrderId != 0)
             {
                 BindDataToEdit(ProductInputOrderId);
@@ -232,7 +240,7 @@ namespace JS_Manage
         {
             int supId = 0;
             int.TryParse(txtSupplierSearch.Text, out supId);
-            grvInputProduct.DataSource = productInputSumaryTableAdapter.GetProductInputSumary(dateTimePickerFrom.Value, dateTimePickerTo.Value, supId);
+            grvInputProduct.DataSource = productInputSumaryTableAdapter.GetProductInputSumary(dateTimePickerFrom.Value, dateTimePickerTo.Value, supId, int.Parse(cboxStore.SelectedValue.ToString()));
 
             grvInputProduct.Columns[Constant.ProductInput.INPUT_DATE_COLUMN_NAME].HeaderText = Constant.ProductInput.INPUT_DATE_COL_HEADER;
             grvInputProduct.Columns[Constant.ProductInput.SUPPLIER_ID_COL_NAME].HeaderText = Constant.ProductInput.SUPPLIER_COL_HEADER;
@@ -323,10 +331,13 @@ namespace JS_Manage
 
                     string productCodeSearch = grvProducts.CurrentCell.Value == null ? string.Empty : grvProducts.CurrentCell.Value.ToString();
                     ProductSearchForm proSearchForm = new ProductSearchForm();
-                    TextBox txtProductCodeSearch = proSearchForm.Controls.Find("txtProductCodeSearch", true)[0] as TextBox;
-                    txtProductCodeSearch.Text = productCodeSearch;
+                    //TextBox txtProductCodeSearch = proSearchForm.Controls.Find("txtProductCodeSearch", true)[0] as TextBox;
+                    //txtProductCodeSearch.Text = productCodeSearch;
+                    //ComboBox cboxStoreFind = proSearchForm.Controls.Find("cboxStoreFind", true)[0] as ComboBox;
+                    proSearchForm.searchText = productCodeSearch;
                     proSearchForm.inputProductGridRowIndex = grvProducts.CurrentCell.RowIndex;
                     proSearchForm.isOpenedByInputProduct = true;
+                    proSearchForm.storeId = -1;
                     proSearchForm.ShowDialog();
 
                 }
@@ -504,7 +515,7 @@ namespace JS_Manage
             int productInputOrderId = int.Parse(lbProductInputOrderId.Text);
             int supId = int.Parse(txtCustomerCode.Text);
             DateTime inputDate = dateTimePickerProductInput.Value;
-
+            int storeId = int.Parse(cboxStore.SelectedValue.ToString());
             int productId;
             int productInputId;
             int quantity;
@@ -513,7 +524,7 @@ namespace JS_Manage
             using (TransactionScope tran = new TransactionScope())
             {
                 //Update InputProductOrder
-                productInputOrderTableAdapter.UpdateById(inputDate.ToString(), supId, LoginInfor.UserName, DateTime.Now.ToString(), cboxIsPaidLater.Checked , productInputOrderId);
+                productInputOrderTableAdapter.UpdateById(inputDate.ToString(), supId, LoginInfor.UserName, DateTime.Now.ToString(), cboxIsPaidLater.Checked ,storeId ,productInputOrderId);
 
                 //Update Products
 
@@ -590,9 +601,10 @@ namespace JS_Manage
             int productInputOrderId = 0;
             DateTime inputDate = dateTimePickerProductInput.Value;
             int supId = int.Parse(txtCustomerCode.Text);
+            int storeId = int.Parse(cboxStore.SelectedValue.ToString());
             using (TransactionScope tran = new TransactionScope())
             {
-                object result = productInputOrderTableAdapter.InsertReturnId(inputDate, supId, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, cboxIsPaidLater.Checked);
+                object result = productInputOrderTableAdapter.InsertReturnId(inputDate, supId, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, cboxIsPaidLater.Checked, storeId);
                              
                 if (int.TryParse(result.ToString(), out productInputOrderId))
                 {                    
@@ -899,7 +911,7 @@ namespace JS_Manage
             JSManagementDataSetTableAdapters.InputProductsByProductInputOrderIdTableAdapter inputproductsTableAdapter = new JSManagementDataSetTableAdapters.InputProductsByProductInputOrderIdTableAdapter();
             inputproductsTableAdapter.Connection = CommonHelper.GetSQLConnection();
             JSManagementDataSet.InputProductsByProductInputOrderIdDataTable dTable = inputproductsTableAdapter.GetInputProductsByProductInputOrderId(productInputOrderId);
-
+            cboxStore.SelectedValue = productInputOrderData[0].StoreId;
             decimal inputPrice;
             for (int i = 0; i < dTable.Rows.Count; i++)
             {

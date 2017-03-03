@@ -63,6 +63,9 @@
             this.dateTimePickerProductInput = new System.Windows.Forms.DateTimePicker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cboxStore = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btProductInforPrint = new System.Windows.Forms.Button();
             this.txtTotalAmount = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtTotalQuantity = new System.Windows.Forms.TextBox();
@@ -72,7 +75,6 @@
             this.cboxIsPaidLater = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btProductInforPrint = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvInputProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -338,7 +340,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::JS_Manage.Properties.Resources.jeans_style_flying;
-            this.pictureBox1.Location = new System.Drawing.Point(823, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(68, 72);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -347,6 +349,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cboxStore);
+            this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.btProductInforPrint);
             this.groupBox1.Controls.Add(this.txtTotalAmount);
             this.groupBox1.Controls.Add(this.label8);
@@ -374,6 +378,33 @@
             this.groupBox1.Size = new System.Drawing.Size(897, 374);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // cboxStore
+            // 
+            this.cboxStore.FormattingEnabled = true;
+            this.cboxStore.Location = new System.Drawing.Point(457, 45);
+            this.cboxStore.Name = "cboxStore";
+            this.cboxStore.Size = new System.Drawing.Size(121, 21);
+            this.cboxStore.TabIndex = 66;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(377, 45);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(75, 13);
+            this.label9.TabIndex = 65;
+            this.label9.Text = "Nhập vào kho";
+            // 
+            // btProductInforPrint
+            // 
+            this.btProductInforPrint.Location = new System.Drawing.Point(349, 341);
+            this.btProductInforPrint.Name = "btProductInforPrint";
+            this.btProductInforPrint.Size = new System.Drawing.Size(103, 23);
+            this.btProductInforPrint.TabIndex = 64;
+            this.btProductInforPrint.Text = "In Thông tin SP";
+            this.btProductInforPrint.UseVisualStyleBackColor = true;
+            this.btProductInforPrint.Click += new System.EventHandler(this.btProductInforPrint_Click);
             // 
             // txtTotalAmount
             // 
@@ -466,22 +497,12 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tìm hàn&g nhập";
             // 
-            // btProductInforPrint
-            // 
-            this.btProductInforPrint.Location = new System.Drawing.Point(349, 341);
-            this.btProductInforPrint.Name = "btProductInforPrint";
-            this.btProductInforPrint.Size = new System.Drawing.Size(103, 23);
-            this.btProductInforPrint.TabIndex = 64;
-            this.btProductInforPrint.Text = "In Thông tin SP";
-            this.btProductInforPrint.UseVisualStyleBackColor = true;
-            this.btProductInforPrint.Click += new System.EventHandler(this.btProductInforPrint_Click);
-            // 
             // productInputForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(909, 764);
+            this.ClientSize = new System.Drawing.Size(909, 741);
             this.Controls.Add(this.btSearch);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label5);
@@ -553,5 +574,7 @@
         private System.Windows.Forms.ComboBox cboxBankAccount;
         private System.Windows.Forms.ComboBox cboxPaymentMethod;
         private System.Windows.Forms.Button btProductInforPrint;
+        private System.Windows.Forms.ComboBox cboxStore;
+        private System.Windows.Forms.Label label9;
     }
 }

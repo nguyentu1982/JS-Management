@@ -56,7 +56,7 @@
             this.btGetCustId.Location = new System.Drawing.Point(163, -1);
             this.btGetCustId.Name = "btGetCustId";
             this.btGetCustId.Size = new System.Drawing.Size(29, 23);
-            this.btGetCustId.TabIndex = 2;
+            this.btGetCustId.TabIndex = 65;
             this.btGetCustId.Text = ">";
             this.btGetCustId.UseVisualStyleBackColor = true;
             this.btGetCustId.Click += new System.EventHandler(this.btGetCustId_Click);

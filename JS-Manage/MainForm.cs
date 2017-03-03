@@ -31,7 +31,11 @@ namespace JS_Manage
             {
                 btOperationResult.Visible = LoginInfor.IsAdmin;
                 btManageCash.Visible = LoginInfor.IsAdmin;
-                lbUserName.Text = LoginInfor.UserName;
+                JSManagementDataSetTableAdapters.StoreTableAdapter storeTableAdapter = new JSManagementDataSetTableAdapters.StoreTableAdapter();
+                storeTableAdapter.Connection = CommonHelper.GetSQLConnection();
+                JSManagementDataSet.StoreDataTable storeData = storeTableAdapter.GetDataByStoreIds(LoginInfor.StoreId);
+
+                lbUserName.Text = string.Format("Đăng nhập: {0} {1} Kho hàng: {2}", LoginInfor.UserName, Environment.NewLine ,storeData.Rows[0][1].ToString()); 
             }
             this.StartPosition = FormStartPosition.CenterScreen;
         }

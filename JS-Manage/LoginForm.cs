@@ -31,9 +31,17 @@ namespace JS_Manage
                     }                    
                 }
                 if (mainform.Controls.Count > 1)
-                {                    
-                    Label lbUserName = mainform.Controls.Find("lbUserName", true)[0] as Label;                    
-                    lbUserName.Text = LoginInfor.UserName;                    
+                {
+                    int storeId = 0;
+                    Label lbUserName = mainform.Controls.Find("lbUserName", true)[0] as Label;      
+                    
+                    if(cboxStore.SelectedValue != null)
+                    {
+                         storeId = int.Parse(cboxStore.SelectedValue.ToString());
+                         LoginInfor.StoreId = storeId;
+                    }
+                    lbUserName.Text = string.Format("Tên đăng nhập {0} - Kho hàng {1}", LoginInfor.UserName, cboxStore.Text); 
+                    
                     mainform.Controls.Find("btOperationResult", true)[0].Visible = LoginInfor.IsAdmin;
                     mainform.Controls.Find("btManageCash", true)[0].Visible = LoginInfor.IsAdmin;
                     
@@ -60,6 +68,23 @@ namespace JS_Manage
         private void LoginForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) this.Close();
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+            if(Login())
+            {
+                //Load stores
+                JSManagementDataSetTableAdapters.UserStoreTableAdapter userStoreTableAdapter = new JSManagementDataSetTableAdapters.UserStoreTableAdapter();
+                userStoreTableAdapter.Connection = CommonHelper.GetSQLConnection();
+                JSManagementDataSet.UserStoreDataTable userStoreDataTable = userStoreTableAdapter.GetStoresByUserName(txtUserName.Text);
+                if(userStoreDataTable.Rows.Count>0)
+                {
+                    cboxStore.DataSource = userStoreDataTable;
+                    cboxStore.DisplayMember = "StoreName";
+                    cboxStore.ValueMember = "StoreId";
+                }               
+            }
         }
     }
 }

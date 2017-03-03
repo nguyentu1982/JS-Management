@@ -141,7 +141,7 @@
             // lbUserName
             // 
             this.lbUserName.AutoSize = true;
-            this.lbUserName.Location = new System.Drawing.Point(488, 12);
+            this.lbUserName.Location = new System.Drawing.Point(2, 6);
             this.lbUserName.Name = "lbUserName";
             this.lbUserName.Size = new System.Drawing.Size(29, 13);
             this.lbUserName.TabIndex = 9;

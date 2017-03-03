@@ -201,7 +201,7 @@ namespace JS_Manage
             int orderId = row.Cells[0].Value==DBNull.Value?0: int.Parse(row.Cells[0].Value.ToString());
             string billNumber = row.Cells[1].Value.ToString();
             string orderDate =  DateTime.Parse(row.Cells[2].Value.ToString()).ToShortDateString();
-
+            int storeId = LoginInfor.StoreId;
 
             lbOrderDate.Text = orderDate;
             lbBillNumber.Text = billNumber;

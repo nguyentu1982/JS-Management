@@ -36,6 +36,8 @@
             this.btLogin = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cboxStore = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +59,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cboxStore);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.lbLoginStatus);
             this.groupBox1.Controls.Add(this.btLogin);
             this.groupBox1.Controls.Add(this.label2);
@@ -80,7 +84,7 @@
             // 
             // btLogin
             // 
-            this.btLogin.Location = new System.Drawing.Point(81, 89);
+            this.btLogin.Location = new System.Drawing.Point(81, 100);
             this.btLogin.Name = "btLogin";
             this.btLogin.Size = new System.Drawing.Size(75, 23);
             this.btLogin.TabIndex = 4;
@@ -104,7 +108,25 @@
             this.txtPassword.Size = new System.Drawing.Size(100, 20);
             this.txtPassword.TabIndex = 3;
             this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPassword_KeyPress);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Store";
+            // 
+            // cboxStore
+            // 
+            this.cboxStore.FormattingEnabled = true;
+            this.cboxStore.Location = new System.Drawing.Point(81, 73);
+            this.cboxStore.Name = "cboxStore";
+            this.cboxStore.Size = new System.Drawing.Size(121, 21);
+            this.cboxStore.TabIndex = 7;
             // 
             // LoginForm
             // 
@@ -133,5 +155,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label lbLoginStatus;
+        private System.Windows.Forms.ComboBox cboxStore;
+        private System.Windows.Forms.Label label3;
     }
 }

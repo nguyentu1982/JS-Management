@@ -72,8 +72,6 @@
             this.Đến = new System.Windows.Forms.Label();
             this.btFind = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtProductCodeFind = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.checkedListBoxOutputType = new System.Windows.Forms.CheckedListBox();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSoldBy = new System.Windows.Forms.ComboBox();
@@ -100,8 +98,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btFindCustomer = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.productTypeBrandSizeUserControl1 = new JS_Manage.ProductTypeBrandSizeUserControl();
-            this.paymentMethodUserControl1 = new JS_Manage.PaymentMethodUserControl();
+            this.cboxStore = new System.Windows.Forms.ComboBox();
+            this.paymentMethodUserControl2 = new JS_Manage.PaymentMethodUserControl();
             ((System.ComponentModel.ISupportInitialize)(this.grvProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvPurchaseReceiptOrderSumary)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -454,10 +452,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.productTypeBrandSizeUserControl1);
-            this.groupBox1.Controls.Add(this.txtProductCodeFind);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.paymentMethodUserControl1);
+            this.groupBox1.Controls.Add(this.paymentMethodUserControl2);
             this.groupBox1.Controls.Add(this.checkedListBoxOutputType);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.comboBoxSoldBy);
@@ -480,24 +475,6 @@
             this.groupBox1.TabIndex = 145;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tìm hàn&g xuất";
-            // 
-            // txtProductCodeFind
-            // 
-            this.txtProductCodeFind.Location = new System.Drawing.Point(62, 74);
-            this.txtProductCodeFind.Name = "txtProductCodeFind";
-            this.txtProductCodeFind.Size = new System.Drawing.Size(68, 20);
-            this.txtProductCodeFind.TabIndex = 217;
-            this.txtProductCodeFind.Visible = false;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 78);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(51, 13);
-            this.label11.TabIndex = 216;
-            this.label11.Text = "Mã Hàng";
-            this.label11.Visible = false;
             // 
             // checkedListBoxOutputType
             // 
@@ -760,6 +737,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cboxStore);
             this.panel1.Controls.Add(this.lbPerchaseReceiptOrderHeader);
             this.panel1.Controls.Add(this.btPrintPostOfficeLetter);
             this.panel1.Controls.Add(this.btPrint);
@@ -777,29 +755,23 @@
             this.panel1.Size = new System.Drawing.Size(1104, 402);
             this.panel1.TabIndex = 1018;
             // 
-            // productTypeBrandSizeUserControl1
+            // cboxStore
             // 
-            this.productTypeBrandSizeUserControl1.Brand = "";
-            this.productTypeBrandSizeUserControl1.BrandComboboxDataSource = null;
-            this.productTypeBrandSizeUserControl1.Location = new System.Drawing.Point(136, 69);
-            this.productTypeBrandSizeUserControl1.Name = "productTypeBrandSizeUserControl1";
-            this.productTypeBrandSizeUserControl1.ProductComboboxDataSource = null;
-            this.productTypeBrandSizeUserControl1.ProductSize = null;
-            this.productTypeBrandSizeUserControl1.ProductType = null;
-            this.productTypeBrandSizeUserControl1.Size = new System.Drawing.Size(428, 27);
-            this.productTypeBrandSizeUserControl1.SizeComboboxDataSource = null;
-            this.productTypeBrandSizeUserControl1.TabIndex = 218;
-            this.productTypeBrandSizeUserControl1.Visible = false;
+            this.cboxStore.FormattingEnabled = true;
+            this.cboxStore.Location = new System.Drawing.Point(978, 7);
+            this.cboxStore.Name = "cboxStore";
+            this.cboxStore.Size = new System.Drawing.Size(121, 21);
+            this.cboxStore.TabIndex = 1011;
             // 
-            // paymentMethodUserControl1
+            // paymentMethodUserControl2
             // 
-            this.paymentMethodUserControl1.AutoSize = true;
-            this.paymentMethodUserControl1.BankAccountIds = ((System.Collections.Generic.List<int>)(resources.GetObject("paymentMethodUserControl1.BankAccountIds")));
-            this.paymentMethodUserControl1.Location = new System.Drawing.Point(681, 8);
-            this.paymentMethodUserControl1.Name = "paymentMethodUserControl1";
-            this.paymentMethodUserControl1.PaymentMethod = "Tất cả";
-            this.paymentMethodUserControl1.Size = new System.Drawing.Size(408, 29);
-            this.paymentMethodUserControl1.TabIndex = 215;
+            this.paymentMethodUserControl2.AutoSize = true;
+            this.paymentMethodUserControl2.BankAccountIds = ((System.Collections.Generic.List<int>)(resources.GetObject("paymentMethodUserControl2.BankAccountIds")));
+            this.paymentMethodUserControl2.Location = new System.Drawing.Point(690, 10);
+            this.paymentMethodUserControl2.Name = "paymentMethodUserControl2";
+            this.paymentMethodUserControl2.PaymentMethod = "Tất cả";
+            this.paymentMethodUserControl2.Size = new System.Drawing.Size(408, 29);
+            this.paymentMethodUserControl2.TabIndex = 215;
             // 
             // PurchaseReceiptOrderForm
             // 
@@ -807,7 +779,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1227, 741);
+            this.ClientSize = new System.Drawing.Size(1261, 741);
             this.Controls.Add(this.cboxBankAccount);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.cboxPaymentMethod);
@@ -920,9 +892,9 @@
         private System.Windows.Forms.ComboBox cboxBankAccount;
         private System.Windows.Forms.CheckedListBox checkedListBoxOutputType;
         private PaymentMethodUserControl paymentMethodUserControl1;
-        private System.Windows.Forms.TextBox txtProductCodeFind;
-        private System.Windows.Forms.Label label11;
         private ProductTypeBrandSizeUserControl productTypeBrandSizeUserControl1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox cboxStore;
+        private PaymentMethodUserControl paymentMethodUserControl2;
     }
 }

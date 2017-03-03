@@ -37,6 +37,8 @@ namespace JS_Manage
             bankAccountTableAdapter.Connection = CommonHelper.GetSQLConnection();
 
             cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
+
+            customerSelectUserControl1.TabIndexCustSelect = 60;
         }
 
         #region EventHandler
@@ -487,6 +489,8 @@ namespace JS_Manage
 
             this.WindowState = FormWindowState.Maximized;
             grvIncome.Width = this.Width - 40;
+
+            
 
             if (incomeId != 0)
                 BindDataToEdit(incomeId);

@@ -230,6 +230,7 @@ namespace JS_Manage
 		        public const string INPUT = "Input";
 		        public const string OUTPUT ="Output";
                 public const string CLOSING_BALANCE = "ClosingBalance";
+                public const string STORE_ID = "StoreId";
             }
 
             public static class ProductGridColumnHeader
@@ -306,6 +307,12 @@ namespace JS_Manage
             public const string COST_COL_HEADER = "Tổng tiền";
             public const string INPUT_DATE_COL_HEADER = "Ngày nhập";
             public const string SUPPLIER_COL_HEADER = "Mã NCC";
+        }
+
+        public static class Store
+        {
+            public const string DISPLAY_MEMBER = "StoreName";
+            public const string VALUE_MEMBER = "StoreId";
         }
     }
 }

@@ -17,18 +17,23 @@ namespace JS_Manage
         private System.Drawing.Printing.PrintDocument prnDocument;
 
         JSManagementDataSetTableAdapters.ProductTableAdapter productTableAdapter;
+        JSManagementDataSetTableAdapters.StoreTableAdapter storeTableAdapter;
         
         public int purchaseReceiptOrderProductGridRowIndex;
         public bool isOpenedByPurchaseReceiptOrder = false;
         public int inputProductGridRowIndex;
         public bool isOpenedByInputProduct=false;
+        public int storeId=0;
+        public string searchText = string.Empty;
+
         public ProductSearchForm()
         {
             InitializeComponent();
             productTableAdapter = new JSManagementDataSetTableAdapters.ProductTableAdapter();
             this.productTableAdapter.Connection = CommonHelper.GetSQLConnection();
             getProductInOutDetailTableAdapter.Connection = CommonHelper.GetSQLConnection();
-
+            storeTableAdapter = new JSManagementDataSetTableAdapters.StoreTableAdapter();
+            storeTableAdapter.Connection = CommonHelper.GetSQLConnection();
             this.prnDialog = new System.Windows.Forms.PrintDialog();
             this.prnPreview = new System.Windows.Forms.PrintPreviewDialog();
             this.prnDocument = new System.Drawing.Printing.PrintDocument();
@@ -46,7 +51,13 @@ namespace JS_Manage
         {
             lbProductHeader.Text = "Thêm mã sản phẩm".ToUpper();
             txtInputPrice.Visible = LoginInfor.IsAdmin;
-            lbInputPrice.Visible = LoginInfor.IsAdmin;            
+            lbInputPrice.Visible = LoginInfor.IsAdmin;
+            cboxStoreFind.DataSource = storeTableAdapter.GetData();
+            cboxStoreFind.DisplayMember = Constant.Store.DISPLAY_MEMBER;
+            cboxStoreFind.ValueMember = Constant.Store.VALUE_MEMBER;
+            cboxStoreFind.SelectedValue = storeId != 0? storeId : LoginInfor.StoreId;
+            cboxStoreFind.Enabled = LoginInfor.IsAdmin;
+
             LoadDefaultData();
 
             if (isOpenedByInputProduct || isOpenedByPurchaseReceiptOrder)
@@ -54,18 +65,22 @@ namespace JS_Manage
                 chkIsInStock.Checked = false;
             }
 
-            string productCode = txtProductCodeSearch.Text;
-            grvProductList.DataSource = productTableAdapter.SearchProducts(productCode, comboBoxProductTypeFind.Text, comboBoxBrandFind.Text, comboBoxSizeFind.Text, chkIsInStock.Checked);
-            FormatProductListGridview();
+            string productCode = searchText!=string.Empty? searchText : txtProductCodeSearch.Text;
+            txtProductCodeSearch.Text = productCode;
+            //grvProductList.DataSource = productTableAdapter.SearchProducts(productCode, comboBoxProductTypeFind.Text, comboBoxBrandFind.Text, comboBoxSizeFind.Text, chkIsInStock.Checked, int.Parse(cboxStoreFind.SelectedValue.ToString()));
+            //FormatProductListGridview();
             
-            grvProductList.CellEnter += dataGridView1_CellEnter;
+            //grvProductList.CellEnter += dataGridView1_CellEnter;
         }
 
         private void txtProductCode_TextChanged(object sender, EventArgs e)
         {
             string productCode = txtProductCodeSearch.Text;
             bool isInStock = chkIsInStock.Checked;
-            grvProductList.DataSource = productTableAdapter.SearchProducts(productCode, comboBoxProductTypeFind.Text, comboBoxBrandFind.Text, comboBoxSizeFind.Text, isInStock);
+            if (cboxStoreFind.SelectedValue != null)
+                storeId = int.Parse(cboxStoreFind.SelectedValue.ToString());
+            
+            grvProductList.DataSource = productTableAdapter.SearchProducts(productCode, comboBoxProductTypeFind.Text, comboBoxBrandFind.Text, comboBoxSizeFind.Text, isInStock, storeId);
             
             FormatProductListGridview();
 
@@ -307,6 +322,7 @@ namespace JS_Manage
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.INPUT].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.INPUT;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.OUTPUT].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.OUTPUT;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.CLOSING_BALANCE].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.CLOSING_BALANCE;
+            grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.STORE_ID].Visible = false;
             
         }
 

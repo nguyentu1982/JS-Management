@@ -29,6 +29,12 @@ namespace JS_Manage
                 }
             }
         }
+        public int TabIndexCustSelect
+        {
+            get { return txtCustId.TabIndex; }
+            set { txtCustId.TabIndex = value; }
+        }
+
         JSManagementDataSetTableAdapters.CustomerTableAdapter custTableAdapter;
 
         public CustomerSelectUserControl()
