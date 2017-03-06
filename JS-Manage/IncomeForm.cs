@@ -37,8 +37,6 @@ namespace JS_Manage
             bankAccountTableAdapter.Connection = CommonHelper.GetSQLConnection();
 
             cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
-
-            customerSelectUserControl1.TabIndexCustSelect = 60;
         }
 
         #region EventHandler
@@ -103,7 +101,7 @@ namespace JS_Manage
 
                 UpdateIncomeGrid();
             }
-        }        
+        }
 
         private void btDelete_Click(object sender, EventArgs e)
         {
@@ -119,7 +117,7 @@ namespace JS_Manage
 
             int incomeId;
 
-            if(!int.TryParse(lbIncomeId.Text, out incomeId)|| lbIncomeId.Text == "0")
+            if (!int.TryParse(lbIncomeId.Text, out incomeId) || lbIncomeId.Text == "0")
             {
                 MessageBox.Show("Phiếu thu không tồn tại");
                 return;
@@ -150,8 +148,8 @@ namespace JS_Manage
         private void btFind_Click(object sender, EventArgs e)
         {
             string incomeNumber = txtIncomeNumberFind.Text;
-            int bankAccountId = cboxToBankAccountFind.SelectedValue==null||!cboxToBankAccountFind.Visible?0: int.Parse(cboxToBankAccountFind.SelectedValue.ToString());
-            
+            int bankAccountId = cboxToBankAccountFind.SelectedValue == null || !cboxToBankAccountFind.Visible ? 0 : int.Parse(cboxToBankAccountFind.SelectedValue.ToString());
+
             int fromBankAccountId = 0;
             if (cboxFromBankAccountFind.SelectedValue.ToString() != "0")
             {
@@ -160,7 +158,7 @@ namespace JS_Manage
             int purchaseReceiptOrderId = 0;
             int.TryParse(txtPurchaseReceiptOrderIdFind.Text, out purchaseReceiptOrderId);
 
-            SearchIncome(incomeNumber, dateTimePickerIncomeFindFrom.Value, dateTimePickerIncomeFindTo.Value, bankAccountId, fromBankAccountId ,purchaseReceiptOrderId);
+            SearchIncome(incomeNumber, dateTimePickerIncomeFindFrom.Value, dateTimePickerIncomeFindTo.Value, bankAccountId, fromBankAccountId, purchaseReceiptOrderId);
             //grvIncome.CellEnter -= grvIncome_CellEnter;
             //grvIncome.CellEnter +=grvIncome_CellEnter;
         }
@@ -181,11 +179,11 @@ namespace JS_Manage
 
         private void SearchIncome(string incomeNumber, DateTime startDate, DateTime endDate, int bankAccountId, int fromBankAccountId, int purchaseReceiveOrderId)
         {
-            grvIncome.DataSource = incomeTableAdapter.GetIncome(startDate, endDate, incomeNumber, bankAccountId, fromBankAccountId, purchaseReceiveOrderId);            
-            RenameIncomeGridHeaderText();            
+            grvIncome.DataSource = incomeTableAdapter.GetIncome(startDate, endDate, incomeNumber, bankAccountId, fromBankAccountId, purchaseReceiveOrderId);
+            RenameIncomeGridHeaderText();
             if (grvIncome.Rows.Count == 1)
                 ClearData();
-        } 
+        }
 
         private bool InsertIncome(out int incomeId)
         {
@@ -202,17 +200,17 @@ namespace JS_Manage
             int fromBankAccountId = int.Parse(cboxFromBankAccount.SelectedValue.ToString());
             List<int> incomeIds = new List<int>();
             int? custId = customerSelectUserControl1.CustId;
-            if (custId ==0 )
-                custId=null;
+            if (custId == 0)
+                custId = null;
 
             object income = new object();
 
-           
+
 
             //Chuyển tiền vào tài khoản mà không phải thu công nợ
             if (!cboxReceivableFromCustomer.Checked && cboxPaymentMethod.SelectedItem.ToString() == Constant.PaymentMethod.BANK_TRANSFER)
             {
-                toBankAccountId = int.Parse(cboxToBankAccount.SelectedValue.ToString());                
+                toBankAccountId = int.Parse(cboxToBankAccount.SelectedValue.ToString());
             }
 
             //Chuyển tiền vào tài khoản tiền mặt từ tài khoản ngân hàng
@@ -222,19 +220,19 @@ namespace JS_Manage
                 fromBankAccountId = int.Parse(cboxFromBankAccount.SelectedValue.ToString());
             }
 
-            income = incomeTableAdapter.InsertIncomeReturnId(incomeDate, incomeNumber, payerName, reason, amount, createdBy, createdDate, createdBy, createdDate, null, costId, purchaseOrderId, fromBankAccountId, toBankAccountId,custId);
+            income = incomeTableAdapter.InsertIncomeReturnId(incomeDate, incomeNumber, payerName, reason, amount, createdBy, createdDate, createdBy, createdDate, null, costId, purchaseOrderId, fromBankAccountId, toBankAccountId, custId);
 
             int.TryParse(income.ToString(), out incomeId);
             incomeIds.Add(incomeId);
 
             if (incomeIds.Count > 0)
-            {            
+            {
                 return true;
             }
 
             return false;
-            
-        }       
+
+        }
 
         private bool UpdateIncome()
         {
@@ -247,8 +245,8 @@ namespace JS_Manage
             string editedBy = LoginInfor.UserName;
             DateTime editedDate = DateTime.Now;
             int purchaseOrderId = int.Parse(lbOrderId.Text);
-            int costId= int.Parse(lbCostId.Text);
-            object income ;
+            int costId = int.Parse(lbCostId.Text);
+            object income;
             List<int> rowcount = new List<int>();
             int rowEffect;
             int fromBankAccountId = int.Parse(cboxFromBankAccount.SelectedValue.ToString());
@@ -257,7 +255,7 @@ namespace JS_Manage
             if (custId == 0)
                 custId = null;
 
-            
+
 
             //Chuyển tiền vào tài khoản mà không phải thu công nợ
             if (!cboxReceivableFromCustomer.Checked && cboxPaymentMethod.SelectedItem.ToString() == Constant.PaymentMethod.BANK_TRANSFER)
@@ -274,31 +272,31 @@ namespace JS_Manage
 
             income = incomeTableAdapter.UpdateIncomeById(incomeDate, incomeNumber, payerName, reason, amount, editedBy, editedDate, null, costId, incomeId, purchaseOrderId, fromBankAccountId, toBankAccountId, custId);
             int.TryParse(income.ToString(), out rowEffect);
-            if(rowEffect>0) rowcount.Add(incomeId);                       
+            if (rowEffect > 0) rowcount.Add(incomeId);
 
             if (rowcount.Count > 0)
-            {               
+            {
                 return true;
             }
 
             return false;
         }
-     
+
         private bool DeleteIncome(int incomeId)
-        {            
+        {
             object income;
             List<int> rowcount = new List<int>();
             int rowEffect;
             income = incomeTableAdapter.DeleteIncomeById(incomeId);
             int.TryParse(income.ToString(), out rowEffect);
-            if (rowEffect >0) rowcount.Add(rowEffect);               
+            if (rowEffect > 0) rowcount.Add(rowEffect);
 
             if (rowcount.Count > 0)
-            {                    
+            {
                 return true;
             }
-            return false;           
-        }    
+            return false;
+        }
 
         #endregion
 
@@ -337,12 +335,12 @@ namespace JS_Manage
             customerSelectUserControl1.CustId = 0;
             cboxPaymentMethod.SelectedIndex = 0;
             customerSelectUserControl1.Enabled = true;
-            
+
         }
 
         private bool ValidateIncome()
         {
-            if(!ValidatePaymentMethod())
+            if (!ValidatePaymentMethod())
             {
                 return false;
             }
@@ -373,7 +371,7 @@ namespace JS_Manage
                 ucTextBoxCurrency1.Focus();
                 return false;
             }
-            
+
             return true;
         }
 
@@ -388,38 +386,38 @@ namespace JS_Manage
             rowIndex = e.RowIndex;
             DataGridViewRow row = grvIncome.Rows[e.RowIndex];
             int incomeId = 0;
-            int.TryParse(row.Cells[Constant.Income.IncomeGrid.INCOME_ID_COLUMN_NAME].Value.ToString(),out incomeId);
-            if(incomeId ==0) return;
+            int.TryParse(row.Cells[Constant.Income.IncomeGrid.INCOME_ID_COLUMN_NAME].Value.ToString(), out incomeId);
+            if (incomeId == 0) return;
 
             BindDataToEdit(incomeId);
-           // JSManagementDataSet.IncomeDataTable incomeData = incomeTableAdapter.GetDataByIncomeId(incomeId);
-           // lbIncomeHeader.Text = "Sửa phiếu thu".ToUpper();
+            // JSManagementDataSet.IncomeDataTable incomeData = incomeTableAdapter.GetDataByIncomeId(incomeId);
+            // lbIncomeHeader.Text = "Sửa phiếu thu".ToUpper();
 
-           // lbIncomeId.Text = incomeId.ToString();
-           // txtIncomeNumber.Text = incomeData[0].IncomeNumber;
-           // dateTimePickerIncome.Value = incomeData[0].IncomeDate;
-           // txtPayerName.Text = incomeData[0].PayerName;
-           // txtReason.Text = incomeData[0].Reason;
-           // ucTextBoxCurrency1.Value = incomeData[0].Amount;
-            
-           // lbOrderId.Text = incomeData[0].PurchaseReceiptOrderId.ToString();
-           // lbCostId.Text = incomeData[0].CostId.ToString();
-           // if (incomeData[0].ToBankAccountId != 0)
-           // {
-           //     cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.BANK_TRANSFER;
-           //     cboxToBankAccount.SelectedValue = incomeData[0].ToBankAccountId;
-           // }
-           // else
-           // {
-           //     cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.CASH;
-           // }
+            // lbIncomeId.Text = incomeId.ToString();
+            // txtIncomeNumber.Text = incomeData[0].IncomeNumber;
+            // dateTimePickerIncome.Value = incomeData[0].IncomeDate;
+            // txtPayerName.Text = incomeData[0].PayerName;
+            // txtReason.Text = incomeData[0].Reason;
+            // ucTextBoxCurrency1.Value = incomeData[0].Amount;
 
-            
-           //cboxFromBankAccount.SelectedValue = incomeData[0].FromBankAccountId;
-           //if (incomeData[0].CustomerId != 0)
-           //customerSelectUserControl1.CustId = incomeData[0].CustomerId;
+            // lbOrderId.Text = incomeData[0].PurchaseReceiptOrderId.ToString();
+            // lbCostId.Text = incomeData[0].CostId.ToString();
+            // if (incomeData[0].ToBankAccountId != 0)
+            // {
+            //     cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.BANK_TRANSFER;
+            //     cboxToBankAccount.SelectedValue = incomeData[0].ToBankAccountId;
+            // }
+            // else
+            // {
+            //     cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.CASH;
+            // }
 
-           // rowIndex = e.RowIndex;
+
+            //cboxFromBankAccount.SelectedValue = incomeData[0].FromBankAccountId;
+            //if (incomeData[0].CustomerId != 0)
+            //customerSelectUserControl1.CustId = incomeData[0].CustomerId;
+
+            // rowIndex = e.RowIndex;
         }
 
         private void RenameIncomeGridHeaderText()
@@ -429,7 +427,7 @@ namespace JS_Manage
             grvIncome.Columns[Constant.Income.IncomeGrid.INCOME_NUMBER_COLUMN_NAME].HeaderText = Constant.Income.IncomeGrid.INCOME_NUMBER_COLUMN_HEADER;
             grvIncome.Columns[Constant.Income.IncomeGrid.PAYER_NAME_COLUMN_NAME].HeaderText = Constant.Income.IncomeGrid.PAYER_NAME_COLUMN_HEADER;
             grvIncome.Columns[Constant.Income.IncomeGrid.REASON_COLUMN_NAME].HeaderText = Constant.Income.IncomeGrid.REASON_COLUMN_HEADER;
-            grvIncome.Columns[Constant.Income.IncomeGrid.AMOUNT_COLUMN_NAME].HeaderText = Constant.Income.IncomeGrid.AMOUNT_COLUMN_HEADER;           
+            grvIncome.Columns[Constant.Income.IncomeGrid.AMOUNT_COLUMN_NAME].HeaderText = Constant.Income.IncomeGrid.AMOUNT_COLUMN_HEADER;
             grvIncome.Columns[Constant.Income.IncomeGrid.AMOUNT_COLUMN_NAME].DefaultCellStyle.Format = string.Format("#,###", cul.NumberFormat);
             grvIncome.Columns[Constant.Income.IncomeGrid.CREATED_BY_COLUMN_NAME].HeaderText = Constant.Income.IncomeGrid.CREATED_BY_COLUMN_HEADER;
             grvIncome.Columns[Constant.Income.IncomeGrid.CREATED_DATE_COLUMN_NAME].HeaderText = Constant.Income.IncomeGrid.CREATED_DATE_COLUMN_HEADER;
@@ -442,7 +440,7 @@ namespace JS_Manage
             grvIncome.Columns[Constant.Income.IncomeGrid.COST_ID_COLUMN_NAME].HeaderText = Constant.Income.IncomeGrid.COST_ID_COLUMN_HEADER;
             grvIncome.Columns[Constant.Income.IncomeGrid.TO_BANK_ACCOUNT_ID_COLUMN_NAME].Visible = false;
             grvIncome.Columns[Constant.Income.IncomeGrid.FROM_BANK_ACCOUNT_ID_COLUMN_NAME].Visible = false;
-            
+
         }
 
         private void UpdateIncomeGrid()
@@ -463,7 +461,7 @@ namespace JS_Manage
             grvIncome.Rows.RemoveAt(rowIndex);
         }
 
-        #endregion Ultility              
+        #endregion Ultility
 
         private void IncomeForm_Load(object sender, EventArgs e)
         {
@@ -490,14 +488,12 @@ namespace JS_Manage
             this.WindowState = FormWindowState.Maximized;
             grvIncome.Width = this.Width - 40;
 
-            
-
             if (incomeId != 0)
                 BindDataToEdit(incomeId);
         }
 
         private void BindDataToEdit(int incomeId)
-        {            
+        {
             if (incomeId == 0) return;
             ClearData();
             JSManagementDataSet.IncomeDataTable incomeData = incomeTableAdapter.GetDataByIncomeId(incomeId);
@@ -517,9 +513,9 @@ namespace JS_Manage
             txtPayerName.Text = incomeData[0].PayerName;
             txtReason.Text = incomeData[0].Reason;
             CultureInfo cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
-            ucTextBoxCurrency1.Value =  incomeData[0].Amount;
-            
-            
+            ucTextBoxCurrency1.Value = incomeData[0].Amount;
+
+
             lbOrderId.Text = incomeData[0].PurchaseReceiptOrderId.ToString();
             if (lbOrderId.Text != "0")
             {
@@ -529,25 +525,25 @@ namespace JS_Manage
                 customerSelectUserControl1.CustId = incomeData[0].CustomerId;
                 customerSelectUserControl1.Enabled = false;
                 cboxReceivableFromCustomer.CheckedChanged += cboxReceivableFromCustomer_CheckedChanged;
-            }                
-                
+            }
+
             lbCostId.Text = incomeData[0].CostId.ToString();
-            
+
 
             cboxFromBankAccount.SelectedValue = incomeData[0].FromBankAccountId;
-           
+
             customerSelectUserControl1.CustId = incomeData[0].CustomerId;
         }
 
         private void cboxReceivableFromCustomer_CheckedChanged(object sender, EventArgs e)
         {
-            if(!ValidatePaymentMethod())
+            if (!ValidatePaymentMethod())
             {
                 return;
             }
-            
+
             CheckBox cboxReceivableFromCustomer = (CheckBox)sender;
-            
+
             if (!cboxReceivableFromCustomer.Checked)
             {
                 customerSelectUserControl1.Enabled = true;
@@ -560,10 +556,10 @@ namespace JS_Manage
                 receivableFromCustForm.bankAccountIdPassFromOtherControl = (cboxPaymentMethod.SelectedItem.ToString() == Constant.PaymentMethod.BANK_TRANSFER && cboxToBankAccount.Visible == true) ? int.Parse(cboxToBankAccount.SelectedValue.ToString()) : 0;
                 (receivableFromCustForm.Controls.Find(Constant.ReceiveableFromCustomer.BANK_ACCOUNT_COMBOBOX_CONTROL_NAME, true)[0] as ComboBox).Enabled = false;
                 receivableFromCustForm.ShowDialog();
-                
+
                 return;
             }
-        }    
+        }
 
         private void IncomeForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -599,19 +595,19 @@ namespace JS_Manage
                     if (!CommonHelper.GetActiveDates().Contains(dateTimePickerIncome.Value.ToShortDateString()))
                     {
                         btSave.Enabled = false;
-                        btDelete.Enabled = false;                          
+                        btDelete.Enabled = false;
                         return;
                     }
                 }
                 btSave.Enabled = true;
-                btDelete.Enabled = true;               
+                btDelete.Enabled = true;
             }
         }
 
         private void cboxPaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboxPaymentMethod.SelectedItem == null) return;
-            if (cboxPaymentMethod.SelectedItem.ToString()  != Constant.PaymentMethod.BANK_TRANSFER)
+            if (cboxPaymentMethod.SelectedItem.ToString() != Constant.PaymentMethod.BANK_TRANSFER)
             {
                 cboxToBankAccount.Visible = false;
                 lbToAccount.Visible = false;
@@ -651,7 +647,7 @@ namespace JS_Manage
                 cboxToBankAccountFind.ValueMember = Constant.BankAccount.Bank_Account_Id_Column_Name;
 
             }
-        }         
+        }
 
         public void Show(int incomeId)
         {

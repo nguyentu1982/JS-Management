@@ -131,7 +131,7 @@
             this.chkIsInStock.AutoSize = true;
             this.chkIsInStock.Checked = true;
             this.chkIsInStock.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIsInStock.Location = new System.Drawing.Point(614, 17);
+            this.chkIsInStock.Location = new System.Drawing.Point(602, 16);
             this.chkIsInStock.Name = "chkIsInStock";
             this.chkIsInStock.Size = new System.Drawing.Size(72, 17);
             this.chkIsInStock.TabIndex = 1;
@@ -510,7 +510,6 @@
             this.comboBoxProductTypeFind.Size = new System.Drawing.Size(100, 21);
             this.comboBoxProductTypeFind.TabIndex = 66;
             this.comboBoxProductTypeFind.ValueMember = "ProductType";
-            this.comboBoxProductTypeFind.SelectedIndexChanged += new System.EventHandler(this.comboBoxProductTypeFind_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -541,7 +540,6 @@
             this.comboBoxBrandFind.Size = new System.Drawing.Size(100, 21);
             this.comboBoxBrandFind.TabIndex = 67;
             this.comboBoxBrandFind.ValueMember = "Brand";
-            this.comboBoxBrandFind.SelectedIndexChanged += new System.EventHandler(this.comboBoxBrandFind_SelectedIndexChanged);
             // 
             // btPrintPreview
             // 
@@ -581,7 +579,6 @@
             this.comboBoxSizeFind.Size = new System.Drawing.Size(54, 21);
             this.comboBoxSizeFind.TabIndex = 68;
             this.comboBoxSizeFind.ValueMember = "Size";
-            this.comboBoxSizeFind.SelectedIndexChanged += new System.EventHandler(this.comboBoxSizeFind_SelectedIndexChanged);
             // 
             // productBindingSource
             // 

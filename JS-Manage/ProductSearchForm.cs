@@ -71,6 +71,11 @@ namespace JS_Manage
             //FormatProductListGridview();
             
             //grvProductList.CellEnter += dataGridView1_CellEnter;
+           
+            comboBoxProductTypeFind.SelectedIndexChanged += comboBoxProductTypeFind_SelectedIndexChanged;
+            comboBoxBrandFind.SelectedIndexChanged +=comboBoxBrandFind_SelectedIndexChanged;
+            comboBoxSizeFind.SelectedIndexChanged += comboBoxSizeFind_SelectedIndexChanged;
+            txtProductCode_TextChanged(new object(), new EventArgs());
         }
 
         private void txtProductCode_TextChanged(object sender, EventArgs e)
@@ -371,6 +376,9 @@ namespace JS_Manage
         private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
         {            
             BindData(e);
+            int row = e.RowIndex;
+            if (row > 0)
+                this.grvProductList.Rows[row].Selected = true; 
         }
 
         private void BindData(DataGridViewCellEventArgs e)
@@ -764,6 +772,12 @@ namespace JS_Manage
             //LowStockProductReportForm lowstockReportForm = new LowStockProductReportForm();
             //lowstockReportForm.StartPosition = FormStartPosition.CenterScreen;
             //lowstockReportForm.Show();
+        }
+
+        private void grvProductList_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = grvProductList.Rows[e.RowIndex];
+            row.DefaultCellStyle.BackColor = Color.Yellow;
         }           
     }
 }
