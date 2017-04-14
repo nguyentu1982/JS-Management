@@ -337,7 +337,7 @@ namespace JS_Manage
                     proSearchForm.searchText = productCodeSearch;
                     proSearchForm.inputProductGridRowIndex = grvProducts.CurrentCell.RowIndex;
                     proSearchForm.isOpenedByInputProduct = true;
-                    proSearchForm.storeId = -1;
+                    proSearchForm.storeId = int.Parse(cboxStore.SelectedValue.ToString());
                     proSearchForm.ShowDialog();
 
                 }

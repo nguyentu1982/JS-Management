@@ -84,18 +84,9 @@ namespace JS_Manage
             bool isInStock = chkIsInStock.Checked;
             if (cboxStoreFind.SelectedValue != null)
                 storeId = int.Parse(cboxStoreFind.SelectedValue.ToString());
-            if (isOpenedByInputProduct)
-            {
-                grvProductList.DataSource = productTableAdapter.SearchProductCode(productCode, comboBoxProductTypeFind.Text, comboBoxBrandFind.Text, comboBoxSizeFind.Text);
-            }
-            else
-            {
-                grvProductList.DataSource = productTableAdapter.SearchProducts(productCode, comboBoxProductTypeFind.Text, comboBoxBrandFind.Text, comboBoxSizeFind.Text, isInStock, storeId);
-            }           
             
+            grvProductList.DataSource = productTableAdapter.SearchProducts(productCode, comboBoxProductTypeFind.Text, comboBoxBrandFind.Text, comboBoxSizeFind.Text, isInStock, storeId);
             FormatProductListGridview();
-
-            
         }
 
         private void PassProductInforToProductInputForm(DataGridViewCellEventArgs e)
