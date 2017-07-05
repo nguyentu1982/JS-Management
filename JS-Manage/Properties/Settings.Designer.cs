@@ -26,32 +26,10 @@ namespace JS_Manage.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.8;Initial Catalog=JeansStyleManagement_DEV;User ID=sa")]
-        public string JeansStyleManagementConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=nanhtu.no-ip.org;Initial Catalog=JeansStyleManagement_DEV;User ID=sa")]
+        public string JS_DEVConnString {
             get {
-                return ((string)(this["JeansStyleManagementConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.6\\SQLEXPRESS;Initial Catalog=JeansStyleManagement_DEV;User " +
-            "ID=sa")]
-        public string JeansStyleManagement_DEVConnectionString {
-            get {
-                return ((string)(this["JeansStyleManagement_DEVConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.6\\SQLEXPRESS;Initial Catalog=JeansStyleManagement_DEV;User " +
-            "ID=sa;Password=niemvui")]
-        public string JeansStyleManagement_DEVConnectionString1 {
-            get {
-                return ((string)(this["JeansStyleManagement_DEVConnectionString1"]));
+                return ((string)(this["JS_DEVConnString"]));
             }
         }
         
@@ -59,20 +37,9 @@ namespace JS_Manage.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=nanhtu.no-ip.org;Initial Catalog=JeansStyleManagement_DEV;User ID=sa")]
-        public string nanhtuNoIpOrgJeansStyleManagement_DEVConnectionString {
+        public string JS_DEV_ConnString {
             get {
-                return ((string)(this["nanhtuNoIpOrgJeansStyleManagement_DEVConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\sqlexpress;Initial Catalog=JeansStyleManagement_DEV;Integrated Secu" +
-            "rity=True")]
-        public string JeansStyleManagement_DEVConnectionString2 {
-            get {
-                return ((string)(this["JeansStyleManagement_DEVConnectionString2"]));
+                return ((string)(this["JS_DEV_ConnString"]));
             }
         }
     }

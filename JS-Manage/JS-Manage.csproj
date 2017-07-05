@@ -109,19 +109,9 @@
     </Compile>
     <Compile Include="CommonHelper.cs" />
     <Compile Include="Constant.cs" />
-    <Compile Include="JSDataSet2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>JSDataSet2.xsd</DependentUpon>
-    </Compile>
     <Compile Include="JSManagementDataSet.cs">
       <DependentUpon>JSManagementDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="JSManagementDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>JSManagementDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="CustomEntity.cs" />
     <Compile Include="CustomerManagementForm.cs">
@@ -131,6 +121,11 @@
       <DependentUpon>CustomerManagementForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DialogResult.cs" />
+    <Compile Include="JSManagementDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JSManagementDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="LiabilitiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +144,7 @@
     <Compile Include="PurchaseOrderMessageBoxForm.Designer.cs">
       <DependentUpon>PurchaseOrderMessageBoxForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="UCTextBoxCurrency.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -394,17 +390,6 @@
     <EmbeddedResource Include="UserControl\CustomerUserControl.resx">
       <DependentUpon>CustomerUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="JSDataSet2.xsc">
-      <DependentUpon>JSDataSet2.xsd</DependentUpon>
-    </None>
-    <None Include="JSDataSet2.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>JSDataSet2.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="JSDataSet2.xss">
-      <DependentUpon>JSDataSet2.xsd</DependentUpon>
-    </None>
     <None Include="JSManagementDataSet.xsc">
       <DependentUpon>JSManagementDataSet.xsd</DependentUpon>
     </None>

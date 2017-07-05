@@ -69,9 +69,9 @@
             this.lableFromBankAccount = new System.Windows.Forms.Label();
             this.lbToAccount = new System.Windows.Forms.Label();
             this.cboxFromBankAccount = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.ucTextBoxCurrency1 = new JS_Manage.UCTextBoxCurrency();
             this.customerSelectUserControl1 = new JS_Manage.CustomerSelectUserControl();
-            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.grvIncome)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -205,7 +205,7 @@
             this.txtIncomeNumberFind.Location = new System.Drawing.Point(307, 19);
             this.txtIncomeNumberFind.Name = "txtIncomeNumberFind";
             this.txtIncomeNumberFind.Size = new System.Drawing.Size(103, 20);
-            this.txtIncomeNumberFind.TabIndex = 22;
+            this.txtIncomeNumberFind.TabIndex = 160;
             // 
             // label7
             // 
@@ -218,10 +218,10 @@
             // 
             // dateTimePickerIncomeFindFrom
             // 
-            this.dateTimePickerIncomeFindFrom.Location = new System.Drawing.Point(55, 244);
+            this.dateTimePickerIncomeFindFrom.Location = new System.Drawing.Point(43, 18);
             this.dateTimePickerIncomeFindFrom.Name = "dateTimePickerIncomeFindFrom";
             this.dateTimePickerIncomeFindFrom.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerIncomeFindFrom.TabIndex = 18;
+            this.dateTimePickerIncomeFindFrom.TabIndex = 10;
             // 
             // label8
             // 
@@ -237,13 +237,14 @@
             this.btFind.Location = new System.Drawing.Point(601, 40);
             this.btFind.Name = "btFind";
             this.btFind.Size = new System.Drawing.Size(127, 23);
-            this.btFind.TabIndex = 24;
+            this.btFind.TabIndex = 210;
             this.btFind.Text = "Tìm";
             this.btFind.UseVisualStyleBackColor = true;
             this.btFind.Click += new System.EventHandler(this.btFind_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.dateTimePickerIncomeFindFrom);
             this.groupBox1.Controls.Add(this.txtPurchaseReceiptOrderIdFind);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label12);
@@ -260,7 +261,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 225);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(780, 75);
-            this.groupBox1.TabIndex = 18;
+            this.groupBox1.TabIndex = 135;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tìm &phiếu thu";
             // 
@@ -269,7 +270,7 @@
             this.txtPurchaseReceiptOrderIdFind.Location = new System.Drawing.Point(674, 15);
             this.txtPurchaseReceiptOrderIdFind.Name = "txtPurchaseReceiptOrderIdFind";
             this.txtPurchaseReceiptOrderIdFind.Size = new System.Drawing.Size(54, 20);
-            this.txtPurchaseReceiptOrderIdFind.TabIndex = 36;
+            this.txtPurchaseReceiptOrderIdFind.TabIndex = 200;
             // 
             // label9
             // 
@@ -296,7 +297,7 @@
             this.cboxFromBankAccountFind.Location = new System.Drawing.Point(467, 18);
             this.cboxFromBankAccountFind.Name = "cboxFromBankAccountFind";
             this.cboxFromBankAccountFind.Size = new System.Drawing.Size(121, 21);
-            this.cboxFromBankAccountFind.TabIndex = 29;
+            this.cboxFromBankAccountFind.TabIndex = 180;
             // 
             // label11
             // 
@@ -314,7 +315,7 @@
             this.cboxToBankAccountFind.Location = new System.Drawing.Point(467, 41);
             this.cboxToBankAccountFind.Name = "cboxToBankAccountFind";
             this.cboxToBankAccountFind.Size = new System.Drawing.Size(121, 21);
-            this.cboxToBankAccountFind.TabIndex = 27;
+            this.cboxToBankAccountFind.TabIndex = 190;
             this.cboxToBankAccountFind.Visible = false;
             // 
             // cboxPaymentMethodFind
@@ -327,7 +328,7 @@
             this.cboxPaymentMethodFind.Location = new System.Drawing.Point(307, 41);
             this.cboxPaymentMethodFind.Name = "cboxPaymentMethodFind";
             this.cboxPaymentMethodFind.Size = new System.Drawing.Size(103, 21);
-            this.cboxPaymentMethodFind.TabIndex = 33;
+            this.cboxPaymentMethodFind.TabIndex = 170;
             this.cboxPaymentMethodFind.SelectedIndexChanged += new System.EventHandler(this.cboxPaymentMethodFind_SelectedIndexChanged);
             // 
             // lableToBankAccountFind
@@ -455,8 +456,21 @@
             this.cboxFromBankAccount.Size = new System.Drawing.Size(121, 21);
             this.cboxFromBankAccount.TabIndex = 80;
             // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.customerSelectUserControl1);
+            this.panel1.Controls.Add(this.cboxFromBankAccount);
+            this.panel1.Controls.Add(this.lableFromBankAccount);
+            this.panel1.Location = new System.Drawing.Point(96, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(848, 214);
+            this.panel1.TabIndex = 55;
+            // 
             // ucTextBoxCurrency1
             // 
+            this.ucTextBoxCurrency1.IsTextBox1Enable = true;
+            this.ucTextBoxCurrency1.isTextBox1Null = false;
             this.ucTextBoxCurrency1.Location = new System.Drawing.Point(200, 156);
             this.ucTextBoxCurrency1.Name = "ucTextBoxCurrency1";
             this.ucTextBoxCurrency1.Size = new System.Drawing.Size(552, 24);
@@ -474,17 +488,7 @@
             this.customerSelectUserControl1.Name = "customerSelectUserControl1";
             this.customerSelectUserControl1.Size = new System.Drawing.Size(488, 23);
             this.customerSelectUserControl1.TabIndex = 60;
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.customerSelectUserControl1);
-            this.panel1.Controls.Add(this.cboxFromBankAccount);
-            this.panel1.Controls.Add(this.lableFromBankAccount);
-            this.panel1.Location = new System.Drawing.Point(96, 5);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(848, 214);
-            this.panel1.TabIndex = 35;
+            this.customerSelectUserControl1.TabIndexCustSelect = 1;
             // 
             // IncomeForm
             // 
@@ -501,7 +505,6 @@
             this.Controls.Add(this.cboxReceivableFromCustomer);
             this.Controls.Add(this.lbOrderId);
             this.Controls.Add(this.lbIncomeId);
-            this.Controls.Add(this.dateTimePickerIncomeFindFrom);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btAddNew);
             this.Controls.Add(this.btDelete);

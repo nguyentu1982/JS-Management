@@ -74,7 +74,7 @@ namespace JS_Manage
             lbOrderId.Text = "0";
             TextBox txtreason = incomeForm.Controls.Find("txtReason", true)[0] as TextBox;
             txtreason.Text = string.Format("Thu nợ/tạm ứng ngày {0} / {1}", DateTime.Parse(row.Cells[2].Value.ToString()).ToShortDateString(), row.Cells[1].Value.ToString());
-            TextBox txtAmount = incomeForm.Controls.Find("txtAmount", true)[0] as TextBox;
+            UCTextBoxCurrency txtAmount = incomeForm.Controls.Find("ucTextBoxCurrency1", true)[0] as UCTextBoxCurrency;
             txtAmount.Text = (decimal.Parse(amount) - decimal.Parse(incomeAmount)).ToString();
             this.Close();
         }

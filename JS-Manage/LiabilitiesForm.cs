@@ -13,7 +13,7 @@ namespace JS_Manage
     public partial class LiabilitiesForm : Form
     {
         JSManagementDataSetTableAdapters.LiabilitiesDetailTableAdapter liabilitiesDetailTableAdapter;
-        JSDataSet2TableAdapters.GetLiabilitySumaryBySupplierIdTableAdapter liatilitySumaryTalbeAdapter;
+        JSManagementDataSetTableAdapters.GetLiabilitySumaryBySupplierIdTableAdapter liatilitySumaryTalbeAdapter;
         CultureInfo cul;
         int ID;
         public LiabilitiesForm()
@@ -23,7 +23,7 @@ namespace JS_Manage
             liabilitiesDetailTableAdapter.Connection = CommonHelper.GetSQLConnection();
             cul =  CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
 
-            liatilitySumaryTalbeAdapter= new JSDataSet2TableAdapters.GetLiabilitySumaryBySupplierIdTableAdapter();
+            liatilitySumaryTalbeAdapter= new JSManagementDataSetTableAdapters.GetLiabilitySumaryBySupplierIdTableAdapter();
             liatilitySumaryTalbeAdapter.Connection = CommonHelper.GetSQLConnection();
             
         }

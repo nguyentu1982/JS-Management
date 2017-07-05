@@ -100,6 +100,8 @@ namespace JS_Manage {
         
         private UserStoreDataTable tableUserStore;
         
+        private GetLiabilitySumaryBySupplierIdDataTable tableGetLiabilitySumaryBySupplierId;
+        
         private global::System.Data.DataRelation relationFK_Cost_CostType;
         
         private global::System.Data.DataRelation relationFK_Orders_PurchaseReceiptOrder;
@@ -273,6 +275,9 @@ namespace JS_Manage {
                 }
                 if ((ds.Tables["UserStore"] != null)) {
                     base.Tables.Add(new UserStoreDataTable(ds.Tables["UserStore"]));
+                }
+                if ((ds.Tables["GetLiabilitySumaryBySupplierId"] != null)) {
+                    base.Tables.Add(new GetLiabilitySumaryBySupplierIdDataTable(ds.Tables["GetLiabilitySumaryBySupplierId"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -674,6 +679,16 @@ namespace JS_Manage {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public GetLiabilitySumaryBySupplierIdDataTable GetLiabilitySumaryBySupplierId {
+            get {
+                return this.tableGetLiabilitySumaryBySupplierId;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -852,6 +867,9 @@ namespace JS_Manage {
                 }
                 if ((ds.Tables["UserStore"] != null)) {
                     base.Tables.Add(new UserStoreDataTable(ds.Tables["UserStore"]));
+                }
+                if ((ds.Tables["GetLiabilitySumaryBySupplierId"] != null)) {
+                    base.Tables.Add(new GetLiabilitySumaryBySupplierIdDataTable(ds.Tables["GetLiabilitySumaryBySupplierId"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -1114,6 +1132,12 @@ namespace JS_Manage {
                     this.tableUserStore.InitVars();
                 }
             }
+            this.tableGetLiabilitySumaryBySupplierId = ((GetLiabilitySumaryBySupplierIdDataTable)(base.Tables["GetLiabilitySumaryBySupplierId"]));
+            if ((initTable == true)) {
+                if ((this.tableGetLiabilitySumaryBySupplierId != null)) {
+                    this.tableGetLiabilitySumaryBySupplierId.InitVars();
+                }
+            }
             this.relationFK_Cost_CostType = this.Relations["FK_Cost_CostType"];
             this.relationFK_Orders_PurchaseReceiptOrder = this.Relations["FK_Orders_PurchaseReceiptOrder"];
             this.relationFK_Income_PurchaseReceiptOrder = this.Relations["FK_Income_PurchaseReceiptOrder"];
@@ -1216,6 +1240,8 @@ namespace JS_Manage {
             base.Tables.Add(this.tableStore);
             this.tableUserStore = new UserStoreDataTable();
             base.Tables.Add(this.tableUserStore);
+            this.tableGetLiabilitySumaryBySupplierId = new GetLiabilitySumaryBySupplierIdDataTable();
+            base.Tables.Add(this.tableGetLiabilitySumaryBySupplierId);
             this.relationFK_Cost_CostType = new global::System.Data.DataRelation("FK_Cost_CostType", new global::System.Data.DataColumn[] {
                         this.tableCostType.CostTypeIdColumn}, new global::System.Data.DataColumn[] {
                         this.tableCost.CostTypeIdColumn}, false);
@@ -1512,6 +1538,12 @@ namespace JS_Manage {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeGetLiabilitySumaryBySupplierId() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -1678,6 +1710,9 @@ namespace JS_Manage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void UserStoreRowChangeEventHandler(object sender, UserStoreRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void GetLiabilitySumaryBySupplierIdRowChangeEventHandler(object sender, GetLiabilitySumaryBySupplierIdRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -15082,6 +15117,365 @@ namespace JS_Manage {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class GetLiabilitySumaryBySupplierIdDataTable : global::System.Data.TypedTableBase<GetLiabilitySumaryBySupplierIdRow> {
+            
+            private global::System.Data.DataColumn columnProInOutSummaryId;
+            
+            private global::System.Data.DataColumn columnId;
+            
+            private global::System.Data.DataColumn columnDATE;
+            
+            private global::System.Data.DataColumn columnAction;
+            
+            private global::System.Data.DataColumn columnQuantity;
+            
+            private global::System.Data.DataColumn columnAmount;
+            
+            private global::System.Data.DataColumn columnClosingBalance;
+            
+            private global::System.Data.DataColumn columnClosingBalanceAmount;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public GetLiabilitySumaryBySupplierIdDataTable() {
+                this.TableName = "GetLiabilitySumaryBySupplierId";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal GetLiabilitySumaryBySupplierIdDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected GetLiabilitySumaryBySupplierIdDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ProInOutSummaryIdColumn {
+                get {
+                    return this.columnProInOutSummaryId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DATEColumn {
+                get {
+                    return this.columnDATE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ActionColumn {
+                get {
+                    return this.columnAction;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn QuantityColumn {
+                get {
+                    return this.columnQuantity;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AmountColumn {
+                get {
+                    return this.columnAmount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ClosingBalanceColumn {
+                get {
+                    return this.columnClosingBalance;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ClosingBalanceAmountColumn {
+                get {
+                    return this.columnClosingBalanceAmount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public GetLiabilitySumaryBySupplierIdRow this[int index] {
+                get {
+                    return ((GetLiabilitySumaryBySupplierIdRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event GetLiabilitySumaryBySupplierIdRowChangeEventHandler GetLiabilitySumaryBySupplierIdRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event GetLiabilitySumaryBySupplierIdRowChangeEventHandler GetLiabilitySumaryBySupplierIdRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event GetLiabilitySumaryBySupplierIdRowChangeEventHandler GetLiabilitySumaryBySupplierIdRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event GetLiabilitySumaryBySupplierIdRowChangeEventHandler GetLiabilitySumaryBySupplierIdRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddGetLiabilitySumaryBySupplierIdRow(GetLiabilitySumaryBySupplierIdRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public GetLiabilitySumaryBySupplierIdRow AddGetLiabilitySumaryBySupplierIdRow(int Id, System.DateTime DATE, string Action, int Quantity, decimal Amount, int ClosingBalance, decimal ClosingBalanceAmount) {
+                GetLiabilitySumaryBySupplierIdRow rowGetLiabilitySumaryBySupplierIdRow = ((GetLiabilitySumaryBySupplierIdRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        Id,
+                        DATE,
+                        Action,
+                        Quantity,
+                        Amount,
+                        ClosingBalance,
+                        ClosingBalanceAmount};
+                rowGetLiabilitySumaryBySupplierIdRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowGetLiabilitySumaryBySupplierIdRow);
+                return rowGetLiabilitySumaryBySupplierIdRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public GetLiabilitySumaryBySupplierIdRow FindByProInOutSummaryId(int ProInOutSummaryId) {
+                return ((GetLiabilitySumaryBySupplierIdRow)(this.Rows.Find(new object[] {
+                            ProInOutSummaryId})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                GetLiabilitySumaryBySupplierIdDataTable cln = ((GetLiabilitySumaryBySupplierIdDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new GetLiabilitySumaryBySupplierIdDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnProInOutSummaryId = base.Columns["ProInOutSummaryId"];
+                this.columnId = base.Columns["Id"];
+                this.columnDATE = base.Columns["DATE"];
+                this.columnAction = base.Columns["Action"];
+                this.columnQuantity = base.Columns["Quantity"];
+                this.columnAmount = base.Columns["Amount"];
+                this.columnClosingBalance = base.Columns["ClosingBalance"];
+                this.columnClosingBalanceAmount = base.Columns["ClosingBalanceAmount"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnProInOutSummaryId = new global::System.Data.DataColumn("ProInOutSummaryId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProInOutSummaryId);
+                this.columnId = new global::System.Data.DataColumn("Id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
+                this.columnDATE = new global::System.Data.DataColumn("DATE", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDATE);
+                this.columnAction = new global::System.Data.DataColumn("Action", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAction);
+                this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnQuantity);
+                this.columnAmount = new global::System.Data.DataColumn("Amount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAmount);
+                this.columnClosingBalance = new global::System.Data.DataColumn("ClosingBalance", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClosingBalance);
+                this.columnClosingBalanceAmount = new global::System.Data.DataColumn("ClosingBalanceAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClosingBalanceAmount);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnProInOutSummaryId}, true));
+                this.columnProInOutSummaryId.AutoIncrement = true;
+                this.columnProInOutSummaryId.AllowDBNull = false;
+                this.columnProInOutSummaryId.ReadOnly = true;
+                this.columnProInOutSummaryId.Unique = true;
+                this.columnAction.MaxLength = 10;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public GetLiabilitySumaryBySupplierIdRow NewGetLiabilitySumaryBySupplierIdRow() {
+                return ((GetLiabilitySumaryBySupplierIdRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new GetLiabilitySumaryBySupplierIdRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(GetLiabilitySumaryBySupplierIdRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.GetLiabilitySumaryBySupplierIdRowChanged != null)) {
+                    this.GetLiabilitySumaryBySupplierIdRowChanged(this, new GetLiabilitySumaryBySupplierIdRowChangeEvent(((GetLiabilitySumaryBySupplierIdRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.GetLiabilitySumaryBySupplierIdRowChanging != null)) {
+                    this.GetLiabilitySumaryBySupplierIdRowChanging(this, new GetLiabilitySumaryBySupplierIdRowChangeEvent(((GetLiabilitySumaryBySupplierIdRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.GetLiabilitySumaryBySupplierIdRowDeleted != null)) {
+                    this.GetLiabilitySumaryBySupplierIdRowDeleted(this, new GetLiabilitySumaryBySupplierIdRowChangeEvent(((GetLiabilitySumaryBySupplierIdRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.GetLiabilitySumaryBySupplierIdRowDeleting != null)) {
+                    this.GetLiabilitySumaryBySupplierIdRowDeleting(this, new GetLiabilitySumaryBySupplierIdRowChangeEvent(((GetLiabilitySumaryBySupplierIdRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveGetLiabilitySumaryBySupplierIdRow(GetLiabilitySumaryBySupplierIdRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                JSManagementDataSet ds = new JSManagementDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "GetLiabilitySumaryBySupplierIdDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class CustomerRow : global::System.Data.DataRow {
@@ -22510,6 +22904,233 @@ namespace JS_Manage {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class GetLiabilitySumaryBySupplierIdRow : global::System.Data.DataRow {
+            
+            private GetLiabilitySumaryBySupplierIdDataTable tableGetLiabilitySumaryBySupplierId;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal GetLiabilitySumaryBySupplierIdRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableGetLiabilitySumaryBySupplierId = ((GetLiabilitySumaryBySupplierIdDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int ProInOutSummaryId {
+                get {
+                    return ((int)(this[this.tableGetLiabilitySumaryBySupplierId.ProInOutSummaryIdColumn]));
+                }
+                set {
+                    this[this.tableGetLiabilitySumaryBySupplierId.ProInOutSummaryIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int Id {
+                get {
+                    try {
+                        return ((int)(this[this.tableGetLiabilitySumaryBySupplierId.IdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Id\' in table \'GetLiabilitySumaryBySupplierId\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGetLiabilitySumaryBySupplierId.IdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public System.DateTime DATE {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableGetLiabilitySumaryBySupplierId.DATEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DATE\' in table \'GetLiabilitySumaryBySupplierId\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGetLiabilitySumaryBySupplierId.DATEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Action {
+                get {
+                    try {
+                        return ((string)(this[this.tableGetLiabilitySumaryBySupplierId.ActionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Action\' in table \'GetLiabilitySumaryBySupplierId\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableGetLiabilitySumaryBySupplierId.ActionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int Quantity {
+                get {
+                    try {
+                        return ((int)(this[this.tableGetLiabilitySumaryBySupplierId.QuantityColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Quantity\' in table \'GetLiabilitySumaryBySupplierId\' is DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableGetLiabilitySumaryBySupplierId.QuantityColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Amount {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableGetLiabilitySumaryBySupplierId.AmountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Amount\' in table \'GetLiabilitySumaryBySupplierId\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableGetLiabilitySumaryBySupplierId.AmountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int ClosingBalance {
+                get {
+                    try {
+                        return ((int)(this[this.tableGetLiabilitySumaryBySupplierId.ClosingBalanceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ClosingBalance\' in table \'GetLiabilitySumaryBySupplierId\' i" +
+                                "s DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGetLiabilitySumaryBySupplierId.ClosingBalanceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal ClosingBalanceAmount {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableGetLiabilitySumaryBySupplierId.ClosingBalanceAmountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ClosingBalanceAmount\' in table \'GetLiabilitySumaryBySupplie" +
+                                "rId\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGetLiabilitySumaryBySupplierId.ClosingBalanceAmountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIdNull() {
+                return this.IsNull(this.tableGetLiabilitySumaryBySupplierId.IdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIdNull() {
+                this[this.tableGetLiabilitySumaryBySupplierId.IdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDATENull() {
+                return this.IsNull(this.tableGetLiabilitySumaryBySupplierId.DATEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDATENull() {
+                this[this.tableGetLiabilitySumaryBySupplierId.DATEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsActionNull() {
+                return this.IsNull(this.tableGetLiabilitySumaryBySupplierId.ActionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetActionNull() {
+                this[this.tableGetLiabilitySumaryBySupplierId.ActionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsQuantityNull() {
+                return this.IsNull(this.tableGetLiabilitySumaryBySupplierId.QuantityColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetQuantityNull() {
+                this[this.tableGetLiabilitySumaryBySupplierId.QuantityColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAmountNull() {
+                return this.IsNull(this.tableGetLiabilitySumaryBySupplierId.AmountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAmountNull() {
+                this[this.tableGetLiabilitySumaryBySupplierId.AmountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsClosingBalanceNull() {
+                return this.IsNull(this.tableGetLiabilitySumaryBySupplierId.ClosingBalanceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetClosingBalanceNull() {
+                this[this.tableGetLiabilitySumaryBySupplierId.ClosingBalanceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsClosingBalanceAmountNull() {
+                return this.IsNull(this.tableGetLiabilitySumaryBySupplierId.ClosingBalanceAmountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetClosingBalanceAmountNull() {
+                this[this.tableGetLiabilitySumaryBySupplierId.ClosingBalanceAmountColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -23800,6 +24421,40 @@ namespace JS_Manage {
                 }
             }
         }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class GetLiabilitySumaryBySupplierIdRowChangeEvent : global::System.EventArgs {
+            
+            private GetLiabilitySumaryBySupplierIdRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public GetLiabilitySumaryBySupplierIdRowChangeEvent(GetLiabilitySumaryBySupplierIdRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public GetLiabilitySumaryBySupplierIdRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
     }
 }
 namespace JS_Manage.JSManagementDataSetTableAdapters {
@@ -23999,7 +24654,7 @@ SELECT CustomerId, CustomerName, Address, Telephone, Note, ISNULL(CustTypeId, 0)
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -24817,7 +25472,7 @@ SELECT ProductInputId, InputDate, SupplierId, ProductId, Quantity, Cost, Product
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -25356,7 +26011,7 @@ SELECT OrderID, OrderDate, CustID, ProductID, Size, Quantity, Price, BillNumber,
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -26123,7 +26778,7 @@ SELECT ProductId, ProductCode, Brand, Size, ProductCost, ISNULL(Price, 0) AS Pri
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -26136,19 +26791,19 @@ SELECT ProductId, ProductCode, Brand, Size, ProductCost, ISNULL(Price, 0) AS Pri
                 " ProductType, OpeningBalance, Input, Output, ClosingBalance FROM dbo.Product";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "DELETE [dbo].[Product] WHERE ([ProductId] = @Original_ProductId)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ProductId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ProductId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[2].Connection = this.Connection;
             this._commandCollection[2].CommandText = "SELECT Brand, ClosingBalance, Input, OpeningBalance, Output, ISNULL(Price, 0) AS " +
                 "Price, ProductCode, ProductCost, ProductId, ProductType, Size FROM Product WHERE" +
                 " (ProductCode LIKE @productCode)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productCode", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "ProductCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[3].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[3].Connection = this.Connection;
             this._commandCollection[3].CommandText = "SELECT Brand, ClosingBalance, Input, OpeningBalance, Output, ProductCode, Product" +
                 "Cost, ProductId, ProductType, Size FROM Product WHERE (ProductCode = @productCod" +
                 "e) AND (ProductType = @productType) AND (Brand = @brand)";
@@ -26157,32 +26812,32 @@ SELECT ProductId, ProductCode, Brand, Size, ProductCost, ISNULL(Price, 0) AS Pri
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productType", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "ProductType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@brand", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "Brand", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[4].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[4].Connection = this.Connection;
             this._commandCollection[4].CommandText = "SELECT Brand, ClosingBalance, Input, OpeningBalance, Output, ISNULL(Price, 0) AS " +
                 "Price, ProductCode, ProductCost, ProductId, ProductType, Size FROM Product WHERE" +
                 " (ProductCode LIKE @productCode) AND (ClosingBalance > 0)";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productCode", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "ProductCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[5].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[5].Connection = this.Connection;
             this._commandCollection[5].CommandText = "SELECT        ProductCode, ProductCost, ProductId, Brand, Size, Price, ProductTyp" +
                 "e, OpeningBalance\r\nFROM            Product\r\nWHERE        (ProductId = @productId" +
                 ")";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ProductId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[6] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[6].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[6].Connection = this.Connection;
             this._commandCollection[6].CommandText = "SELECT Brand, ClosingBalance, Input, OpeningBalance, Output, ISNULL(Price, 0) AS " +
                 "Price, ProductCode, ProductCost, ProductId, ProductType, Size FROM Product WHERE" +
                 " (ClosingBalance > 0)";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[7] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[7].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[7].Connection = this.Connection;
             this._commandCollection[7].CommandText = "SELECT ISNULL(Price, 0) AS Price, ProductCode, ProductCost, ProductId, ProductTyp" +
                 "e, Size FROM Product";
             this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[8] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[8].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[8].Connection = this.Connection;
             this._commandCollection[8].CommandText = "SELECT distinct(Brand)\r\nFROM dbo.Product";
             this._commandCollection[8].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[9] = new global::System.Data.SqlClient.SqlCommand();
@@ -26202,29 +26857,29 @@ SELECT ProductId, ProductCode, Brand, Size, ProductCost, ISNULL(Price, 0) AS Pri
             this._commandCollection[10].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[10].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@storeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[11] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[11].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[11].Connection = this.Connection;
             this._commandCollection[11].CommandText = "dbo.GetProducts";
             this._commandCollection[11].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[11].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[12] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[12].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[12].Connection = this.Connection;
             this._commandCollection[12].CommandText = "dbo.GetProductsByProductCode";
             this._commandCollection[12].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[12].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[12].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productCode", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[13] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[13].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[13].Connection = this.Connection;
             this._commandCollection[13].CommandText = "dbo.GetProductsByProductCodeInStock";
             this._commandCollection[13].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[13].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[13].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productCode", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[14] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[14].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[14].Connection = this.Connection;
             this._commandCollection[14].CommandText = "dbo.GetProductsInStock";
             this._commandCollection[14].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[14].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[15] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[15].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[15].Connection = this.Connection;
             this._commandCollection[15].CommandText = @"INSERT INTO [dbo].[Product] ([ProductCode], [Brand], [Size], [ProductCost], [Price], [ProductType], [OpeningBalance], [Input], [Output], [ClosingBalance]) VALUES (@ProductCode, @Brand, @Size, @ProductCost, @Price, @ProductType, @OpeningBalance, @Input, @Output, @ClosingBalance);
 SELECT SCOPE_IDENTITY()";
             this._commandCollection[15].CommandType = global::System.Data.CommandType.Text;
@@ -26270,7 +26925,7 @@ SELECT SCOPE_IDENTITY()";
             this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@isInStock", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[18].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@storeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[19] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[19].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString);
+            this._commandCollection[19].Connection = this.Connection;
             this._commandCollection[19].CommandText = @"UPDATE [dbo].[Product] SET [ProductCode] = @ProductCode, [Brand] = @Brand, [Size] = @Size, [ProductCost] = @ProductCost, [Price] = @Price, [ProductType] = @ProductType, [OpeningBalance] = @OpeningBalance, [Input] = @Input, [Output] = @Output, [ClosingBalance] = @ClosingBalance WHERE ProductId = @ProductId";
             this._commandCollection[19].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[19].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductCode", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "ProductCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -27533,7 +28188,7 @@ SELECT SCOPE_IDENTITY()";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -27814,7 +28469,7 @@ order by ProductInputId desc";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -27969,7 +28624,7 @@ order by ProductInputId desc";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -28123,7 +28778,7 @@ order by ProductInputId desc";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -28281,7 +28936,7 @@ order by ProductInputId desc";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -28614,7 +29269,7 @@ SELECT CostId, CostDate, CostName, Amount, CostTypeId, UserName, BankAccountId, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -28627,19 +29282,19 @@ SELECT CostId, CostDate, CostName, Amount, CostTypeId, UserName, BankAccountId, 
                 "ntId, FromBankAccountId, ProductInputOrderId, CustomerId\r\nFROM            Cost";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "DELETE FROM [dbo].[Cost] WHERE [CostId] = @Original_CostId";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CostId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "CostId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[2].Connection = this.Connection;
             this._commandCollection[2].CommandText = "SELECT Amount, BankAccountId, CostDate, CostId, CostName, CostTypeId, isnull(Cust" +
                 "omerId,0) as CustomerId, FromBankAccountId, ProductInputOrderId, UserName FROM C" +
                 "ost WHERE (CostId = @costId)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@costId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "CostId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[3].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[3].Connection = this.Connection;
             this._commandCollection[3].CommandText = "dbo.GetCost";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -28655,13 +29310,13 @@ SELECT CostId, CostDate, CostName, Amount, CostTypeId, UserName, BankAccountId, 
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductInputOrderId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ProductInputOrderId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[5].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[5].Connection = this.Connection;
             this._commandCollection[5].CommandText = "dbo.SelectCostByCostDate";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@costDate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[6] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[6].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[6].Connection = this.Connection;
             this._commandCollection[6].CommandText = "dbo.InsertCostReturnId";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -28675,7 +29330,7 @@ SELECT CostId, CostDate, CostName, Amount, CostTypeId, UserName, BankAccountId, 
             this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductInputOrderId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CustomerId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[7] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[7].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[7].Connection = this.Connection;
             this._commandCollection[7].CommandText = "dbo.UpdateCostById";
             this._commandCollection[7].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[7].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -29441,7 +30096,7 @@ SELECT CostId, CostDate, CostName, Amount, CostTypeId, UserName, BankAccountId, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -29802,7 +30457,7 @@ SELECT ActiveDateId, Date, IsActive FROM ActiveDate WHERE (ActiveDateId = @Activ
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -30153,7 +30808,7 @@ SELECT ActiveDateId, Date, IsActive FROM ActiveDate WHERE (ActiveDateId = @Activ
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.nanhtuNoIpOrgJeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -30168,7 +30823,7 @@ SELECT ActiveDateId, Date, IsActive FROM ActiveDate WHERE (ActiveDateId = @Activ
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@storeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "dbo.GetProductInOutDetail";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -30180,7 +30835,7 @@ SELECT ActiveDateId, Date, IsActive FROM ActiveDate WHERE (ActiveDateId = @Activ
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@startDate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@endDate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[2].Connection = this.Connection;
             this._commandCollection[2].CommandText = "dbo.GetProductInOutDetailByCustomerId";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -30445,7 +31100,7 @@ SELECT SettingId, SettingName, SettingValue, Description FROM Setting WHERE (Set
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -30863,7 +31518,7 @@ SELECT SettingId, SettingName, SettingValue, Description FROM Setting WHERE (Set
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -31158,7 +31813,7 @@ SELECT IncomeId, IncomeDate, IncomeNumber, PayerName, Reason, Amount, CreateBy, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -31172,7 +31827,7 @@ SELECT IncomeId, IncomeDate, IncomeNumber, PayerName, Reason, Amount, CreateBy, 
                 "come";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "DELETE FROM [dbo].[Income] WHERE ([IncomeId] = @Original_IncomeId) ";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IncomeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IncomeId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -31187,7 +31842,7 @@ SELECT IncomeId, IncomeDate, IncomeNumber, PayerName, Reason, Amount, CreateBy, 
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fromBankAccountId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@purchaseReceiptOrderId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[3].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[3].Connection = this.Connection;
             this._commandCollection[3].CommandText = @"SELECT        Amount, CreateBy, CreatedDate, IncomeDate, IncomeId, IncomeNumber, LastEditedBy, LastEditedDate, PayerName, Reason, ISNULL(PurchaseReceiptOrderId, 0) AS PurchaseReceiptOrderId, ISNULL(CostId, 0) 
                          AS CostId, ISNULL(ToBankAccountId, 0) AS ToBankAccountId, ISNULL(FromBankAccountId, 0) AS FromBankAccountId, ISNULL(CustomerId, 0) AS CustomerId
 FROM            Income
@@ -31195,7 +31850,7 @@ WHERE        (IncomeId = @incomeId)";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@incomeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IncomeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[4].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[4].Connection = this.Connection;
             this._commandCollection[4].CommandText = "dbo.GetIncome";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -31213,7 +31868,7 @@ WHERE        (IncomeId = @incomeId)";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PurchaseReceiptOrderId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PurchaseReceiptOrderId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[6] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[6].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[6].Connection = this.Connection;
             this._commandCollection[6].CommandText = "dbo.InsertIncomeReturnId";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -31242,7 +31897,7 @@ WHERE        (IncomeId = @incomeId)";
             this._commandCollection[7].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastEditedDate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[7].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IncomeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IncomeId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[8] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[8].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[8].Connection = this.Connection;
             this._commandCollection[8].CommandText = "dbo.UpdateIncomeById";
             this._commandCollection[8].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[8].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -32195,7 +32850,7 @@ WHERE        (IncomeId = @incomeId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -32485,7 +33140,7 @@ SELECT OrderID, OrderDate, CustID, ProductID, Size, Quantity, Price, BillNumber,
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -33009,7 +33664,7 @@ SELECT PurchaseReceiptOrderId, OrderDate, CustId, BillNumber, IsCOD, OrderNote, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -33023,13 +33678,13 @@ SELECT PurchaseReceiptOrderId, OrderDate, CustId, BillNumber, IsCOD, OrderNote, 
 FROM            PurchaseReceiptOrder";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "DELETE FROM [dbo].[PurchaseReceiptOrder] WHERE ([PurchaseReceiptOrderId] = @Origi" +
                 "nal_PurchaseReceiptOrderId)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PurchaseReceiptOrderId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PurchaseReceiptOrderId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[2].Connection = this.Connection;
             this._commandCollection[2].CommandText = @"SELECT        BillNumber, CreatedBy, CustId, IsCOD, LastEditedBy, LastEditedDate, OrderDate, PurchaseReceiptOrderId, ISNULL(BankAccountId, 0) AS BankAccountId, 
                          ISNULL(IsReturnSupplier, 0) AS IsReturnSupplier, isnull(OrderNote,'') as OrderNote, StoreId
 
@@ -33038,7 +33693,7 @@ WHERE        (PurchaseReceiptOrderId = @PurchaseReceiptOrderId)  ";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PurchaseReceiptOrderId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PurchaseReceiptOrderId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[3].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[3].Connection = this.Connection;
             this._commandCollection[3].CommandText = @"INSERT INTO PurchaseReceiptOrder
                          (OrderDate, CustId, BillNumber, IsCOD, CreatedDate, CreatedBy, LastEditedDate, LastEditedBy)
 VALUES        (@OrderDate,@CustId,@BillNumber,@IsCOD,@CreatedDate,@CreatedBy,@LastEditedDate,@LastEditedBy); 
@@ -33053,7 +33708,7 @@ SELECT PurchaseReceiptOrderId, OrderDate, CustId, BillNumber, IsCOD FROM Purchas
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastEditedDate", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastEditedBy", global::System.Data.SqlDbType.NVarChar, 255, global::System.Data.ParameterDirection.Input, 0, 0, "LastEditedBy", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[4].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[4].Connection = this.Connection;
             this._commandCollection[4].CommandText = @"INSERT INTO PurchaseReceiptOrder
                          (OrderDate, CustId, BillNumber, IsCOD, OrderNote, IsReturnSupplier, CreatedDate, CreatedBy, LastEditedDate, LastEditedBy, BankAccountId,StoreId)
 VALUES        (@OrderDate,@CustId,@BillNumber,@IsCOD,@OrderNote,@IsReturnSupplier,@CreatedDate,@CreatedBy,@LastEditedDate,@LastEditedBy,@BankAccountId,@StoreId);  
@@ -33072,7 +33727,7 @@ SELECT SCOPE_IDENTITY()";
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BankAccountId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "BankAccountId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StoreId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "StoreId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[5].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[5].Connection = this.Connection;
             this._commandCollection[5].CommandText = @"UPDATE       PurchaseReceiptOrder
 SET                OrderDate = @OrderDate, CustId = @CustId, BillNumber = @BillNumber, IsCOD = @IsCOD, OrderNote = @OrderNote, IsReturnSupplier = @IsReturnSupplier, 
                          LastEditedDate = @LastEditedDate, LastEditedBy = @LastEditedBy, BankAccountId = @BankAccountId, StoreId = @StoreId
@@ -33090,7 +33745,7 @@ WHERE        (PurchaseReceiptOrderId = @Original_PurchaseReceiptOrderId)";
             this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StoreId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "StoreId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PurchaseReceiptOrderId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PurchaseReceiptOrderId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[6] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[6].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[6].Connection = this.Connection;
             this._commandCollection[6].CommandText = "UPDATE       PurchaseReceiptOrder\r\nSET                OrderNote = @OrderNote\r\nWHE" +
                 "RE        (PurchaseReceiptOrderId = @Original_PurchaseReceiptOrderId)";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
@@ -33938,7 +34593,7 @@ WHERE        (PurchaseReceiptOrderId = @Original_PurchaseReceiptOrderId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -33957,7 +34612,7 @@ WHERE        (PurchaseReceiptOrderId = @Original_PurchaseReceiptOrderId)";
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@paymentMethod", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@soldBy", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "dbo.GetPurchaseReceiptOrderById";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -34164,7 +34819,7 @@ WHERE        (PurchaseReceiptOrderId = @Original_PurchaseReceiptOrderId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -34390,7 +35045,7 @@ SELECT OpeningBalanceId, OpeningDate, Receiveable, Cash, BankAcount, CreatedBy, 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -34403,7 +35058,7 @@ SELECT OpeningBalanceId, OpeningDate, Receiveable, Cash, BankAcount, CreatedBy, 
                 "reatedDate, LastEditedBy, LastEditedDate FROM dbo.OpeningBalance";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "DELETE FROM [dbo].[OpeningBalance] WHERE ([OpeningBalanceId] = @Original_OpeningB" +
                 "alanceId)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
@@ -34983,7 +35638,7 @@ SELECT ProductInputOrderId, InputDate, SupplierId, CreatedBy, CreatedDate, LastE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -34996,20 +35651,20 @@ SELECT ProductInputOrderId, InputDate, SupplierId, CreatedBy, CreatedDate, LastE
                 " LastEditedBy, LastEditedDate, IsPaidLater\r\nFROM            ProductInputOrder";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "DELETE FROM [dbo].[ProductInputOrder] WHERE ([ProductInputOrderId] = @Original_Pr" +
                 "oductInputOrderId) ";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ProductInputOrderId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ProductInputOrderId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[2].Connection = this.Connection;
             this._commandCollection[2].CommandText = "SELECT CreatedBy, CreatedDate, InputDate, isnull(IsPaidLater,0) as IsPaidLater, L" +
                 "astEditedBy, LastEditedDate, ProductInputOrderId, SupplierId,StoreId FROM Produc" +
                 "tInputOrder WHERE (ProductInputOrderId = @ProductInputOrderId)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductInputOrderId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ProductInputOrderId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[3].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[3].Connection = this.Connection;
             this._commandCollection[3].CommandText = "dbo.InsertInputPurchaseOrderReturnId";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -35022,7 +35677,7 @@ SELECT ProductInputOrderId, InputDate, SupplierId, CreatedBy, CreatedDate, LastE
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsPaidLater", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 1, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StoreId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[4].Connection = new global::System.Data.SqlClient.SqlConnection(global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString);
+            this._commandCollection[4].Connection = this.Connection;
             this._commandCollection[4].CommandText = @"UPDATE       ProductInputOrder
 SET                InputDate = @InputDate, SupplierId = @SupplierId, LastEditedBy = @LastEditedBy, LastEditedDate = @LastEditedDate, IsPaidLater = @IsPaidLater, StoreId = @StoreId
 WHERE        (ProductInputOrderId = @Original_ProductInputOrderId)";
@@ -35576,7 +36231,7 @@ WHERE        (ProductInputOrderId = @Original_ProductInputOrderId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -35740,7 +36395,7 @@ WHERE        (ProductInputOrderId = @Original_ProductInputOrderId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -35959,7 +36614,7 @@ SELECT RewardPointsHistoryID, CustomerId, PurchaserOrderId, Points, PointsBalanc
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -36523,7 +37178,7 @@ SELECT RewardPointsHistoryID, CustomerId, PurchaserOrderId, Points, PointsBalanc
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -36730,7 +37385,7 @@ SELECT BankAccountId, BankAccountName, AccountNumber, AccountHolder, OpenningBal
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -37165,7 +37820,7 @@ SELECT BankAccountId, BankAccountName, AccountNumber, AccountHolder, OpenningBal
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -37383,7 +38038,7 @@ SELECT BankAccountId, BankAccountName, AccountNumber, AccountHolder, OpenningBal
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -37562,7 +38217,7 @@ SELECT BankAccountId, BankAccountName, AccountNumber, AccountHolder, OpenningBal
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -37735,7 +38390,7 @@ SELECT BankAccountId, BankAccountName, AccountNumber, AccountHolder, OpenningBal
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.nanhtuNoIpOrgJeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -37913,7 +38568,7 @@ SELECT BankAccountId, BankAccountName, AccountNumber, AccountHolder, OpenningBal
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagementConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -38120,7 +38775,7 @@ SELECT BankAccountId, BankAccountName, AccountNumber, AccountHolder, OpenningBal
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -38328,7 +38983,7 @@ SELECT BankAccountId, BankAccountName, AccountNumber, AccountHolder, OpenningBal
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.nanhtuNoIpOrgJeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -38581,7 +39236,7 @@ SELECT UserStoreMappingId, UserId, StoreId, IsDefault FROM UserStoreMapping WHER
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.nanhtuNoIpOrgJeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -38951,7 +39606,7 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.nanhtuNoIpOrgJeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -39307,7 +39962,7 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.nanhtuNoIpOrgJeansStyleManagement_DEVConnectionString;
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -39335,6 +39990,220 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                 this.Adapter.SelectCommand.Parameters[1].Value = ((string)(UserName));
             }
             JSManagementDataSet.UserStoreDataTable dataTable = new JSManagementDataSet.UserStoreDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class GetLiabilitySumaryBySupplierIdTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public GetLiabilitySumaryBySupplierIdTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "GetLiabilitySumaryBySupplierId";
+            tableMapping.ColumnMappings.Add("ProInOutSummaryId", "ProInOutSummaryId");
+            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("DATE", "DATE");
+            tableMapping.ColumnMappings.Add("Action", "Action");
+            tableMapping.ColumnMappings.Add("Quantity", "Quantity");
+            tableMapping.ColumnMappings.Add("Amount", "Amount");
+            tableMapping.ColumnMappings.Add("ClosingBalance", "ClosingBalance");
+            tableMapping.ColumnMappings.Add("ClosingBalanceAmount", "ClosingBalanceAmount");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::JS_Manage.Properties.Settings.Default.JS_DEV_ConnString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.GetLiabilitySumaryBySupplierId";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@custId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@startDate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@endDate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(JSManagementDataSet.GetLiabilitySumaryBySupplierIdDataTable dataTable, global::System.Nullable<int> custId, global::System.Nullable<global::System.DateTime> startDate, global::System.Nullable<global::System.DateTime> endDate) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((custId.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(custId.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((startDate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((System.DateTime)(startDate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((endDate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((System.DateTime)(endDate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual JSManagementDataSet.GetLiabilitySumaryBySupplierIdDataTable GetData(global::System.Nullable<int> custId, global::System.Nullable<global::System.DateTime> startDate, global::System.Nullable<global::System.DateTime> endDate) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((custId.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(custId.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((startDate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((System.DateTime)(startDate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((endDate.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[3].Value = ((System.DateTime)(endDate.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            JSManagementDataSet.GetLiabilitySumaryBySupplierIdDataTable dataTable = new JSManagementDataSet.GetLiabilitySumaryBySupplierIdDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -39810,21 +40679,21 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._bankAccountTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.BankAccount.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._bankAccountTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._productInputOrderTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.ProductInputOrder.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._productInputOrderTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._bankAccountTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.BankAccount.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._bankAccountTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -39837,12 +40706,12 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._storeTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Store.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._purchaseReceiptOrderTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.PurchaseReceiptOrder.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._storeTableAdapter.Update(updatedRows));
+                    result = (result + this._purchaseReceiptOrderTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -39855,12 +40724,21 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._purchaseReceiptOrderTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.PurchaseReceiptOrder.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._storeTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Store.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._purchaseReceiptOrderTableAdapter.Update(updatedRows));
+                    result = (result + this._storeTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._rewardPointsHistoryTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.RewardPointsHistory.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._rewardPointsHistoryTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -39873,21 +40751,21 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._openingBalanceTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.OpeningBalance.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._openingBalanceTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._productInputTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.ProductInput.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._productInputTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._rewardPointsHistoryTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.RewardPointsHistory.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._rewardPointsHistoryTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -39909,30 +40787,12 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._openingBalanceTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.OpeningBalance.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._activeDateTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ActiveDate.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._openingBalanceTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._orders_ProductTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Orders_Product.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._orders_ProductTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._incomeTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Income.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._incomeTableAdapter.Update(updatedRows));
+                    result = (result + this._activeDateTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -39945,12 +40805,21 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._activeDateTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ActiveDate.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._incomeTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Income.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._activeDateTableAdapter.Update(updatedRows));
+                    result = (result + this._incomeTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._orders_ProductTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Orders_Product.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._orders_ProductTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -39972,19 +40841,19 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._bankAccountTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.BankAccount.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._bankAccountTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._productInputOrderTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.ProductInputOrder.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._productInputOrderTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._bankAccountTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.BankAccount.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._bankAccountTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -39996,11 +40865,11 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._storeTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Store.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._purchaseReceiptOrderTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.PurchaseReceiptOrder.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._storeTableAdapter.Update(addedRows));
+                    result = (result + this._purchaseReceiptOrderTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -40012,11 +40881,19 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._purchaseReceiptOrderTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.PurchaseReceiptOrder.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._storeTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Store.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._purchaseReceiptOrderTableAdapter.Update(addedRows));
+                    result = (result + this._storeTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._rewardPointsHistoryTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.RewardPointsHistory.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._rewardPointsHistoryTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -40028,19 +40905,19 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._openingBalanceTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.OpeningBalance.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._openingBalanceTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._productInputTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.ProductInput.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._productInputTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._rewardPointsHistoryTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.RewardPointsHistory.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._rewardPointsHistoryTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -40060,27 +40937,11 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._openingBalanceTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.OpeningBalance.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._activeDateTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ActiveDate.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._openingBalanceTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._orders_ProductTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Orders_Product.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._orders_ProductTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._incomeTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Income.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._incomeTableAdapter.Update(addedRows));
+                    result = (result + this._activeDateTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -40092,11 +40953,19 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._activeDateTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ActiveDate.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._incomeTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Income.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._activeDateTableAdapter.Update(addedRows));
+                    result = (result + this._incomeTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._orders_ProductTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Orders_Product.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._orders_ProductTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -40110,19 +40979,11 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateDeletedRows(JSManagementDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._activeDateTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ActiveDate.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._orders_ProductTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Orders_Product.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._activeDateTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._settingTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Setting.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._settingTableAdapter.Update(deletedRows));
+                    result = (result + this._orders_ProductTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -40134,19 +40995,19 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._orders_ProductTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Orders_Product.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._settingTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Setting.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._orders_ProductTableAdapter.Update(deletedRows));
+                    result = (result + this._settingTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._openingBalanceTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.OpeningBalance.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._activeDateTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ActiveDate.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._openingBalanceTableAdapter.Update(deletedRows));
+                    result = (result + this._activeDateTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -40166,19 +41027,19 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._rewardPointsHistoryTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.RewardPointsHistory.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._rewardPointsHistoryTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._productInputTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.ProductInput.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._productInputTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._openingBalanceTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.OpeningBalance.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._openingBalanceTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -40190,19 +41051,11 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._purchaseReceiptOrderTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.PurchaseReceiptOrder.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._rewardPointsHistoryTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.RewardPointsHistory.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._purchaseReceiptOrderTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._costTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Cost.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._costTableAdapter.Update(deletedRows));
+                    result = (result + this._rewardPointsHistoryTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -40214,6 +41067,22 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._costTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Cost.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._costTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._purchaseReceiptOrderTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.PurchaseReceiptOrder.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._purchaseReceiptOrderTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._costTypeTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.CostType.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -40222,19 +41091,19 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._productInputOrderTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProductInputOrder.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._productInputOrderTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._bankAccountTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.BankAccount.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._bankAccountTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._productInputOrderTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProductInputOrder.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._productInputOrderTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
