@@ -35,6 +35,11 @@ namespace JS_Manage
             set { txtCustId.TabIndex = value; }
         }
 
+        public string CustInforText
+        {
+            get { return lbCustInfo.Text; }
+        }
+
         JSManagementDataSetTableAdapters.CustomerTableAdapter custTableAdapter;
 
         public CustomerSelectUserControl()

@@ -37,7 +37,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 9);
+            this.label10.Location = new System.Drawing.Point(-2, 9);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(85, 13);
             this.label10.TabIndex = 1020;
@@ -51,9 +51,9 @@
             "Tất cả",
             "Tiền mặt",
             "Chuyển khoản"});
-            this.cboxPaymentMethod.Location = new System.Drawing.Point(100, 5);
+            this.cboxPaymentMethod.Location = new System.Drawing.Point(86, 5);
             this.cboxPaymentMethod.Name = "cboxPaymentMethod";
-            this.cboxPaymentMethod.Size = new System.Drawing.Size(100, 21);
+            this.cboxPaymentMethod.Size = new System.Drawing.Size(80, 21);
             this.cboxPaymentMethod.TabIndex = 1018;
             this.cboxPaymentMethod.SelectedIndexChanged += new System.EventHandler(this.cboxPaymentMethod_SelectedIndexChanged);
             // 
@@ -61,16 +61,16 @@
             // 
             this.checkedListBoxBankAccount.CheckOnClick = true;
             this.checkedListBoxBankAccount.FormattingEnabled = true;
-            this.checkedListBoxBankAccount.Location = new System.Drawing.Point(207, 4);
+            this.checkedListBoxBankAccount.Location = new System.Drawing.Point(171, 6);
             this.checkedListBoxBankAccount.Name = "checkedListBoxBankAccount";
-            this.checkedListBoxBankAccount.Size = new System.Drawing.Size(172, 19);
+            this.checkedListBoxBankAccount.Size = new System.Drawing.Size(160, 19);
             this.checkedListBoxBankAccount.TabIndex = 1021;
             this.checkedListBoxBankAccount.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxBankAccount_ItemCheck);
             this.checkedListBoxBankAccount.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxBankAccount_SelectedIndexChanged);
             // 
             // btShowHide
             // 
-            this.btShowHide.Location = new System.Drawing.Point(385, 3);
+            this.btShowHide.Location = new System.Drawing.Point(334, 4);
             this.btShowHide.Name = "btShowHide";
             this.btShowHide.Size = new System.Drawing.Size(20, 23);
             this.btShowHide.TabIndex = 1022;
@@ -88,7 +88,7 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.cboxPaymentMethod);
             this.Name = "PaymentMethodUserControl";
-            this.Size = new System.Drawing.Size(414, 32);
+            this.Size = new System.Drawing.Size(359, 32);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -44,6 +44,7 @@ namespace JS_Manage
         private JSManagementDataSetTableAdapters.SizeTableAdapter sizeTableAdapter;
         private JSManagementDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter;
         JSManagementDataSetTableAdapters.StoreTableAdapter storeTableAdapter;
+        JSManagementDataSetTableAdapters.OutputTypeTableAdapter outputTypeTableAdapter;
 
         private const string SOLD_BY = "SoldBy";
         private const string USER_NAME = "UserName";
@@ -139,6 +140,9 @@ namespace JS_Manage
 
             storeTableAdapter = new JSManagementDataSetTableAdapters.StoreTableAdapter();
             storeTableAdapter.Connection = CommonHelper.GetSQLConnection();
+
+            outputTypeTableAdapter = new JSManagementDataSetTableAdapters.OutputTypeTableAdapter();
+            outputTypeTableAdapter.Connection = CommonHelper.GetSQLConnection();
 
             this.prnDialog = new System.Windows.Forms.PrintDialog();
             this.prnPreview = new System.Windows.Forms.PrintPreviewDialog();
@@ -347,9 +351,10 @@ namespace JS_Manage
                 if (insertConfirmMessage == System.Windows.Forms.DialogResult.Cancel)
                 {
                     return;
-                }
-
-                InsertPurchaseReceiptOrder();
+                }                
+                
+                InsertPurchaseReceiptOrder();             
+                
             }
             else
             {
@@ -411,48 +416,63 @@ namespace JS_Manage
             ClearData();
         }
 
-        private void txtCustomerCode_TextChanged(object sender, EventArgs e)
-        {
-            int custId = 0;
-            if (string.IsNullOrEmpty(txtCustomerCode.Text))
-            {
-                lbCustomerInfo.Text = string.Empty;
-            }
-            else
-            {
-                if (int.TryParse(txtCustomerCode.Text, out custId))
-                {
-                    var custData = custTableAdapter.GetDataByCustomerId(custId);
-                    lbCustomerInfo.Text = string.Empty;
-                    if (custData.Rows.Count > 0)
-                    {
-                        lbCustomerInfo.Text = string.Format("{0}/ {1}/ {2}", custData[0].CustomerName, custData[0].Address, custData[0].Telephone);
-                    }
-                }
+        //private void txtCustomerCode_TextChanged(object sender, EventArgs e)
+        //{
+        //    int custId = 0;
+        //    if (string.IsNullOrEmpty(txtCustomerCode.Text))
+        //    {
+        //        lbCustomerInfo.Text = string.Empty;
+        //    }
+        //    else
+        //    {
+        //        if (int.TryParse(txtCustomerCode.Text, out custId))
+        //        {
+        //            var custData = custTableAdapter.GetDataByCustomerId(custId);
+        //            lbCustomerInfo.Text = string.Empty;
+        //            if (custData.Rows.Count > 0)
+        //            {
+        //                lbCustomerInfo.Text = string.Format("{0}/ {1}/ {2}", custData[0].CustomerName, custData[0].Address, custData[0].Telephone);
+        //            }
+        //        }
 
-            }
+        //    }
 
-            if (Setting.GetBoolSetting(Reward_Point_Enable))
-            {
-                CalcuateRewardPoints(custId);
-            }
-        }
+        //    if (Setting.GetBoolSetting(Reward_Point_Enable))
+        //    {
+        //        CalcuateRewardPoints(custId);
+        //    }
+        //}
 
         private void cboxIsCod_CheckedChanged(object sender, EventArgs e)
         {
-            if (lbPurchaseReceiptOrderId.Text == "0") return;
-
-            int purchaseReceiptOrderId;
+            if (lbPurchaseReceiptOrderId.Text == "0")                
+            {
+                if(cboxIsCod.Checked)
+                {
+                    cboxPrePaid.Checked = false;
+                    cboxPrePaid.Enabled = false;
+                }
+                else
+                {
+                    cboxPrePaid.Enabled = true;
+                }
+                return;
+            }
+            // lbPurchaseReceiptOrderId.Text = 0 mean that is new purchase order 
+            int purchaseReceiptOrderId = int.Parse(lbPurchaseReceiptOrderId.Text);;
             decimal amount = 0;
-            int bankAccountId = 0;
-            if (cboxPaymentMethod.SelectedItem.ToString() == Constant.PaymentMethod.BANK_TRANSFER)
+            int? bankAccountId = null;
+            string paymentMethod = cboxPaymentMethod.SelectedItem.ToString();            
+            string outputTypeCode = cboxOutPutType.SelectedValue.ToString();
+
+            if (paymentMethod == Constant.PaymentMethod.BANK_TRANSFER)
             {
                 bankAccountId = int.Parse(cboxBankAccount.SelectedValue.ToString());
             }
 
-            if (lbPurchaseReceiptOrderId.Text != "0")
+            if (purchaseReceiptOrderId!=0)
             {
-                var purchaseReceiptOrder = purchaseReceiptOrderTableAdapter.GetById(int.Parse(lbPurchaseReceiptOrderId.Text));
+                var purchaseReceiptOrder = purchaseReceiptOrderTableAdapter.GetById(purchaseReceiptOrderId);
                 if (!LoginInfor.IsAdmin && Setting.GetBoolSetting(Constant.Not_Allow_User_Edit_On_Other_CreatedDate))
                 {
                     if (DateTime.Now.ToShortDateString() != purchaseReceiptOrder[0].CreatedDate.ToShortDateString())
@@ -462,7 +482,6 @@ namespace JS_Manage
                     }
                 }
 
-                purchaseReceiptOrderId = int.Parse(lbPurchaseReceiptOrderId.Text);
                 CheckBox cboxIsCOD = (CheckBox)sender;
                 if (cboxIsCod.Checked)
                 {
@@ -474,16 +493,9 @@ namespace JS_Manage
                     }
 
                     using (TransactionScope tran = new TransactionScope())
-                    {
-                        if (bankAccountId == 0)
-                        {
-                            purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, int.Parse(txtCustomerCode.Text), txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, checkBoxProductReturn.Checked, DateTime.Now, LoginInfor.UserName, null, int.Parse(cboxStore.SelectedValue.ToString()), purchaseReceiptOrderId);
-                        }
-                        else
-                        {
-                            purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, int.Parse(txtCustomerCode.Text), txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, checkBoxProductReturn.Checked, DateTime.Now, LoginInfor.UserName, bankAccountId, int.Parse(cboxStore.SelectedValue.ToString()), purchaseReceiptOrderId);
-                        }
-
+                    {  
+                        purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, DateTime.Now, LoginInfor.UserName, bankAccountId, ucOutputStore.StoreId, InputStoreId ,purchaseReceiptOrderId);
+                        
                         JSManagementDataSet.IncomeDataTable incomeData = incomeTableAdapter.GetIncomesByPurchaseOrderId(int.Parse(lbPurchaseReceiptOrderId.Text));
 
                         for (int i = 0; i < incomeData.Rows.Count; i++)
@@ -505,16 +517,9 @@ namespace JS_Manage
                     }
                     using (TransactionScope tran = new TransactionScope())
                     {
-                        amount = decimal.Parse(txtTotalAmountPaid.Text);
-                        if (bankAccountId == 0)
-                        {
-                            purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, int.Parse(txtCustomerCode.Text), txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, checkBoxProductReturn.Checked, DateTime.Now, LoginInfor.UserName, null, int.Parse(cboxStore.SelectedValue.ToString()), purchaseReceiptOrderId);
-                        }
-                        else
-                        {
-                            purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, int.Parse(txtCustomerCode.Text), txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, checkBoxProductReturn.Checked, DateTime.Now, LoginInfor.UserName, bankAccountId, int.Parse(cboxStore.SelectedValue.ToString()), purchaseReceiptOrderId);
-                        }
-                        incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, null, int.Parse(txtCustomerCode.Text));
+                        amount = decimal.Parse(txtTotalAmountPaid.Text);                       
+                        purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, DateTime.Now, LoginInfor.UserName, bankAccountId, ucOutputStore.StoreId, InputStoreId , purchaseReceiptOrderId);                    
+                        incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, null, ucCustomerSelect.CustId);
                         tran.Complete();
                     }
                 }
@@ -534,22 +539,8 @@ namespace JS_Manage
             if (paymentMethod == "Trả trước")
                 isCOD = 0;
 
-            int custId = 0;
-            int.TryParse(txtCustomerCodeFind.Text.Trim(), out custId);
-
-            string outputType = "Tất cả";
-            int isReturnSupplier = -1;
-
-            if (checkedListBoxOutputType.SelectedItem != null)
-                outputType = checkedListBoxOutputType.SelectedItem.ToString();
-
-            switch (outputType)
-            {
-                case "Xuất trả": isReturnSupplier = 1;
-                    break;
-                case "Xuất bán": isReturnSupplier = 0;
-                    break;
-            }           
+            int custId = ucCustomerSelectFind.CustId;
+            string outputTypeCode = cboxOutputTypeFind.SelectedValue.ToString().Trim();                   
 
             paymentMethod = paymentMethodUserControl2.PaymentMethod;
             List<int> bankAccountList = paymentMethodUserControl2.BankAccountIds;
@@ -574,29 +565,8 @@ namespace JS_Manage
 
             DateTime startDate = new DateTime(dateTimePickerPurchaseReceiptFromFind.Value.Year, dateTimePickerPurchaseReceiptFromFind.Value.Month, dateTimePickerPurchaseReceiptFromFind.Value.Day);
             DateTime endDate = new DateTime(dateTimePickerPurchaseReceiptToFind.Value.Year, dateTimePickerPurchaseReceiptToFind.Value.Month, dateTimePickerPurchaseReceiptToFind.Value.Day, 23, 59, 59);
-            grvPurchaseReceiptOrderSumary.DataSource = purchaseOrderSumaryTableAdapter.GetPurchaseReceiptOrderSumary(startDate, endDate, custId, txtBillNumberFind.Text, isCOD, int.Parse(comboBoxSoldBy.SelectedValue.ToString()), isReturnSupplier, bankAccountIds, int.Parse(cboxStore.SelectedValue.ToString()));
+            grvPurchaseReceiptOrderSumary.DataSource = purchaseOrderSumaryTableAdapter.SearchPurchaseReceiptOrder(startDate, endDate, custId, txtBillNumberFind.Text, isCOD, int.Parse(comboBoxSoldBy.SelectedValue.ToString()), outputTypeCode, bankAccountIds, ucOutputStore.StoreId);
             RenderPurchaseReceiptOrderGridview(grvPurchaseReceiptOrderSumary);
-        }
-
-        private void grvPurchaseReceiptOrderDetail_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void btFindCustomer_Click(object sender, EventArgs e)
-        {
-            CustomerForm custForm = new CustomerForm();
-            custForm.isOpenByPurchaseReceiptOrder = true;
-            custForm.StartPosition = FormStartPosition.CenterScreen;
-            custForm.ShowDialog();
-        }
-
-        private void btFindCustomerFind_Click(object sender, EventArgs e)
-        {
-            CustomerForm custForm = new CustomerForm();
-            custForm.isOpenByPurchaseReceiptOrderFind = true;
-            custForm.StartPosition = FormStartPosition.CenterScreen;
-            custForm.ShowDialog();
         }
 
         private void chkListBox_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -639,7 +609,7 @@ namespace JS_Manage
             if (Setting.GetBoolSetting(Reward_Point_Enable))
             {
                 int custId = 0;
-                if (int.TryParse(txtCustomerCode.Text, out custId))
+                if (int.TryParse(ucCustomerSelect.CustId.ToString(), out custId))
                 {
                     CalcuateRewardPoints(custId);
                 }
@@ -664,10 +634,12 @@ namespace JS_Manage
                     int incomeIds = 0;
                     decimal amount = 0;
                     int soldBy;
-                    int bankAccountId = 0;
+                    int? toBankAccountId = null;
+                    decimal paid = 0;
+                    string outputTypeCode = cboxOutPutType.SelectedValue.ToString().Trim();
                     if (cboxPaymentMethod.SelectedItem.ToString() == Constant.PaymentMethod.BANK_TRANSFER)
                     {
-                        bankAccountId = int.Parse(cboxBankAccount.SelectedValue.ToString());
+                        toBankAccountId = int.Parse(cboxBankAccount.SelectedValue.ToString());
                     }
 
                     JSManagementDataSet.IncomeDataTable incomeDataTable = incomeTableAdapter.GetIncomesByPurchaseOrderId(purchaseReceiptOrderId);
@@ -679,14 +651,7 @@ namespace JS_Manage
                         return;
                     }
 
-                    if (bankAccountId == 0)
-                    {
-                        purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, int.Parse(txtCustomerCode.Text), txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, checkBoxProductReturn.Checked, DateTime.Now, LoginInfor.UserName, null, int.Parse(cboxStore.SelectedValue.ToString()), purchaseReceiptOrderId);
-                    }
-                    else
-                    {
-                        purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, int.Parse(txtCustomerCode.Text), txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, checkBoxProductReturn.Checked, DateTime.Now, LoginInfor.UserName, bankAccountId, int.Parse(cboxStore.SelectedValue.ToString()), purchaseReceiptOrderId);
-                    }
+                    purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, DateTime.Now, LoginInfor.UserName, toBankAccountId, ucOutputStore.StoreId, InputStoreId, purchaseReceiptOrderId);
 
                     foreach (DataGridViewRow row in grvProducts.Rows)
                     {
@@ -701,24 +666,24 @@ namespace JS_Manage
 
                             if (orderId != 0)
                             {
-                                orderTableAdapter.UpdateOrderById(dateTimePickerPerchaseReceiptDate.Text, int.Parse(txtCustomerCode.Text), productId, size, quantity, soldPrice, txtBillNumber.Text, cboxIsCod.Checked, soldBy, orderId);
+                                orderTableAdapter.UpdateOrderById(dateTimePickerPerchaseReceiptDate.Text, ucCustomerSelect.CustId, productId, size, quantity, soldPrice, txtBillNumber.Text, cboxIsCod.Checked, soldBy, orderId);
                             }
 
                             if (orderId == 0)
                             {
-                                object orderIdReturn = orderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, int.Parse(txtCustomerCode.Text), productId, size, quantity, soldPrice, txtBillNumber.Text, cboxIsCod.Checked, purchaseReceiptOrderId, soldBy);
+                                object orderIdReturn = orderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, ucCustomerSelect.CustId, productId, size, quantity, soldPrice, txtBillNumber.Text, cboxIsCod.Checked, purchaseReceiptOrderId, soldBy);
                             }
 
-                            if (!cboxIsCod.Checked && !checkBoxProductReturn.Checked)
+                            if (!cboxIsCod.Checked && outputTypeCode==Constant.OutputType.XBH)
                             {
                                 amount += soldPrice * quantity;
                             }
                         }
                     }
 
-                    if (Setting.GetBoolSetting(Reward_Point_Enable))
+                    if (Setting.GetBoolSetting(Reward_Point_Enable) && OutputTypeCode == Constant.OutputType.XBH)
                     {
-                        UpdateRewardPointEarn(int.Parse(txtCustomerCode.Text), purchaseReceiptOrderId);
+                        UpdateRewardPointEarn(ucCustomerSelect.CustId, purchaseReceiptOrderId);
                     }
 
 
@@ -733,15 +698,24 @@ namespace JS_Manage
                         usedAmountRewardPoint = usedRewardPoint * Setting.GetDecimalSetting(Reward_Point_Exchange_Rate);
                     }
 
-                    if (!cboxIsCod.Checked && !checkBoxProductReturn.Checked)
+                    if (cboxPrePaid.Checked)
+                    {
+                        decimal.TryParse(txtPrePaid.Text, out paid);
+                    }
+                    else
+                    {
+                        paid = amount - usedAmountRewardPoint;
+                    }
+
+                    if (!cboxIsCod.Checked && outputTypeCode == Constant.OutputType.XBH)
                     {
                         if (incomeIds == 0)
                         {
-                            incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount - usedAmountRewardPoint, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, null, int.Parse(txtCustomerCode.Text));
+                            incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), paid, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, toBankAccountId, ucCustomerSelect.CustId);
                         }
                         else
                         {
-                            incomeTableAdapter.UpdateIncomeById(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount - usedAmountRewardPoint, LoginInfor.UserName, DateTime.Now, null, null, incomeIds, purchaseReceiptOrderId, null, null, int.Parse(txtCustomerCode.Text));
+                            incomeTableAdapter.UpdateIncomeById(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), paid, LoginInfor.UserName, DateTime.Now, null, null, incomeIds, purchaseReceiptOrderId, null, toBankAccountId, ucCustomerSelect.CustId);
                         }
                     }
                     tran.Complete();
@@ -768,8 +742,12 @@ namespace JS_Manage
             DateTime lastEditedDate = DateTime.Now;
             string createdBy = LoginInfor.UserName;
             string lastEditedBy = LoginInfor.UserName;
-            int bankAccountId = 0;
+            int? bankAccountId = 0;
             object result;
+            string outputTypeCode = cboxOutPutType.SelectedValue.ToString().Trim();
+            decimal paid = 0;
+            decimal amount = 0;
+
             if (cboxPaymentMethod.SelectedItem.ToString() == Constant.PaymentMethod.BANK_TRANSFER)
             {
                 bankAccountId = int.Parse(cboxBankAccount.SelectedValue.ToString());
@@ -777,19 +755,15 @@ namespace JS_Manage
             using (TransactionScope tran = new TransactionScope())
             {
                 if (bankAccountId == 0)
-                {
-                    result = purchaseReceiptOrderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, int.Parse(txtCustomerCode.Text), txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, checkBoxProductReturn.Checked, createdDate, createdBy, lastEditedDate, lastEditedBy, null, int.Parse(cboxStore.SelectedValue.ToString()));
-                }
-                else
-                {
-                    result = purchaseReceiptOrderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, int.Parse(txtCustomerCode.Text), txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, checkBoxProductReturn.Checked, createdDate, createdBy, lastEditedDate, lastEditedBy, bankAccountId, int.Parse(cboxStore.SelectedValue.ToString()));
-                }
-
+                    bankAccountId = null;
+                
+                result = purchaseReceiptOrderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, createdDate, createdBy, lastEditedDate, lastEditedBy, bankAccountId, ucOutputStore.StoreId, InputStoreId );
+                
                 if (result == null)
                     return;
                 if (result.ToString() == "0")
                     return;
-                decimal amount = 0;
+                
                 if (int.TryParse(result.ToString(), out purchaseReceiptOrderId))
                 {
                     int productId;
@@ -807,8 +781,8 @@ namespace JS_Manage
                             productId = int.Parse(row.Cells[8].Value.ToString());
                             soldPrice = decimal.Parse(row.Cells[6].Value.ToString());
                             soldBy = int.Parse(row.Cells[SOLD_BY].Value.ToString());
-                            object orderId = orderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, int.Parse(txtCustomerCode.Text), productId, size, quantity, soldPrice, txtBillNumber.Text, cboxIsCod.Checked, purchaseReceiptOrderId, soldBy);
-                            if (!cboxIsCod.Checked && !checkBoxProductReturn.Checked)
+                            object orderId = orderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, ucCustomerSelect.CustId, productId, size, quantity, soldPrice, txtBillNumber.Text, cboxIsCod.Checked, purchaseReceiptOrderId, soldBy);
+                            if (!cboxIsCod.Checked && outputTypeCode == Constant.OutputType.XBH)
                                 amount += soldPrice * quantity;
 
                         }
@@ -816,19 +790,33 @@ namespace JS_Manage
                 }
 
                 decimal usedAmountRewardPoint = 0;
-                if (cboxIsRewardPointUse.Checked && !checkBoxProductReturn.Checked)
-                {
-                    usedAmountRewardPoint = InsertRewardPointUsed(int.Parse(txtCustomerCode.Text), purchaseReceiptOrderId);
-                }
 
-                if (Setting.GetBoolSetting(Reward_Point_Enable) && !checkBoxProductReturn.Checked)
+                if(Setting.GetBoolSetting(Reward_Point_Enable))
                 {
-                    InsertRewardPointEarn(int.Parse(txtCustomerCode.Text), purchaseReceiptOrderId);
-                }
+                    if (cboxIsRewardPointUse.Checked && outputTypeCode == Constant.OutputType.XBH)
+                    {
+                        usedAmountRewardPoint = InsertRewardPointUsed(ucCustomerSelect.CustId, purchaseReceiptOrderId);
+                    }
 
-                if (!cboxIsCod.Checked && !checkBoxProductReturn.Checked)
+                    if (outputTypeCode == Constant.OutputType.XBH)
+                    {
+                        InsertRewardPointEarn(ucCustomerSelect.CustId, purchaseReceiptOrderId);
+                    }
+                }                
+
+                //insert income               
+                if(cboxPrePaid.Checked)
                 {
-                    incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", txtCustomerCode.Text, lbCustomerInfo.Text), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount - usedAmountRewardPoint, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, null, int.Parse(txtCustomerCode.Text));
+                    decimal.TryParse(txtPrePaid.Text, out paid);
+                }
+                else
+                {
+                    paid = amount - usedAmountRewardPoint;
+                }
+                
+                if (!cboxIsCod.Checked && outputTypeCode == Constant.OutputType.XBH)
+                {
+                    incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), paid, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, null, ucCustomerSelect.CustId);
                 }
 
                 tran.Complete();
@@ -858,14 +846,6 @@ namespace JS_Manage
                 ClearData();
                 return;
             }
-
-            //DialogResult measageResult = MessageBox.Show("Tạo phiếu xuất hàng thành công! Bạn có muốn tiếp tục xuất hàng?", "Tiếp tục xuất hàng", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-
-            //if (measageResult == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    ClearData();
-            //    return;
-            //}
 
         }
 
@@ -922,7 +902,7 @@ namespace JS_Manage
                 }
 
 
-                DeleteRewardPoint(int.Parse(txtCustomerCode.Text), purchaseReceiptOrderId);
+                DeleteRewardPoint(ucCustomerSelect.CustId, purchaseReceiptOrderId);
 
                 purchaseReceiptOrderTableAdapter.DeleteById(purchaseReceiptOrderId);
                 tran.Complete();
@@ -938,25 +918,25 @@ namespace JS_Manage
         private void ClearData()
         {
             lbPerchaseReceiptOrderHeader.Text = "Xuất hàng".ToUpper();
-            lbCustomerInfo.Text = string.Empty;
-            txtCustomerCode.Text = string.Empty;
+            ucCustomerSelect.CustId = 0;
             lbPurchaseReceiptOrderId.Text = "0";
             txtBillNumber.Text = string.Empty;
             cboxIsCod.Checked = false;
             grvProducts.Rows.Clear();
             cboxIsCod.Enabled = true;
             txtTotalAmount.Text = "0";
-            checkBoxProductReturn.Checked = false;
             txtOrderNote.Text = string.Empty;
             dateTimePickerPerchaseReceiptDate.Value = DateTime.Now;
             lbAvaiableRewardPoint.Text = "0";
             lbPointsBalanceAmount.Text = "0";
-            checkBoxProductReturn.Checked = false;
+
             cboxIsRewardPointUse.Enabled = true;
             cboxIsRewardPointUse.Checked = false;
             cboxIsCod.CheckedChanged -= cboxIsCod_CheckedChanged;
             cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.CASH;
             cboxBankAccount.Visible = false;
+            cboxPrePaid.Checked = false;
+            dateTimePickerPerchaseReceiptDate.Focus();
         }
 
         private bool CheckActiveDate(DateTime date)
@@ -977,7 +957,8 @@ namespace JS_Manage
 
         private bool ValidateData()
         {
-            if (txtCustomerCode.Text == string.Empty)
+            decimal prepaid =0;
+            if (ucCustomerSelect.CustId == 0 && OutputTypeCode != Constant.OutputType.XCK)
             {
                 MessageBox.Show("Thông tin khách hàng không hợp lệ!");
                 return false;
@@ -988,6 +969,15 @@ namespace JS_Manage
                 // MessageBox.Show("Thông tin sản phẩm không hợp lệ!");
                 return false;
             }
+            if(cboxPrePaid.Checked)
+            {
+                if (!decimal.TryParse(txtPrePaid.Text, out prepaid) || prepaid == 0)
+                {
+                    MessageBox.Show(Constant.Message.PRE_PAID_NOT_VALID);
+                    return false;
+                }
+            }
+            
             return true;
         }
 
@@ -1114,71 +1104,17 @@ namespace JS_Manage
 
         private void RenderPurchaseReceiptOrderGridview(DataGridView grvPurchaseReceiptOrderSumary)
         {
-            //int soldById = 0;
-            //int purchaseReceiptOrderId = 0;
-            //bool isReturnSuppiler = false;
-            //decimal totalAmount = decimal.Parse( grvPurchaseReceiptOrderSumary.Rows[0].Cells[AMOUNT_ORDER_GRID_COLUMN_NAME].Value.ToString());
-            //decimal totalPoitsUsedAmount = 0;
-
-            //DataGridViewTextBoxCell soldByCell = new DataGridViewTextBoxCell();
-            //DataGridViewColumn soldByColumn = new DataGridViewColumn(soldByCell);
-            //soldByColumn.Name = PURCHASE_USER_NAME;
-
-            //if (grvPurchaseReceiptOrderSumary.Columns[PURCHASE_USER_NAME]==null)
-            //grvPurchaseReceiptOrderSumary.Columns.Add(soldByColumn);
-
-            //List<int> ListPurchaseReceiptOrderId = new List<int>();
-            //foreach (DataGridViewRow row in grvPurchaseReceiptOrderSumary.Rows)
-            //{
-            //    if (!row.IsNewRow)
-            //    {
-            //        purchaseReceiptOrderId = int.Parse(row.Cells[PURCHASE_RECEIPT_ORDER_ID_COLUMN_NAME].Value.ToString());                   
-
-            //        if (purchaseReceiptOrderId != 0)
-            //        {                        
-            //            isReturnSuppiler = purchaseReceiptOrderTableAdapter.GetById(purchaseReceiptOrderId)[0].IsReturnSupplier;
-            //            soldById = int.Parse(row.Cells[PURCHASE_USER_ID].Value.ToString());
-            //            row.Cells[PURCHASE_USER_NAME].Value = userTableAdapter.GetDataById(soldById)[0].UserName;
-
-            //            if (isReturnSuppiler && !LoginInfor.IsAdmin)
-            //            {
-            //                if (Setting.GetBoolSetting(SETTING_ALLOW_USER_VIEW_COST) == false)
-            //                {
-            //                    row.Cells[PRICE_ORDER_GRID_COLUMN_NAME].Value = 0;
-            //                    totalAmount -= decimal.Parse(row.Cells[AMOUNT_ORDER_GRID_COLUMN_NAME].Value.ToString());
-            //                    row.Cells[AMOUNT_ORDER_GRID_COLUMN_NAME].Value = 0;                                
-            //                }
-            //            }
-            //        }
-            //        if (purchaseReceiptOrderId != 0)
-            //        {
-            //            if (!ListPurchaseReceiptOrderId.Contains(purchaseReceiptOrderId))
-            //            {
-            //                ListPurchaseReceiptOrderId.Add(purchaseReceiptOrderId);
-            //            }
-            //        }
-
-            //    }
-            //}
-
-            //foreach (int p in ListPurchaseReceiptOrderId)
-            //{
-            //    if (rewardPointHistoryTableAdapters.GetRewardPointsUsedByPurchaseReceiptOrderId(p).Rows.Count > 0)
-            //    {
-            //        decimal poitsUsedAmount = rewardPointHistoryTableAdapters.GetRewardPointsUsedByPurchaseReceiptOrderId(p)[0].UsedAmount;
-            //        totalPoitsUsedAmount += poitsUsedAmount;
-            //        totalAmount -= poitsUsedAmount;
-            //    }
-            //}
-
-
             grvPurchaseReceiptOrderSumary.Columns["OrderDate"].HeaderText = Constant.PurchaseReceiptOrder_OrderDate;
+            grvPurchaseReceiptOrderSumary.Columns["OrderDate"].Width = 60;
             grvPurchaseReceiptOrderSumary.Columns["CustId"].HeaderText = Constant.PurchaseReceiptOrder_CustId;
+            grvPurchaseReceiptOrderSumary.Columns["CustId"].Width = 40;
             grvPurchaseReceiptOrderSumary.Columns["BillNumber"].HeaderText = Constant.PurchaseReceiptOrder_BillNumber;
             grvPurchaseReceiptOrderSumary.Columns["IsCOD"].HeaderText = Constant.PurchaseReceiptOrder_IsCOD;
+            grvPurchaseReceiptOrderSumary.Columns["IsCOD"].Width = 20;
             grvPurchaseReceiptOrderSumary.Columns[ORIGINAL_PRICE_ORDER_GRID_COLUMN_NAME].HeaderText = Constant.PurchaseReceiptOrder_OriginalPrice;
             grvPurchaseReceiptOrderSumary.Columns[ORIGINAL_PRICE_ORDER_GRID_COLUMN_NAME].DefaultCellStyle.Format = NUMBER_FORMAT;
             grvPurchaseReceiptOrderSumary.Columns["Quantity"].HeaderText = Constant.PurchaseReceiptOrder_Quantity;
+            grvPurchaseReceiptOrderSumary.Columns["Quantity"].Width = 30;
             grvPurchaseReceiptOrderSumary.Columns["Discount"].HeaderText = Constant.PurchaseReceiptOrder_Discount;
             grvPurchaseReceiptOrderSumary.Columns["Discount"].DefaultCellStyle.Format = NUMBER_FORMAT;
             grvPurchaseReceiptOrderSumary.Columns["UsedAmount"].HeaderText = Constant.PurchaseReceiptOrder_UsedAmount;
@@ -1186,8 +1122,12 @@ namespace JS_Manage
             grvPurchaseReceiptOrderSumary.Columns[AMOUNT_ORDER_GRID_COLUMN_NAME].HeaderText = Constant.PurchaseReceiptOrder_Amount;
             grvPurchaseReceiptOrderSumary.Columns[AMOUNT_ORDER_GRID_COLUMN_NAME].DefaultCellStyle.Format = NUMBER_FORMAT;
             grvPurchaseReceiptOrderSumary.Columns[PURCHASE_USER_NAME].HeaderText = Constant.PurchaseReceiptOrder_SoldBy;
+            grvPurchaseReceiptOrderSumary.Columns[PURCHASE_USER_NAME].Width = 50;
             grvPurchaseReceiptOrderSumary.Columns["PurchaseReceiptOrderId"].Visible = false;
             grvPurchaseReceiptOrderSumary.Columns[PURCHASE_USER_ID].Visible = false;
+            grvPurchaseReceiptOrderSumary.Columns["Paid"].HeaderText = Constant.PurchaseReceiptOrder_Paid;
+            grvPurchaseReceiptOrderSumary.Columns["Paid"].DefaultCellStyle.Format = NUMBER_FORMAT;
+            grvPurchaseReceiptOrderSumary.Columns[PURCHASE_USER_NAME].Width = 60;
 
         }
 
@@ -1204,25 +1144,28 @@ namespace JS_Manage
             if (purchaseReceiptOrderData.Rows.Count == 0) return;
 
             DateTime orderDate = purchaseReceiptOrderData[0].OrderDate;
-            string custId = purchaseReceiptOrderData[0].CustId.ToString();
+            int custId = purchaseReceiptOrderData[0].CustId;
             string billNumber = purchaseReceiptOrderData[0].BillNumber.ToString();
             bool isCOD = purchaseReceiptOrderData[0].IsCOD;
             decimal soldPrice = 0;
             decimal amount = 0;
             int quantity = 0;
             int bankAccountId = 0;
-            bool isReturnToSupplier = purchaseReceiptOrderData[0].IsReturnSupplier;
+            string outputTypeCode = purchaseReceiptOrderData[0].OutputTypeCode;
+            int inputStoreId = purchaseReceiptOrderData[0].InputStoreId;
             int storeId = purchaseReceiptOrderData[0].StoreId;
+
             lbPerchaseReceiptOrderHeader.Text = Constant.PurchaseReceiptOrder_Header.ToUpper();
             lbPurchaseReceiptOrderId.Text = purchaseReceiptOrderId.ToString();
             dateTimePickerPerchaseReceiptDate.Value = orderDate;
-            txtCustomerCode.Text = custId;
+            ucCustomerSelect.CustId = custId;
             txtBillNumber.Text = billNumber;
             cboxIsCod.Checked = isCOD;
             cboxIsCod.Enabled = true;
             txtOrderNote.Text = purchaseReceiptOrderData[0].OrderNote;
-            checkBoxProductReturn.Checked = purchaseReceiptOrderData[0].IsReturnSupplier;
-            cboxStore.SelectedValue = purchaseReceiptOrderData[0].StoreId;
+            cboxOutPutType.SelectedValue = purchaseReceiptOrderData[0].OutputTypeCode;
+            ucOutputStore.StoreId = storeId;
+            ucInputStore.StoreId = inputStoreId;
 
             bankAccountId = purchaseReceiptOrderData[0].BankAccountId;
             if (bankAccountId != 0)
@@ -1270,7 +1213,7 @@ namespace JS_Manage
                     quantity = int.Parse(grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
                     soldPrice = purchaseReceiptOrderDetailTable[i].Price;
                     amount = decimal.Parse((quantity * soldPrice).ToString());
-                    if (purchaseReceiptOrderData[0].IsReturnSupplier && !LoginInfor.IsAdmin)
+                    if (outputTypeCode == Constant.OutputType.XTH && !LoginInfor.IsAdmin)
                     {
                         if (!Setting.GetBoolSetting(SETTING_ALLOW_USER_VIEW_COST))
                         {
@@ -1293,14 +1236,26 @@ namespace JS_Manage
 
             }
 
-            if (incomeTableAdapter.GetIncomesByPurchaseOrderId(purchaseReceiptOrderId).Count > 0)
+            JSManagementDataSet.IncomeDataTable incomeData = incomeTableAdapter.GetIncomesByPurchaseOrderId(purchaseReceiptOrderId);
+            decimal firstIncome = 0;
+            if (incomeData.Count > 0)
             {
-                if (incomeTableAdapter.GetIncomesByPurchaseOrderId(purchaseReceiptOrderId)[0].IncomeNumber != string.Empty)
+                if (incomeData[0].IncomeNumber != string.Empty)
                 {
                     cboxIsCod.Enabled = false;
                 }
+                firstIncome = incomeData[0].Amount;
             }
             UpdateTotalAmountTextBox();
+            if(!isCOD)
+            {
+                if (firstIncome != decimal.Parse(txtTotalAmountPaid.Text))
+                {
+                    cboxPrePaid.Checked = true;
+                    txtPrePaid.Text = firstIncome == 0 ? "0" : firstIncome.ToString("#,###");
+                }
+            }            
+
             cboxIsCod.CheckedChanged += cboxIsCod_CheckedChanged;
         }
         private void UpdateTotalAmountTextBox()
@@ -1366,7 +1321,7 @@ namespace JS_Manage
                 return;
             }
 
-            decimal totalAmount = decimal.Parse(txtTotalAmount.Text);
+            decimal totalAmount = decimal.Parse(txtTotalAmountPaid.Text);
             decimal rewardPointForPurchaseEachSetting = Setting.GetDecimalSetting(Reward_Point_For_Purchase_Each);
             int rewardPointEarnSetting = Setting.GetIntergerSetting(Reward_Point_Earn);
             int rewardPointEarn = int.Parse(Math.Floor(totalAmount / rewardPointForPurchaseEachSetting).ToString()) * rewardPointEarnSetting;
@@ -1445,7 +1400,7 @@ namespace JS_Manage
             DateTime date = DateTime.Now;
             JSManagementDataSet.RewardPointsHistoryDataTable rewardpointUsedData = rewardPointHistoryTableAdapters.GetRewardPointsUsedByPurchaseReceiptOrderId(purchaseReceiptOrderId);
 
-            if (!string.IsNullOrEmpty(txtCustomerCode.Text))
+            if (ucCustomerSelect.CustId != 0)
             {
                 if (rewardPointHistoryTableAdapters.GetRewardPointsBalances(custId, date).Rows.Count > 0)
                 {
@@ -1544,7 +1499,7 @@ namespace JS_Manage
 
             //draw the invoice header
             Font InvInvoiceFont = new Font("Arial", 10, FontStyle.Regular);
-            int custId = int.Parse(txtCustomerCode.Text);
+            int custId = ucCustomerSelect.CustId;
             int purchaseReceiptOrderId = int.Parse(lbPurchaseReceiptOrderId.Text);
             //string custInfo = lbCustomerInfo.Text.Substring(0, lbCustomerInfo.Text.IndexOf('/'));
             string orderDate = dateTimePickerPerchaseReceiptDate.Value.ToShortDateString();
@@ -1789,7 +1744,7 @@ namespace JS_Manage
             string custName;
             string custAddress;
             string custPhone;
-            int custId = int.Parse(txtCustomerCode.Text);
+            int custId = ucCustomerSelect.CustId;
 
             custName = custTableAdapter.GetDataByCustomerId(custId)[0].CustomerName;
             custAddress = custTableAdapter.GetDataByCustomerId(custId)[0].Address;
@@ -2034,7 +1989,7 @@ namespace JS_Manage
 
             if (e.Control && e.KeyCode == Keys.K)
             {
-                txtCustomerCode.Focus();
+                ucCustomerSelect.Focus();
             }
 
             if (e.Control && e.KeyCode == Keys.U)
@@ -2060,6 +2015,13 @@ namespace JS_Manage
 
         private void PurchaseReceiptOrderForm_Load(object sender, EventArgs e)
         {
+            cboxOutPutType.DataSource = outputTypeTableAdapter.GetData();
+            cboxOutPutType.DisplayMember = Constant.OutputType.DISPLAY_MEMBER;
+            cboxOutPutType.ValueMember = Constant.OutputType.VALUE_MEMBER;
+
+            cboxOutputTypeFind.DataSource = outputTypeTableAdapter.GetData();
+            cboxOutputTypeFind.DisplayMember = Constant.OutputType.DISPLAY_MEMBER;
+            cboxOutputTypeFind.ValueMember = Constant.OutputType.VALUE_MEMBER;
 
             DataGridViewComboBoxColumn cboxSoldBy = grvProducts.Columns[SOLD_BY] as DataGridViewComboBoxColumn;
             cboxSoldBy.DataSource = userTableAdapter.GetData();
@@ -2077,11 +2039,10 @@ namespace JS_Manage
             paymentMethodUserControl2.CboxBankAccountDisplayMember = BANK_ACCOUNT_NAME_DISPLAY_MEMBER;
             paymentMethodUserControl2.CboxBankAccountValueMember = BANK_ACCOUNT_ID_Value_MEMBER;
 
-            cboxStore.DataSource = storeTableAdapter.GetData();
-            cboxStore.DisplayMember = Constant.Store.DISPLAY_MEMBER;
-            cboxStore.ValueMember = Constant.Store.VALUE_MEMBER;
-            cboxStore.SelectedValue = LoginInfor.StoreId;
-            cboxStore.Enabled = LoginInfor.IsAdmin;
+            ucOutputStore.StoreDataSource = storeTableAdapter.GetData();
+            ucOutputStore.StoreId = LoginInfor.StoreId;
+            ucOutputStore.Enabled = LoginInfor.IsAdmin;
+            ucOutputStore.LabelStoreInOrOut = Constant.Store.KHO_XUAT;
 
             this.WindowState = FormWindowState.Maximized;
 
@@ -2101,12 +2062,30 @@ namespace JS_Manage
         {
             decimal totalAmountPaid = decimal.Parse(txtTotalAmount.Text) - decimal.Parse(txtRewardPointUsedAmount.Text);
             txtTotalAmountPaid.Text = totalAmountPaid == 0 ? "0" : totalAmountPaid.ToString("#,###");
+            
         }
 
         private void txtRewardPointUsedAmount_TextChanged(object sender, EventArgs e)
         {
             decimal totalAmountPaid = decimal.Parse(txtTotalAmount.Text) - decimal.Parse(txtRewardPointUsedAmount.Text);
             txtTotalAmountPaid.Text = totalAmountPaid == 0 ? "0" : totalAmountPaid.ToString("#,###");
+            
+        }
+
+        private void txtPrePaid_TextChanged(object sender, EventArgs e)
+        {
+            decimal prePaid=0;
+            if(decimal.TryParse(txtPrePaid.Text, out prePaid))
+            {
+                decimal totalAmountPaid = decimal.Parse(txtTotalAmount.Text) - decimal.Parse(txtRewardPointUsedAmount.Text);
+                decimal remainPaid = totalAmountPaid - prePaid;
+                txtRemainPaid.Text = remainPaid == 0 ? "0" : remainPaid.ToString("#,###");
+            } 
+            else
+            {
+                MessageBox.Show(Constant.Message.PRE_PAID_NOT_VALID);
+                txtPrePaid.Focus();
+            }
         }
 
         private void cboxIsRewardPointUse_CheckedChanged(object sender, EventArgs e)
@@ -2149,16 +2128,121 @@ namespace JS_Manage
 
         }
 
-        public int PurchaseOrderId { get; set; }
-
-        private void checkedListBoxOutputType_ItemCheck(object sender, ItemCheckEventArgs e)
+        public int PurchaseOrderId 
         {
-            if (e.NewValue == CheckState.Checked)
+            get { return int.Parse(lbPurchaseReceiptOrderId.Text); }
+            set { lbPurchaseReceiptOrderId.Text = value.ToString(); }
+        }
+        public string OutputTypeCode
+        {
+            get
             {
-                for (int ix = 0; ix < checkedListBoxOutputType.Items.Count; ++ix)
+                return cboxOutPutType.SelectedValue.ToString().Trim();
+            }
+        }
+        public int? CustId
+        {
+            get 
+            { 
+                if(ucCustomerSelect.CustId == 0)
                 {
-                    if (e.Index != ix) checkedListBoxOutputType.SetItemChecked(ix, false);
+                    return null;
                 }
+
+                return ucCustomerSelect.CustId; }
+        }
+        public int BankAccountId
+        {
+            get
+            {
+                if (cboxPaymentMethod.SelectedItem.ToString() == Constant.PaymentMethod.BANK_TRANSFER)
+                {
+                    return int.Parse(cboxBankAccount.SelectedValue.ToString());
+                }
+
+                return 0;
+            }
+        }
+         
+        public int OutPutStoreId
+        {
+            get { return ucOutputStore.StoreId; }
+        }
+
+        public DateTime PerchaseReceiptDate
+        {
+            get { return dateTimePickerPerchaseReceiptDate.Value; }
+        }
+
+        public int? InputStoreId
+        {
+            get {
+                
+                if(ucInputStore.StoreId == 0) 
+                {
+                    return null;
+                }                    
+                return ucInputStore.StoreId;
+            }
+        }
+
+        private void cboxOutPutType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string outputTypeDesc = cboxOutPutType.GetItemText(cboxOutPutType.SelectedItem);
+            string outputTypeCode = cboxOutPutType.SelectedValue.ToString().Trim().ToUpper();
+            lbPerchaseReceiptOrderHeader.Text = string.Format("{0} {1}", Constant.PURCHASRE_HEADER_PRE.ToUpper(), outputTypeDesc.ToUpper());
+
+            if(outputTypeCode == Constant.OutputType.XCK.Trim().ToUpper())
+            {
+                //Load combobox input store
+                ucInputStore.Visible = true;
+                ucInputStore.StoreDataSource = storeTableAdapter.GetData();
+                ucInputStore.LabelStoreInOrOut = Constant.Store.KHO_NHAP;
+                //Not display customer select, reward point
+                ucCustomerSelect.CustId = 0;
+                ucCustomerSelect.Enabled = false;
+                cboxIsRewardPointPrint.Visible= false;
+                cboxIsRewardPointUse.Visible = false;
+            }
+            else
+            {
+                //Invisible combobox input store
+                ucInputStore.Visible = false;
+                //Not display customer select, reward point
+                ucCustomerSelect.Enabled = true;
+                cboxIsRewardPointPrint.Visible = true;
+                cboxIsRewardPointUse.Visible = true;
+            }
+        }
+
+        private void ucCustomerSelect_CustomerIdTextChanged(object sender, EventArgs e)
+        {
+            if (Setting.GetBoolSetting(Reward_Point_Enable))
+            {
+                int custId = 0;
+                if (int.TryParse(ucCustomerSelect.CustId.ToString(), out custId))
+                {
+                    CalcuateRewardPoints(custId);
+                }
+            }
+        }
+
+        private void cboxPrePaid_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cboxPrePaid.Checked)
+            {
+                lbprePaid.Visible = true;
+                txtPrePaid.Visible = true;
+                lbRemainPaid.Visible = true;
+                txtRemainPaid.Visible = true;
+            }
+            else
+            {
+                lbprePaid.Visible = false;
+                txtPrePaid.Visible = false;
+                lbRemainPaid.Visible = false;
+                txtRemainPaid.Visible = false;
+                txtPrePaid.Text = "0";
             }
         }
     }

@@ -37,7 +37,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 5);
+            this.label1.Location = new System.Drawing.Point(-2, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 0;
@@ -45,17 +45,17 @@
             // 
             // txtCustId
             // 
-            this.txtCustId.Location = new System.Drawing.Point(102, 1);
+            this.txtCustId.Location = new System.Drawing.Point(92, 1);
             this.txtCustId.Name = "txtCustId";
-            this.txtCustId.Size = new System.Drawing.Size(57, 20);
+            this.txtCustId.Size = new System.Drawing.Size(45, 20);
             this.txtCustId.TabIndex = 1;
             this.txtCustId.TextChanged += new System.EventHandler(this.txtCustId_TextChanged);
             // 
             // btGetCustId
             // 
-            this.btGetCustId.Location = new System.Drawing.Point(163, -1);
+            this.btGetCustId.Location = new System.Drawing.Point(139, -1);
             this.btGetCustId.Name = "btGetCustId";
-            this.btGetCustId.Size = new System.Drawing.Size(29, 23);
+            this.btGetCustId.Size = new System.Drawing.Size(23, 23);
             this.btGetCustId.TabIndex = 65;
             this.btGetCustId.Text = ">";
             this.btGetCustId.UseVisualStyleBackColor = true;
@@ -64,7 +64,7 @@
             // lbCustInfo
             // 
             this.lbCustInfo.AutoSize = true;
-            this.lbCustInfo.Location = new System.Drawing.Point(198, 5);
+            this.lbCustInfo.Location = new System.Drawing.Point(167, 5);
             this.lbCustInfo.Name = "lbCustInfo";
             this.lbCustInfo.Size = new System.Drawing.Size(49, 13);
             this.lbCustInfo.TabIndex = 3;
@@ -79,7 +79,7 @@
             this.Controls.Add(this.txtCustId);
             this.Controls.Add(this.label1);
             this.Name = "CustomerSelectUserControl";
-            this.Size = new System.Drawing.Size(545, 23);
+            this.Size = new System.Drawing.Size(479, 23);
             this.ResumeLayout(false);
             this.PerformLayout();
 

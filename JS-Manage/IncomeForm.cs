@@ -179,6 +179,7 @@ namespace JS_Manage
 
         private void SearchIncome(string incomeNumber, DateTime startDate, DateTime endDate, int bankAccountId, int fromBankAccountId, int purchaseReceiveOrderId)
         {
+            grvIncome.ScrollBars = ScrollBars.Both;
             grvIncome.DataSource = incomeTableAdapter.GetIncome(startDate, endDate, incomeNumber, bankAccountId, fromBankAccountId, purchaseReceiveOrderId);
             RenameIncomeGridHeaderText();
             if (grvIncome.Rows.Count == 1)
@@ -486,7 +487,6 @@ namespace JS_Manage
             }
 
             this.WindowState = FormWindowState.Maximized;
-            grvIncome.Width = this.Width - 40;
 
             if (incomeId != 0)
                 BindDataToEdit(incomeId);

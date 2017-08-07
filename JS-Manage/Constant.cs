@@ -23,10 +23,12 @@ namespace JS_Manage
         public const string PurchaseReceiptOrder_UsedAmount = "Điểm thưởng";
         public const string PurchaseReceiptOrder_Amount = "Thành tiền";
         public const string PurchaseReceiptOrder_Header = "Sửa phiếu xuất";
+        public const string PURCHASRE_HEADER_PRE = "Lập phiếu";
        
 
         public const string PurchaseReceiptOrder_SoldBy = "Người bán";
         public const string Not_Allow_User_Edit_On_Other_CreatedDate = "NotAllowUserEditOnOtherCreatedDate";
+        public const string PurchaseReceiptOrder_Paid = "Thanh Toán";
 
         public static class BankAccount
         {
@@ -313,6 +315,21 @@ namespace JS_Manage
         {
             public const string DISPLAY_MEMBER = "StoreName";
             public const string VALUE_MEMBER = "StoreId";
+            public const string KHO_NHAP = "Kho Nhập";
+            public const string KHO_XUAT = "Kho Xuất";
+        }
+        public static class OutputType
+        {
+            public const string DISPLAY_MEMBER = "OutputTypeDesc";
+            public const string VALUE_MEMBER = "OutputTypeCode";
+            public const string XBH = "XBH"; //xuất bán hàng
+            public const string XTH = "XTH"; //xuất trả hàng
+            public const string XCK = "XCK"; //xuất chuyển kho
+        }
+
+        public static class Message
+        {
+            public const string PRE_PAID_NOT_VALID = "Số tiền trả trước không hợp lệ";
         }
     }
 }
