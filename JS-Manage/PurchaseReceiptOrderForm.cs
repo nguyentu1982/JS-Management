@@ -414,6 +414,7 @@ namespace JS_Manage
         private void btAddNew_Click(object sender, EventArgs e)
         {
             ClearData();
+            dateTimePickerPerchaseReceiptDate.Focus();
         }
 
         //private void txtCustomerCode_TextChanged(object sender, EventArgs e)
@@ -925,6 +926,7 @@ namespace JS_Manage
             grvProducts.Rows.Clear();
             cboxIsCod.Enabled = true;
             txtTotalAmount.Text = "0";
+            txtQuantity.Text = "0";
             txtOrderNote.Text = string.Empty;
             dateTimePickerPerchaseReceiptDate.Value = DateTime.Now;
             lbAvaiableRewardPoint.Text = "0";
@@ -936,7 +938,6 @@ namespace JS_Manage
             cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.CASH;
             cboxBankAccount.Visible = false;
             cboxPrePaid.Checked = false;
-            dateTimePickerPerchaseReceiptDate.Focus();
         }
 
         private bool CheckActiveDate(DateTime date)
@@ -1200,14 +1201,14 @@ namespace JS_Manage
             {
                 grvProducts.Rows.Add(1);
                 int productId = purchaseReceiptOrderDetailTable[i].ProductId;
-
-                if (productTableAdapter.GetProductById(productId, storeId).Rows.Count > 0)
+                JSManagementDataSet.ProductDataTable productData = productTableAdapter.GetProductById(productId, storeId);
+                if (productData.Rows.Count > 0)
                 {
-                    grvProducts.Rows[i].Cells[PRODUCT_CODE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId, storeId)[0].ProductCode;
-                    grvProducts.Rows[i].Cells[PRODUCT_TYPE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId, storeId)[0].ProductType;
-                    grvProducts.Rows[i].Cells[BRAND_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId, storeId)[0].Brand;
-                    grvProducts.Rows[i].Cells[SIZE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId, storeId)[0].Size;
-                    grvProducts.Rows[i].Cells[PRICE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId, storeId)[0].Price;
+                    grvProducts.Rows[i].Cells[PRODUCT_CODE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ProductCode;
+                    grvProducts.Rows[i].Cells[PRODUCT_TYPE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ProductType;
+                    grvProducts.Rows[i].Cells[BRAND_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Brand;
+                    grvProducts.Rows[i].Cells[SIZE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Size;
+                    grvProducts.Rows[i].Cells[PRICE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Price;
                     grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value = purchaseReceiptOrderDetailTable[i].Quantity;
 
                     quantity = int.Parse(grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
@@ -1225,7 +1226,7 @@ namespace JS_Manage
                     grvProducts.Rows[i].Cells[SOLD_PRICE_PRODUCT_GRID_COLUMN_NAME].Value = soldPrice;
                     grvProducts.Rows[i].Cells[AMOUNT_PRODUCT_GRID_COLUMN_NAME].Value = amount;
                     grvProducts.Rows[i].Cells[PRODUCT_ID_PRODUCT_GRID_COLUMN_NAME].Value = purchaseReceiptOrderDetailTable[i].ProductId;
-                    grvProducts.Rows[i].Cells[CLOSING_BALLANCE_PRODUCT_GRID_COLUMN_NAME].Value = productTableAdapter.GetProductById(productId,storeId)[0].ClosingBalance + purchaseReceiptOrderDetailTable[i].Quantity;
+                    grvProducts.Rows[i].Cells[CLOSING_BALLANCE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ClosingBalance + purchaseReceiptOrderDetailTable[i].Quantity;
                     grvProducts.Rows[i].Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value = purchaseReceiptOrderDetailTable[i].OrderId;
                     DataGridViewComboBoxCell cboxSoldBy = grvProducts.Rows[i].Cells[SOLD_BY] as DataGridViewComboBoxCell;
                     cboxSoldBy.DisplayMember = USER_NAME;
@@ -1261,12 +1262,17 @@ namespace JS_Manage
         private void UpdateTotalAmountTextBox()
         {
             decimal totalAmount = 0;
+            int quantity = 0;
             for (int i = 0; i < grvProducts.Rows.Count; i++)
             {
-                if (grvProducts.Rows[i].Cells[7].Value != null)
-                    totalAmount += decimal.Parse(grvProducts.Rows[i].Cells[7].Value.ToString());
+                if (grvProducts.Rows[i].Cells[AMOUNT_PRODUCT_GRID_COLUMN_NAME].Value != null)
+                    totalAmount += decimal.Parse(grvProducts.Rows[i].Cells[AMOUNT_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
+
+                if (grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value != null)
+                    quantity += int.Parse(grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
             }
             txtTotalAmount.Text = totalAmount.ToString("#,###") == string.Empty ? "0" : totalAmount.ToString("#,###");
+            txtQuantity.Text = quantity.ToString();
         }
 
         private decimal InsertRewardPointUsed(int custId, int purchaseOrderId)
@@ -2123,8 +2129,10 @@ namespace JS_Manage
             Point p = groupBox1.PointToScreen(grvPurchaseReceiptOrderSumary.Location);
             Point p1 = groupBox1.Location;
 
-            grvPurchaseReceiptOrderSumary.Height = this.Height - p.Y < 20 ? 100 : this.Height - p.Y - 30;
-            groupBox1.Height = this.Height - p1.Y - 40;
+            grvPurchaseReceiptOrderSumary.Height = this.Height - p.Y < 20 ? 100 : this.Height - p.Y - 40;
+            groupBox1.Height = this.Height - p1.Y - 30;
+            groupBox1.Width = this.Width - p1.X - 30;
+            grvPurchaseReceiptOrderSumary.Width = this.Width - p1.X - 50;
 
         }
 
