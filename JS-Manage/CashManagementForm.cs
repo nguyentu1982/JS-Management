@@ -200,7 +200,7 @@ namespace JS_Manage
                     return;
                 case BILL_OF_ORDER:
                     PurchaseReceiptOrderForm proForm = new PurchaseReceiptOrderForm();
-                    proForm.PurchaseOrderId = id;
+                    proForm.PurchaseReceiveOrderId = id;
                     proForm.StartPosition = FormStartPosition.CenterScreen;
                     proForm.ShowDialog();
                     return;

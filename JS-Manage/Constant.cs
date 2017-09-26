@@ -30,10 +30,34 @@ namespace JS_Manage
         public const string Not_Allow_User_Edit_On_Other_CreatedDate = "NotAllowUserEditOnOtherCreatedDate";
         public const string PurchaseReceiptOrder_Paid = "Thanh Toán";
 
+        public const string Update_Text = "SỬA";
+        public const string Delete_Text = "XÓA";
+        public static class ProductGridColumName
+        {
+            public const string PRODUCT_CODE = "ProductCode";
+            public const string PRODUCT_TYPE = "ProductType";
+            public const string BRAND = "Brand";
+            public const string SIZE = "Size";
+            public const string ORIGINAL_PRICE = "OrigialPrice";
+            public const string QUANTITY = "Quantity";
+            public const string PRICE = "Price";
+            public const string AMOUNT = "Amount";
+            public const string PRODUCT_ID = "ProductId";
+            public const string PRODUCT_MAPPING_ID = "OrderId";
+            public const string INCOME_ID = "IncomeId";
+            public const string PURCHASE_RECEIPT_ORDER_ID = "PurchaseReceiptOrderId";
+            public const string USER_ID = "UserId";
+            public const string USER_NAME = "UserName";
+            public const string CLOSING_BALANCE = "ClosingBallance";
+
+            public const string SOLD_PRICE = "SoldPrice";
+        }
         public static class BankAccount
         {
             public const string Bank_Account_Name_Column_Name = "BankAccountName";
             public const string Bank_Account_Id_Column_Name = "BankAccountId";
+            public const string BANK_ACCOUNT_NAME_DISPLAY_MEMBER = "BankAccountName";
+            public const string BANK_ACCOUNT_ID_Value_MEMBER = "BankAccountId";
         }
 
         public static class BankAccountDetail
@@ -259,6 +283,8 @@ namespace JS_Manage
                 public const string DATE ="DATE";
                 public const string QUANTITY ="Quantity";
                 public const string CLOSING_BALANCE = "ClosingBalance";
+
+                public const string IN_OUT_TYPE_CODE = "InOutTypeCode";
             }
 
             public static class ProductInOutDetailGridColumnHeader
@@ -290,18 +316,18 @@ namespace JS_Manage
             public const string PRODUCT_BRAND_LABEL_CONTROL_NAME = "lbBrand";
         }
 
-        public static class ProductInput
+        public static class ProductInputColumnName
         {
-            public const string PRODUCT_CODE_COLUMN_NAME = "ProductCode";
-            public const string PRODUCT_TYPE_COLUMNNAME = "ProductType";
-            public const string PRODUCT_BRAND_COLUMN_NAME = "Brand";
-            public const string SIZE_COLUMN_NAME = "Size";
-            public const string QUANTITY_COLUMN_NAME="Quantity";
-            public const string COST_COLUMN_NAME="Cost";
-            public const string AMOUNT_COLUMN_NAME = "Amount";
-            public const string PRODUCT_ID_COLUMN_NAME = "ProductId";
-            public const string PRODUCT_INPUT_ID_COLUMN_NAME = "ProductInputId";
-            public const string PRODUCT_INPUT_ORDER_ID_COL_NAME = "ProductInputOrderId";
+            public const string PRODUCT_CODE = "ProductCode";
+            public const string PRODUCT_TYPE = "ProductType";
+            public const string BRAND = "Brand";
+            public const string SIZE= "Size";
+            public const string QUANTITY = "Quantity";
+            public const string COST="Cost";
+            public const string AMOUNT = "Amount";
+            public const string PRODUCT_ID = "ProductId";
+            public const string PRODUCT_INPUT_ID = "ProductInputId";
+            public const string PRODUCT_INPUT_ORDER_ID = "ProductInputOrderId";
 
             public const string INPUT_DATE_COLUMN_NAME="InputDate";
             public const string SUPPLIER_ID_COL_NAME ="SupplierId";
@@ -309,6 +335,8 @@ namespace JS_Manage
             public const string COST_COL_HEADER = "Tổng tiền";
             public const string INPUT_DATE_COL_HEADER = "Ngày nhập";
             public const string SUPPLIER_COL_HEADER = "Mã NCC";
+
+            public const string INPUT_TYPE_CODE = "InputTypeCode";
         }
 
         public static class Store
@@ -325,11 +353,27 @@ namespace JS_Manage
             public const string XBH = "XBH"; //xuất bán hàng
             public const string XTH = "XTH"; //xuất trả hàng
             public const string XCK = "XCK"; //xuất chuyển kho
+
+            public const string COLUMN_NAME_OUTPUT_TYPE_CODE = "OutputTypeCode";
+        }
+        public static class InputType
+        {
+            public const string DISPLAY_MEMBER = "InputTypeDesc";
+            public const string VALUE_MEMBER = "InputTypeCode";
+            public const string NH = "NH"; //nhập hàng
+            public const string NCK = "NCK"; //nhập chuyển kho hàng
+            public const string ALL = "ALL";
+
+            public const string ALL_DESC = "Tất cả";
+            public const string NCK_NOT_APPROVED = "Chưa duyệt";
+            public const string NCK_APPROVED = "Đã duyệt";
         }
 
         public static class Message
         {
             public const string PRE_PAID_NOT_VALID = "Số tiền trả trước không hợp lệ";
         }
+
+        
     }
 }

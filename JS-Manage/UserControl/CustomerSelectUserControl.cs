@@ -51,12 +51,18 @@ namespace JS_Manage
 
         private void btGetCustId_Click(object sender, EventArgs e)
         {
-            CustId = 0;
+            int custId =0;
+            int.TryParse(txtCustId.Text, out custId);
+            
             CustomerForm customerList = new CustomerForm();
             customerList.isOpenByCustomerSelectUserControl = true;
+            customerList.CustId = custId;
             customerList.ShowDialog();
-            CustId = customerList.CustId;
-            txtCustId.Text = CustId.ToString();
+            if (customerList.CustId != 0)
+            {
+                CustId = customerList.CustId;
+                txtCustId.Text = CustId.ToString();
+            }   
         }
 
         private void txtCustId_TextChanged(object sender, EventArgs e)

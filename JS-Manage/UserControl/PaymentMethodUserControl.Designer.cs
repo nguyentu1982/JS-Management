@@ -48,12 +48,11 @@
             this.cboxPaymentMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxPaymentMethod.FormattingEnabled = true;
             this.cboxPaymentMethod.Items.AddRange(new object[] {
-            "Tất cả",
             "Tiền mặt",
             "Chuyển khoản"});
             this.cboxPaymentMethod.Location = new System.Drawing.Point(86, 5);
             this.cboxPaymentMethod.Name = "cboxPaymentMethod";
-            this.cboxPaymentMethod.Size = new System.Drawing.Size(80, 21);
+            this.cboxPaymentMethod.Size = new System.Drawing.Size(95, 21);
             this.cboxPaymentMethod.TabIndex = 1018;
             this.cboxPaymentMethod.SelectedIndexChanged += new System.EventHandler(this.cboxPaymentMethod_SelectedIndexChanged);
             // 
@@ -61,7 +60,7 @@
             // 
             this.checkedListBoxBankAccount.CheckOnClick = true;
             this.checkedListBoxBankAccount.FormattingEnabled = true;
-            this.checkedListBoxBankAccount.Location = new System.Drawing.Point(171, 6);
+            this.checkedListBoxBankAccount.Location = new System.Drawing.Point(187, 5);
             this.checkedListBoxBankAccount.Name = "checkedListBoxBankAccount";
             this.checkedListBoxBankAccount.Size = new System.Drawing.Size(160, 19);
             this.checkedListBoxBankAccount.TabIndex = 1021;
@@ -70,7 +69,7 @@
             // 
             // btShowHide
             // 
-            this.btShowHide.Location = new System.Drawing.Point(334, 4);
+            this.btShowHide.Location = new System.Drawing.Point(353, 4);
             this.btShowHide.Name = "btShowHide";
             this.btShowHide.Size = new System.Drawing.Size(20, 23);
             this.btShowHide.TabIndex = 1022;
@@ -88,7 +87,7 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.cboxPaymentMethod);
             this.Name = "PaymentMethodUserControl";
-            this.Size = new System.Drawing.Size(359, 32);
+            this.Size = new System.Drawing.Size(376, 32);
             this.ResumeLayout(false);
             this.PerformLayout();
 

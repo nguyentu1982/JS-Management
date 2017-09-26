@@ -39,12 +39,13 @@ namespace JS_Manage
         JSManagementDataSetTableAdapters.PurchaseReceiptOrderDetailTableAdapter purchaseOrderDetailTableAdapter;
         JSManagementDataSetTableAdapters.JS_UserTableAdapter userTableAdapter;
         JSManagementDataSetTableAdapters.RewardPointsHistoryTableAdapter rewardPointHistoryTableAdapters;
-        private JSManagementDataSetTableAdapters.BrandTableAdapter brandTableAdapter;
-        private JSManagementDataSetTableAdapters.ProductTypeTableAdapter productTypeTableAdapter;
-        private JSManagementDataSetTableAdapters.SizeTableAdapter sizeTableAdapter;
         private JSManagementDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter;
         JSManagementDataSetTableAdapters.StoreTableAdapter storeTableAdapter;
         JSManagementDataSetTableAdapters.OutputTypeTableAdapter outputTypeTableAdapter;
+        JSManagementDataSetTableAdapters.ProductTransOrderTableAdapter productTransOrderTableAdapter;      
+        JSManagementDataSetTableAdapters.ProductTransMappingTableAdapter productTransMappingTA;
+        JSManagementDataSetTableAdapters.ProductTableAdapter productTA;
+        
 
         private const string SOLD_BY = "SoldBy";
         private const string USER_NAME = "UserName";
@@ -73,20 +74,7 @@ namespace JS_Manage
         private const string PURCHASE_CUST_ID = "CustId";
         private const string PURCHASE_BILL_NUMBER = "BillNumber";
         private const string PURCHASE_IS_COD = "IsCOD";
-        private const string PURCHASE_PRODUCT_CODE = "ProductCode";
-        private const string PURCHASE_PRODUCT_TYPE = "ProductType";
-        private const string PURCHASE_BRAND = "Brand";
-        private const string PURCHASE_SIZE = "Size";
-        private const string PURCHASE_ORIGINAL_PRICE = "OrigialPrice";
-        private const string PURCHASE_QUANTITY = "Quantity";
-        private const string PURCHASE_PRICE = "Price";
-        private const string PURCHASE_AMOUNT = "Amount";
-        private const string PURCHASE_PRODUCT_ID = "ProductId";
-        private const string PURCHASE_ORDER_ID = "OrderId";
-        private const string PURCHASE_INCOME_ID = "IncomeId";
-        private const string PURCHASE_PURCHASE_ID = "PurchaseReceiptOrderId";
-        private const string PURCHASE_USER_ID = "UserId";
-        private const string PURCHASE_USER_NAME = "UserName";
+
 
         private const string Reward_Point_Enable = "RewardPointEnable";
         private const string Reward_Point_Exchange_Rate = "RewardPointExchangeRate";
@@ -95,8 +83,7 @@ namespace JS_Manage
         private const string Reward_Point_Earn = "RewardPointEarn";
 
         private const string NUMBER_FORMAT = "N0";
-        private const string BANK_ACCOUNT_NAME_DISPLAY_MEMBER = "BankAccountName";
-        private const string BANK_ACCOUNT_ID_Value_MEMBER = "BankAccountId";
+        
         public PurchaseReceiptOrderForm()
         {
             //
@@ -144,6 +131,15 @@ namespace JS_Manage
             outputTypeTableAdapter = new JSManagementDataSetTableAdapters.OutputTypeTableAdapter();
             outputTypeTableAdapter.Connection = CommonHelper.GetSQLConnection();
 
+            productTransOrderTableAdapter = new JSManagementDataSetTableAdapters.ProductTransOrderTableAdapter();
+            productTransMappingTA = new JSManagementDataSetTableAdapters.ProductTransMappingTableAdapter();
+            productTransOrderTableAdapter.Connection = CommonHelper.GetSQLConnection();
+            productTransMappingTA.Connection = CommonHelper.GetSQLConnection();
+
+
+            productTA = new JSManagementDataSetTableAdapters.ProductTableAdapter();
+            productTA.Connection = CommonHelper.GetSQLConnection();
+
             this.prnDialog = new System.Windows.Forms.PrintDialog();
             this.prnPreview = new System.Windows.Forms.PrintPreviewDialog();
             this.prnDocument = new System.Drawing.Printing.PrintDocument();
@@ -157,7 +153,7 @@ namespace JS_Manage
 
             //payment method usercontrol
             bankAccountTableAdapter = new JSManagementDataSetTableAdapters.BankAccountTableAdapter();
-            bankAccountTableAdapter.Connection = CommonHelper.GetSQLConnection();
+            bankAccountTableAdapter.Connection = CommonHelper.GetSQLConnection();   
 
         }
 
@@ -171,7 +167,7 @@ namespace JS_Manage
             if (e.KeyCode == Keys.Tab)
             {
 
-                if (grvProducts.CurrentCell.ColumnIndex == 0)
+                if (grvProducts.CurrentCell == grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.PRODUCT_CODE])
                 {
 
                     string productCodeSearch = grvProducts.CurrentCell.Value == null ? string.Empty : grvProducts.CurrentCell.Value.ToString();
@@ -184,51 +180,54 @@ namespace JS_Manage
 
                 }
 
-                if (grvProducts.CurrentCell.ColumnIndex == 6)
+                if (grvProducts.CurrentCell == grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.SOLD_PRICE])
                 {
                     int rowIndex = grvProducts.CurrentCell.RowIndex;
+                    int productId = int.Parse( grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.PRODUCT_ID].Value.ToString());
+                    JSManagementDataSet.ProductDataTable productData = productTA.GetProductById(productId, LoginInfor.StoreId);
                     int quantity = 0;
 
-                    if (grvProducts.CurrentRow.Cells[5].Value == null)
+                    if (grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.QUANTITY].Value == null)
                     {
                         MessageBox.Show("Số lượng không hợp lệ!");
-                        grvProducts.CurrentRow.Cells[7].Value = string.Empty;
+                        grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
                         return;
                     }
 
-                    if (!int.TryParse(grvProducts.CurrentRow.Cells[5].Value.ToString(), out quantity))
+                    if (!int.TryParse(grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.QUANTITY].Value.ToString(), out quantity))
                     {
                         MessageBox.Show("Số lượng không hợp lệ!");
-                        grvProducts.CurrentRow.Cells[7].Value = string.Empty;
+                        grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
                         return;
                     }
 
-                    if (int.Parse(grvProducts.CurrentRow.Cells[9].Value.ToString()) - quantity < 0)
+                    if (productData[0].ClosingBalance - quantity < 0)
                     {
                         DialogResult result = MessageBox.Show("Số lượng xuất bán vượt quá lượng tồn! Tiếp tục xuất?", "Xuất quá số lượng tồn", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                         if (result == System.Windows.Forms.DialogResult.Cancel)
                         {
-                            grvProducts.CurrentRow.Cells[7].Value = string.Empty;
+                            grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
+                            grvProducts.CurrentCell = grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.QUANTITY];
                             return;
                         }
                     }
 
                     decimal soldPrice = 0;
-                    if (grvProducts.CurrentRow.Cells[6].Value == null)
+                    if (grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value == null)
                     {
                         MessageBox.Show("Giá không hợp lệ!");
-                        grvProducts.CurrentRow.Cells[7].Value = string.Empty;
+                        grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
                         return;
                     }
 
-                    if (!decimal.TryParse(grvProducts.CurrentRow.Cells[6].Value.ToString(), out soldPrice))
+                    if (!decimal.TryParse(grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value.ToString(), out soldPrice))
                     {
                         MessageBox.Show("Giá không hợp lệ!");
-                        grvProducts.CurrentRow.Cells[7].Value = string.Empty;
+                        grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
                         return;
                     }
 
-                    grvProducts.CurrentRow.Cells[7].Value = quantity * soldPrice;
+                    grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = quantity * soldPrice;
 
                     UpdateTotalAmountTextBox();
 
@@ -282,47 +281,81 @@ namespace JS_Manage
                 }
                 if (lbPurchaseReceiptOrderId.Text != "0")
                 {
-                    int purchaseReceiptOrderId = int.Parse(lbPurchaseReceiptOrderId.Text);
-                    var purchaseReceiptOrder = purchaseReceiptOrderTableAdapter.GetById(purchaseReceiptOrderId);
-
-                    if (purchaseReceiptOrder[0] == null)
+                    if(cboxOutPutType.SelectedValue.ToString().Trim() != Constant.OutputType.XCK)
                     {
-                        MessageBox.Show("Phiếu xuất hàng không tồn tại");
-                        return;
-                    }
+                        int purchaseReceiptOrderId = int.Parse(lbPurchaseReceiptOrderId.Text);
+                        var purchaseReceiptOrder = purchaseReceiptOrderTableAdapter.GetById(purchaseReceiptOrderId);
 
-                    if (!CheckActiveDate(purchaseReceiptOrder[0].OrderDate)) return;
-
-                    if (cboxIsCod.Enabled == false)
-                    {
-                        MessageBox.Show("Phiếu xuất hàng đã có hóa đơn thanh toán, không cho phép xóa sản phẩm!");
-                        return;
-                    }
-
-                    DialogResult result = MessageBox.Show("Bạn muốn xóa sản phẩm khỏi đơn hàng?", "Xóa sản phẩm", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                    if (result == System.Windows.Forms.DialogResult.OK)
-                    {
-                        JSManagementDataSet.IncomeDataTable incomeDataTable = incomeTableAdapter.GetIncomesByPurchaseOrderId(purchaseReceiptOrderId);
-                        int orderId = int.Parse(grvProducts.Rows[currentMouseOverRow].Cells[10].Value.ToString());
-                        int incomeId = incomeDataTable.Count == 0 ? 0 : incomeDataTable[0].IncomeId;
-                        using (TransactionScope tran = new TransactionScope())
+                        if (purchaseReceiptOrder[0] == null)
                         {
-                            if (orderTableAdapter.DeleteOrderById(orderId) > 0)
+                            MessageBox.Show("Phiếu xuất hàng không tồn tại");
+                            return;
+                        }
+
+                        if (!CheckActiveDate(purchaseReceiptOrder[0].OrderDate)) return;
+
+                        if (cboxIsCod.Enabled == false)
+                        {
+                            MessageBox.Show("Phiếu xuất hàng đã có hóa đơn thanh toán, không cho phép xóa sản phẩm!");
+                            return;
+                        }
+
+                        DialogResult result = MessageBox.Show("Bạn muốn xóa sản phẩm khỏi đơn hàng?", "Xóa sản phẩm", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                        if (result == System.Windows.Forms.DialogResult.OK)
+                        {
+                            JSManagementDataSet.IncomeDataTable incomeDataTable = incomeTableAdapter.GetIncomesByPurchaseOrderId(purchaseReceiptOrderId);
+                            int orderId = int.Parse(grvProducts.Rows[currentMouseOverRow].Cells[10].Value.ToString());
+                            int incomeId = incomeDataTable.Count == 0 ? 0 : incomeDataTable[0].IncomeId;
+                            using (TransactionScope tran = new TransactionScope())
                             {
-                                grvProducts.Rows.RemoveAt(currentMouseOverRow);
-                                grvProducts.ClearSelection();
+                                if (orderTableAdapter.DeleteOrderById(orderId) > 0)
+                                {
+                                    grvProducts.Rows.RemoveAt(currentMouseOverRow);
+                                    grvProducts.ClearSelection();
+                                }
+                                tran.Complete();
                             }
-                            tran.Complete();
-                        }
 
-                        UpdateTotalAmountTextBox();
+                            UpdateTotalAmountTextBox();
 
-                        if (incomeId > 0)
-                        {
-                            incomeTableAdapter.UpdateAmountById(decimal.Parse(txtTotalAmount.Text), LoginInfor.UserName, DateTime.Now.ToString(), incomeId);
+                            if (incomeId > 0)
+                            {
+                                incomeTableAdapter.UpdateAmountById(decimal.Parse(txtTotalAmount.Text), LoginInfor.UserName, DateTime.Now.ToString(), incomeId);
+                            }
+                            MessageBox.Show("Xóa sản phẩm khỏi đơn hàng thành công!");
                         }
-                        MessageBox.Show("Xóa sản phẩm khỏi đơn hàng thành công!");
                     }
+
+                    if(cboxOutPutType.SelectedValue.ToString().Trim() == Constant.OutputType.XCK)
+                    {
+                        int productTransOrderId = int.Parse(lbPurchaseReceiptOrderId.Text);
+                        var productTransOrder = productTransOrderTableAdapter.GetDataById(productTransOrderId);
+
+                        if (productTransOrder[0] == null)
+                        {
+                            MessageBox.Show("Phiếu xuất hàng không tồn tại");
+                            return;
+                        }
+
+                        if (!CheckActiveDate(productTransOrder[0].TransDate)) return;
+                        DialogResult result = MessageBox.Show("Bạn muốn xóa sản phẩm khỏi đơn hàng?", "Xóa sản phẩm", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                        if (result == System.Windows.Forms.DialogResult.OK)
+                        {                            
+                            int productTransMappingId = int.Parse(grvProducts.Rows[currentMouseOverRow].Cells[Constant.ProductGridColumName.PRODUCT_MAPPING_ID].Value.ToString());
+                            
+                            using (TransactionScope tran = new TransactionScope())
+                            {
+                                if (productTransMappingTA.DeleteById(productTransMappingId) > 0)
+                                {
+                                    grvProducts.Rows.RemoveAt(currentMouseOverRow);
+                                    grvProducts.ClearSelection();
+                                }
+                                tran.Complete();
+                            }
+                            MessageBox.Show("Xóa sản phẩm khỏi đơn hàng thành công!");
+                        }
+                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -334,116 +367,88 @@ namespace JS_Manage
         #endregion ProductsGridview Event Handler
 
         #region Event Handler
-
         private void btSave_Click(object sender, EventArgs e)
         {
-
-            if (!ValidateData())
+            if (OutputTypeCode == Constant.OutputType.XBH || OutputTypeCode == Constant.OutputType.XTH)
             {
-                return;
-            }
-
-            if (lbPurchaseReceiptOrderId.Text == "0")
-            {
-                if (!CheckActiveDate(dateTimePickerPerchaseReceiptDate.Value)) return;
-
-                DialogResult insertConfirmMessage = MessageBox.Show("Bạn có chắc chắn tạo phiếu xuất hàng?", "Tạo phiếu xuất hàng", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (insertConfirmMessage == System.Windows.Forms.DialogResult.Cancel)
+                if (!ValidateData())
                 {
-                    return;
-                }                
-                
-                InsertPurchaseReceiptOrder();             
-                
-            }
-            else
-            {
-                
-                var purchaseReceiptOrder = purchaseReceiptOrderTableAdapter.GetById(int.Parse(lbPurchaseReceiptOrderId.Text));
-                if (!CommonHelper.CheckCurrentDay(purchaseReceiptOrder[0].CreatedDate))
-                {
-                    MessageBox.Show("Bạn không thể sửa phiếu bán hàng, hãy liên hệ với Admin", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                     return;
                 }
 
-                if (purchaseReceiptOrder[0] == null)
+                if (lbPurchaseReceiptOrderId.Text == "0")
                 {
-                    MessageBox.Show("Phiếu xuất hàng không tồn tại");
-                    return;
+                    if (!CheckActiveDate(dateTimePickerPerchaseReceiptDate.Value)) return;
+
+                    DialogResult insertConfirmMessage = MessageBox.Show("Bạn có chắc chắn tạo phiếu xuất hàng?", "Tạo phiếu xuất hàng", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    if (insertConfirmMessage == System.Windows.Forms.DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                   
+                    InsertPurchaseReceiptOrder();
+                    this.ShowDiaglog();
                 }
-
-                if (!CheckActiveDate(purchaseReceiptOrder[0].OrderDate)) return;
-
-                DialogResult mesageResult = MessageBox.Show("Bạn có muốn sửa phiếu xuất hàng?", "Sửa phiếu xuất hàng", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (mesageResult == System.Windows.Forms.DialogResult.Cancel)
-                    return;
-                UpdatePurchaseReceiptOrder();
+                else
+                {
+                    UpdatePurchaseReceiptOrder();
+                }
             }
-        }
 
+            if(OutputTypeCode == Constant.OutputType.XCK)
+            {
+                if (!ValidateProductTransData())
+                    return;
+
+                if (lbPurchaseReceiptOrderId.Text == "0")
+                {
+                    if (!CheckActiveDate(dateTimePickerPerchaseReceiptDate.Value)) return;
+
+                    DialogResult insertConfirmMessage = MessageBox.Show("Bạn có chắc chắn tạo phiếu xuất chuyển kho?", "Tạo phiếu xuất chuyển kho", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    if (insertConfirmMessage == System.Windows.Forms.DialogResult.Cancel)
+                    {
+                        return;
+                    }
+
+                    InsertProductTransOrder();
+                    this.ShowDiaglog(); 
+                }
+                else
+                {
+                    int productTransOrderId = this.PurchaseReceiveOrderId;
+                    if (productTransOrderTableAdapter.GetDataById(productTransOrderId)[0].Approved) return; //đã approved rồi ko được phép sửa
+                    if (!ValidateAndConfirmProductTransOrderBeforeEdit(productTransOrderId, Constant.Update_Text))
+                        return;
+
+                    UpdateProductTransOrder();
+                    this.ShowDiaglog();
+                }
+            }
+        }       
         private void btDelete_Click(object sender, EventArgs e)
         {
-            var purchaseReceiptOrder = purchaseReceiptOrderTableAdapter.GetById(int.Parse(lbPurchaseReceiptOrderId.Text));
-
-            if (!CommonHelper.CheckCurrentDay(purchaseReceiptOrder[0].CreatedDate))
+            if (OutputTypeCode == Constant.OutputType.XBH || OutputTypeCode == Constant.OutputType.XTH)
             {
-                MessageBox.Show("Bạn không thể xóa phiếu bán hàng, hãy liên hệ với Admin", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
-                return;
+                if (!ValidateAndConfirmPurchaseOrderBeforeEdit(this.PurchaseReceiveOrderId, Constant.Delete_Text))
+                    return;
+                DeletePurchaseReceiptOrder();
             }
 
-            if (purchaseReceiptOrder[0] == null)
-            {
-                MessageBox.Show("Phiếu xuất hàng không tồn tại");
-                return;
+            int productTransOrderId = this.PurchaseReceiveOrderId;
+            if(OutputTypeCode == Constant.OutputType.XCK)
+            {                
+                if (productTransOrderTableAdapter.GetDataById(productTransOrderId)[0].Approved) return; //đã approved rồi ko được phép sửa
+                if(! ValidateAndConfirmProductTransOrderBeforeEdit (productTransOrderId, Constant.Delete_Text))                
+                    return;
+                DeleteProductTransOrder();
             }
-
-            if (!CheckActiveDate(purchaseReceiptOrder[0].OrderDate)) return;
-
-            if (!ValidateData())
-            {
-                return;
-            }
-
-            DialogResult mesageResult = MessageBox.Show("Bạn có muốn XÓA phiếu xuất hàng?", "XÓA phiếu xuất hàng", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            if (mesageResult == System.Windows.Forms.DialogResult.Cancel)
-                return;
-
-            DeletePurchaseReceiptOrder();
         }
-
+        
         private void btAddNew_Click(object sender, EventArgs e)
         {
             ClearData();
             dateTimePickerPerchaseReceiptDate.Focus();
         }
-
-        //private void txtCustomerCode_TextChanged(object sender, EventArgs e)
-        //{
-        //    int custId = 0;
-        //    if (string.IsNullOrEmpty(txtCustomerCode.Text))
-        //    {
-        //        lbCustomerInfo.Text = string.Empty;
-        //    }
-        //    else
-        //    {
-        //        if (int.TryParse(txtCustomerCode.Text, out custId))
-        //        {
-        //            var custData = custTableAdapter.GetDataByCustomerId(custId);
-        //            lbCustomerInfo.Text = string.Empty;
-        //            if (custData.Rows.Count > 0)
-        //            {
-        //                lbCustomerInfo.Text = string.Format("{0}/ {1}/ {2}", custData[0].CustomerName, custData[0].Address, custData[0].Telephone);
-        //            }
-        //        }
-
-        //    }
-
-        //    if (Setting.GetBoolSetting(Reward_Point_Enable))
-        //    {
-        //        CalcuateRewardPoints(custId);
-        //    }
-        //}
-
         private void cboxIsCod_CheckedChanged(object sender, EventArgs e)
         {
             if (lbPurchaseReceiptOrderId.Text == "0")                
@@ -526,7 +531,6 @@ namespace JS_Manage
                 }
             }
         }
-
         private void btFind_Click(object sender, EventArgs e)
         {
             string paymentMethod = "Tất cả";
@@ -541,8 +545,8 @@ namespace JS_Manage
                 isCOD = 0;
 
             int custId = ucCustomerSelectFind.CustId;
-            string outputTypeCode = cboxOutputTypeFind.SelectedValue.ToString().Trim();                   
-
+            string outputTypeCode = cboxOutputTypeFind.SelectedValue.ToString().Trim();
+            int storeId = ucOutputStore.StoreId;
             paymentMethod = paymentMethodUserControl2.PaymentMethod;
             List<int> bankAccountList = paymentMethodUserControl2.BankAccountIds;
             string bankAccountIds = string.Empty;
@@ -566,10 +570,22 @@ namespace JS_Manage
 
             DateTime startDate = new DateTime(dateTimePickerPurchaseReceiptFromFind.Value.Year, dateTimePickerPurchaseReceiptFromFind.Value.Month, dateTimePickerPurchaseReceiptFromFind.Value.Day);
             DateTime endDate = new DateTime(dateTimePickerPurchaseReceiptToFind.Value.Year, dateTimePickerPurchaseReceiptToFind.Value.Month, dateTimePickerPurchaseReceiptToFind.Value.Day, 23, 59, 59);
-            grvPurchaseReceiptOrderSumary.DataSource = purchaseOrderSumaryTableAdapter.SearchPurchaseReceiptOrder(startDate, endDate, custId, txtBillNumberFind.Text, isCOD, int.Parse(comboBoxSoldBy.SelectedValue.ToString()), outputTypeCode, bankAccountIds, ucOutputStore.StoreId);
-            RenderPurchaseReceiptOrderGridview(grvPurchaseReceiptOrderSumary);
-        }
+            if(outputTypeCode == Constant.OutputType.XCK)
+            {
+                JSManagementDataSetTableAdapters.ProductTransOrderSumaryTableAdapter transSumTA = new JSManagementDataSetTableAdapters.ProductTransOrderSumaryTableAdapter();
+                transSumTA.Connection = CommonHelper.GetSQLConnection();
+                JSManagementDataSet.ProductTransOrderSumaryDataTable productTransOrderSumaryDataTable = transSumTA.GetProductTransOrderSumary(startDate, endDate, storeId);                
 
+                grvPurchaseReceiptOrderSumary.DataSource = productTransOrderSumaryDataTable;
+                RenderProductTransOrderGridView(grvPurchaseReceiptOrderSumary);
+            }
+
+            if (outputTypeCode == Constant.OutputType.XBH || outputTypeCode == Constant.OutputType.XTH)
+            {
+                grvPurchaseReceiptOrderSumary.DataSource = purchaseOrderSumaryTableAdapter.SearchPurchaseReceiptOrder(startDate, endDate, custId, txtBillNumberFind.Text, isCOD, int.Parse(comboBoxSoldBy.SelectedValue.ToString()), outputTypeCode, bankAccountIds, ucOutputStore.StoreId);
+                RenderPurchaseReceiptOrderGridview(grvPurchaseReceiptOrderSumary);
+            }            
+        } 
         private void chkListBox_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             if (e.NewValue == CheckState.Checked)
@@ -580,15 +596,25 @@ namespace JS_Manage
                 }
             }
         }
-
         private void grvPurchaseReceiptOrderDetail_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = grvPurchaseReceiptOrderSumary.Rows[e.RowIndex];
             if (row.IsNewRow) return;
-            int purchaseReceiptOrderId = int.Parse(row.Cells["PurchaseReceiptOrderId"].Value.ToString());
-            BindDataToEdit(purchaseReceiptOrderId);
+
+            if (row.Cells[Constant.OutputType.COLUMN_NAME_OUTPUT_TYPE_CODE].Value.ToString().Trim() == Constant.OutputType.XBH || row.Cells[Constant.OutputType.COLUMN_NAME_OUTPUT_TYPE_CODE].Value.ToString().Trim() == Constant.OutputType.XTH)
+            {
+                int purchaseReceiptOrderId = int.Parse(row.Cells["PurchaseReceiptOrderId"].Value.ToString());
+                BindDataToEdit(purchaseReceiptOrderId);
+            }  
+
+            if(row.Cells[Constant.OutputType.COLUMN_NAME_OUTPUT_TYPE_CODE].Value.ToString() == Constant.OutputType.XCK )
+            {
+                int productTransOrderId = int.Parse(row.Cells["ProductTransOrderId"].Value.ToString());
+                BindProductTransOrder(productTransOrderId);
+            }
         }
 
+        
         private void dateTimePickerPerchaseReceiptDate_ValueChanged(object sender, EventArgs e)
         {
             if (!LoginInfor.IsAdmin)
@@ -619,10 +645,11 @@ namespace JS_Manage
         #endregion Event Handler
 
         #region CRUD
-
         private void UpdatePurchaseReceiptOrder()
         {
-            int purchaseReceiptOrderId = int.Parse(lbPurchaseReceiptOrderId.Text);
+            if (!ValidateAndConfirmPurchaseOrderBeforeEdit(PurchaseReceiveOrderId, Constant.Update_Text))
+                return;
+
             try
             {
                 using (TransactionScope tran = new TransactionScope())
@@ -643,7 +670,7 @@ namespace JS_Manage
                         toBankAccountId = int.Parse(cboxBankAccount.SelectedValue.ToString());
                     }
 
-                    JSManagementDataSet.IncomeDataTable incomeDataTable = incomeTableAdapter.GetIncomesByPurchaseOrderId(purchaseReceiptOrderId);
+                    JSManagementDataSet.IncomeDataTable incomeDataTable = incomeTableAdapter.GetIncomesByPurchaseOrderId(PurchaseReceiveOrderId);
                     incomeIds = incomeDataTable.Count == 0 ? 0 : incomeDataTable[0].IncomeId;
 
                     if (cboxIsCod.Checked && incomeIds != 0)
@@ -652,7 +679,19 @@ namespace JS_Manage
                         return;
                     }
 
-                    purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, DateTime.Now, LoginInfor.UserName, toBankAccountId, ucOutputStore.StoreId, InputStoreId, purchaseReceiptOrderId);
+                    purchaseReceiptOrderTableAdapter.UpdateById(
+                        dateTimePickerPerchaseReceiptDate.Value, 
+                        CustId, 
+                        txtBillNumber.Text, 
+                        cboxIsCod.Checked, 
+                        txtOrderNote.Text, 
+                        outputTypeCode, 
+                        DateTime.Now, 
+                        LoginInfor.UserName, 
+                        toBankAccountId, 
+                        ucOutputStore.StoreId, 
+                        null, 
+                        PurchaseReceiveOrderId);
 
                     foreach (DataGridViewRow row in grvProducts.Rows)
                     {
@@ -672,7 +711,7 @@ namespace JS_Manage
 
                             if (orderId == 0)
                             {
-                                object orderIdReturn = orderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, ucCustomerSelect.CustId, productId, size, quantity, soldPrice, txtBillNumber.Text, cboxIsCod.Checked, purchaseReceiptOrderId, soldBy);
+                                object orderIdReturn = orderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, ucCustomerSelect.CustId, productId, size, quantity, soldPrice, txtBillNumber.Text, cboxIsCod.Checked, PurchaseReceiveOrderId, soldBy);
                             }
 
                             if (!cboxIsCod.Checked && outputTypeCode==Constant.OutputType.XBH)
@@ -684,7 +723,7 @@ namespace JS_Manage
 
                     if (Setting.GetBoolSetting(Reward_Point_Enable) && OutputTypeCode == Constant.OutputType.XBH)
                     {
-                        UpdateRewardPointEarn(ucCustomerSelect.CustId, purchaseReceiptOrderId);
+                        UpdateRewardPointEarn(ucCustomerSelect.CustId, PurchaseReceiveOrderId);
                     }
 
 
@@ -712,11 +751,11 @@ namespace JS_Manage
                     {
                         if (incomeIds == 0)
                         {
-                            incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), paid, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, toBankAccountId, ucCustomerSelect.CustId);
+                            incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText), string.Format("Thu tiền đơn hàng mã số {0}", PurchaseReceiveOrderId.ToString()), paid, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, PurchaseReceiveOrderId, null, toBankAccountId, ucCustomerSelect.CustId);
                         }
                         else
                         {
-                            incomeTableAdapter.UpdateIncomeById(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), paid, LoginInfor.UserName, DateTime.Now, null, null, incomeIds, purchaseReceiptOrderId, null, toBankAccountId, ucCustomerSelect.CustId);
+                            incomeTableAdapter.UpdateIncomeById(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText), string.Format("Thu tiền đơn hàng mã số {0}", PurchaseReceiveOrderId.ToString()), paid, LoginInfor.UserName, DateTime.Now, null, null, incomeIds, PurchaseReceiveOrderId, null, toBankAccountId, ucCustomerSelect.CustId);
                         }
                     }
                     tran.Complete();
@@ -735,10 +774,55 @@ namespace JS_Manage
                 MessageBox.Show(ex.ToString());
             }
         }
+        private void UpdateProductTransOrder()
+        {
+            int proTransOrderId = PurchaseReceiveOrderId;
+            if (!ValidateAndConfirmProductTransOrderBeforeEdit(proTransOrderId, Constant.Update_Text))
+                return;
+            if (!ValidateProductTransData()) return;
 
+            DateTime transDate = dateTimePickerPerchaseReceiptDate.Value;
+            int fromStoreId = OutPutStoreId;
+            int toStoreId = InputStoreId;
+            string note = OrderNote;
+            
+            DateTime lastEditedDate = DateTime.Now;
+            string lastEditedBy = LoginInfor.UserName;
+            int quantity = 0;
+            int productId;
+            int productTransMappingId;
+            //insert into ProductTransOrder
+  
+            using (TransactionScope tran = new TransactionScope())
+            {
+             productTransOrderTableAdapter.UpdateProductTransOrderById(transDate, fromStoreId, toStoreId, note, lastEditedDate, lastEditedBy, proTransOrderId);
+                
+                foreach (DataGridViewRow r in grvProducts.Rows)
+                {
+                    if (!r.IsNewRow)
+                    {
+                        quantity = int.Parse(r.Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
+                        productId = int.Parse(r.Cells[PRODUCT_ID_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
+                        productTransMappingId =r.Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value == null? 0: int.Parse(r.Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
+                        if (productTransMappingId == 0 )
+                        {
+                            productTransMappingTA.InsertProductTransMappingReturnId(proTransOrderId, productId, quantity);
+                        }
+                        else
+                        {
+                            productTransMappingTA.UpdateById(productId, quantity, productTransMappingId);
+                        }
+                    }
+                }               
+
+                tran.Complete();
+            }
+
+             
+        }
         private void InsertPurchaseReceiptOrder()
         {
-            int purchaseReceiptOrderId;
+            int purchaseReceiptOrderId =0;
             DateTime createdDate = DateTime.Now;
             DateTime lastEditedDate = DateTime.Now;
             string createdBy = LoginInfor.UserName;
@@ -753,18 +837,19 @@ namespace JS_Manage
             {
                 bankAccountId = int.Parse(cboxBankAccount.SelectedValue.ToString());
             }
+            if (bankAccountId == 0)
+                bankAccountId = null;
+
             using (TransactionScope tran = new TransactionScope())
             {
-                if (bankAccountId == 0)
-                    bankAccountId = null;
-                
-                result = purchaseReceiptOrderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, createdDate, createdBy, lastEditedDate, lastEditedBy, bankAccountId, ucOutputStore.StoreId, InputStoreId );
-                
+               
+                result = purchaseReceiptOrderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, createdDate, createdBy, lastEditedDate, lastEditedBy, bankAccountId, ucOutputStore.StoreId, null);
+
                 if (result == null)
                     return;
                 if (result.ToString() == "0")
                     return;
-                
+
                 if (int.TryParse(result.ToString(), out purchaseReceiptOrderId))
                 {
                     int productId;
@@ -792,7 +877,7 @@ namespace JS_Manage
 
                 decimal usedAmountRewardPoint = 0;
 
-                if(Setting.GetBoolSetting(Reward_Point_Enable))
+                if (Setting.GetBoolSetting(Reward_Point_Enable))
                 {
                     if (cboxIsRewardPointUse.Checked && outputTypeCode == Constant.OutputType.XBH)
                     {
@@ -803,10 +888,10 @@ namespace JS_Manage
                     {
                         InsertRewardPointEarn(ucCustomerSelect.CustId, purchaseReceiptOrderId);
                     }
-                }                
+                }
 
                 //insert income               
-                if(cboxPrePaid.Checked)
+                if (cboxPrePaid.Checked)
                 {
                     decimal.TryParse(txtPrePaid.Text, out paid);
                 }
@@ -814,49 +899,21 @@ namespace JS_Manage
                 {
                     paid = amount - usedAmountRewardPoint;
                 }
-                
+
                 if (!cboxIsCod.Checked && outputTypeCode == Constant.OutputType.XBH)
                 {
                     incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), paid, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, null, ucCustomerSelect.CustId);
                 }
-
                 tran.Complete();
-
             }
 
             BindDataToEdit(purchaseReceiptOrderId);
-
-            PurchaseOrderMessageBoxForm purchaseOrderMessageBoxForm = new PurchaseOrderMessageBoxForm();
-            purchaseOrderMessageBoxForm.StartPosition = FormStartPosition.CenterScreen;
-            purchaseOrderMessageBoxForm.ShowDialog();
-
-            if (purchaseOrderMessageBoxForm.MessageBoxResult == PurchaseOrderDialogResult.PrintBill)
-            {
-                btPrint_Click(new object(), new EventArgs());
-                return;
-            }
-
-            if (purchaseOrderMessageBoxForm.MessageBoxResult == PurchaseOrderDialogResult.PrintPostOfficeLeter)
-            {
-                btPrintPostOfficeLetter_Click(new object(), new EventArgs());
-                return;
-            }
-
-            if (purchaseOrderMessageBoxForm.MessageBoxResult == PurchaseOrderDialogResult.CreateOtherPurchaseOrder)
-            {
-                ClearData();
-                return;
-            }
-
         }
-
         private void DeletePurchaseReceiptOrder()
         {
-            int purchaseReceiptOrderId = int.Parse(lbPurchaseReceiptOrderId.Text);
-
             using (TransactionScope tran = new TransactionScope())
             {
-                JSManagementDataSet.IncomeDataTable incomeDataTable = incomeTableAdapter.GetIncomesByPurchaseOrderId(purchaseReceiptOrderId);
+                JSManagementDataSet.IncomeDataTable incomeDataTable = incomeTableAdapter.GetIncomesByPurchaseOrderId(PurchaseReceiveOrderId);
                 int orderId;
                 int incomeId = incomeDataTable.Count == 0 ? 0 : incomeDataTable[0].IncomeId;
                 bool isPaid = false;
@@ -903,19 +960,96 @@ namespace JS_Manage
                 }
 
 
-                DeleteRewardPoint(ucCustomerSelect.CustId, purchaseReceiptOrderId);
+                DeleteRewardPoint(ucCustomerSelect.CustId, PurchaseReceiveOrderId);
 
-                purchaseReceiptOrderTableAdapter.DeleteById(purchaseReceiptOrderId);
+                purchaseReceiptOrderTableAdapter.DeleteById(PurchaseReceiveOrderId);
                 tran.Complete();
             }
             MessageBox.Show("Xóa phiếu xuất hàng thành công!");
             ClearData();
         }
+        private void DeleteProductTransOrder()
+        {
+            int productTransMappingId;
+            int productTransOrderId = this.PurchaseReceiveOrderId;
+            using (TransactionScope tran = new TransactionScope())
+            {
+                
+                foreach (DataGridViewRow row in grvProducts.Rows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        productTransMappingId = int.Parse(row.Cells[Constant.ProductGridColumName.PRODUCT_MAPPING_ID].Value.ToString());
 
+
+                        if (productTransMappingId > 0)
+                        {       
+                             productTransMappingTA.DeleteById(productTransMappingId);
+                        }
+                    }
+                }
+                productTransOrderTableAdapter.DeleteProductTransOrder(productTransOrderId);
+                tran.Complete();
+            }
+            MessageBox.Show("Xóa phiếu xuất hàng thành công!");
+            ClearData();
+        }
+        private void InsertProductTransOrder()
+        {
+            
+            DateTime transDate = dateTimePickerPerchaseReceiptDate.Value;
+            int fromStoreId = OutPutStoreId;
+            int? toStoreId = InputStoreId;
+            string note = OrderNote;
+            DateTime createdDate = DateTime.Now;
+            string createdBy = LoginInfor.UserName;
+            DateTime lastEditedDate = createdDate;
+            string lastEditedBy = createdBy;
+            int quantity = 0;
+            int productId;
+
+            
+            //insert into ProductTransOrder
+            int productTransOrderId = 0;
+            using (TransactionScope tran = new TransactionScope())
+            {
+                object rs = productTransOrderTableAdapter.InsertProductTransOrder
+                    (
+                        transDate,
+                        fromStoreId,
+                        toStoreId,
+                        note,
+                        false,
+                        string.Empty,
+                        null,
+                        false,
+                        createdDate,
+                        createdBy,
+                        lastEditedDate,
+                        lastEditedBy);
+
+                //Insert into ProductTransMapping
+                if (int.TryParse(rs.ToString(), out productTransOrderId))
+                {
+                    foreach (DataGridViewRow r in grvProducts.Rows)
+                    {
+                        if (!r.IsNewRow)
+                        {
+                            quantity = int.Parse(r.Cells[Constant.ProductGridColumName.QUANTITY].Value.ToString());
+                            productId = int.Parse(r.Cells[Constant.ProductGridColumName.PRODUCT_ID].Value.ToString());
+                            productTransMappingTA.InsertProductTransMappingReturnId(productTransOrderId, productId, quantity);
+                        }
+                    }
+                }
+
+                tran.Complete();
+            }   
+            
+                      
+        }
         #endregion CRUD
 
         #region Ultility
-
         private void ClearData()
         {
             lbPerchaseReceiptOrderHeader.Text = "Xuất hàng".ToUpper();
@@ -938,8 +1072,9 @@ namespace JS_Manage
             cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.CASH;
             cboxBankAccount.Visible = false;
             cboxPrePaid.Checked = false;
+            cboxOutPutType.SelectedValue = Constant.OutputType.XBH;
+            cboxOutPutType.Enabled = true;
         }
-
         private bool CheckActiveDate(DateTime date)
         {
             if (LoginInfor.IsAdmin == false)
@@ -955,9 +1090,8 @@ namespace JS_Manage
             }
             return true;
         }
-
         private bool ValidateData()
-        {
+        {            
             decimal prepaid =0;
             if (ucCustomerSelect.CustId == 0 && OutputTypeCode != Constant.OutputType.XCK)
             {
@@ -981,118 +1115,135 @@ namespace JS_Manage
             
             return true;
         }
+        private bool ValidateProductTransData()
+        {
+            //check store input and store output is diference
+            int outStoreId = ucOutputStore.StoreId;
+            int inStoreId = ucInputStore.StoreId;
 
+            if (outStoreId == inStoreId)
+            {
+                MessageBox.Show("Thông tin kho hàng không hợp lệ!");
+                return false;
+            }
+                
+            //check product grid
+            if (!ValidateProducts())
+                return false;
+
+            return true;
+        }
         private bool ValidateProducts()
         {
-            if (grvProducts.Rows.Count == 1)
-            {
-                if (grvProducts.Rows[0].Cells[0].Value == null)
-                {
-                    MessageBox.Show("Bạn hãy nhập mã hàng");
-                    return false;
-                }
+            //if (grvProducts.Rows.Count == 1)
+            //{
+            //    if (grvProducts.Rows[0].Cells[0].Value == null)
+            //    {
+            //        MessageBox.Show("Bạn hãy nhập mã hàng");
+            //        return false;
+            //    }
 
-                if (grvProducts.Rows[0].Cells[0].Value.ToString() == string.Empty)
-                {
-                    MessageBox.Show("Bạn hãy nhập mã hàng");
-                    return false;
-                }
+            //    if (grvProducts.Rows[0].Cells[0].Value.ToString() == string.Empty)
+            //    {
+            //        MessageBox.Show("Bạn hãy nhập mã hàng");
+            //        return false;
+            //    }
 
-                int quantity;
-                if (grvProducts.Rows[0].Cells[5].Value == null)
-                {
-                    MessageBox.Show("Số lượng không hợp lệ!");
-                    grvProducts.Rows[0].Cells[7].Value = string.Empty;
-                    return false;
-                }
+            //    int quantity;
+            //    if (grvProducts.Rows[0].Cells[5].Value == null)
+            //    {
+            //        MessageBox.Show("Số lượng không hợp lệ!");
+            //        grvProducts.Rows[0].Cells[7].Value = string.Empty;
+            //        return false;
+            //    }
 
-                if (!int.TryParse(grvProducts.Rows[0].Cells[5].Value.ToString(), out quantity))
-                {
-                    MessageBox.Show("Số lượng không hợp lệ!");
-                    grvProducts.CurrentRow.Cells[7].Value = string.Empty;
-                    return false;
-                }
+            //    if (!int.TryParse(grvProducts.Rows[0].Cells[5].Value.ToString(), out quantity))
+            //    {
+            //        MessageBox.Show("Số lượng không hợp lệ!");
+            //        grvProducts.CurrentRow.Cells[7].Value = string.Empty;
+            //        return false;
+            //    }
 
-                if (int.Parse(grvProducts.Rows[0].Cells[9].Value.ToString()) - quantity < 0)
-                {
-                    DialogResult result = MessageBox.Show("Số lượng xuất bán vượt quá lượng tồn! Tiếp tục xuất?", "Xuất quá số lượng tồn", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                    if (result == System.Windows.Forms.DialogResult.Cancel)
-                    {
-                        grvProducts.CurrentRow.Cells[7].Value = string.Empty;
-                        return false;
-                    }
-                }
-                //Validate Sold Price
-                decimal soldPrice = 0;
-                if (grvProducts.Rows[0].Cells[6].Value == null)
-                {
-                    MessageBox.Show("Giá không hợp lệ!");
-                    grvProducts.CurrentRow.Cells[7].Value = string.Empty;
-                    return false;
-                }
+            //    if (int.Parse(grvProducts.Rows[0].Cells[9].Value.ToString()) - quantity < 0)
+            //    {
+            //        DialogResult result = MessageBox.Show("Số lượng xuất bán vượt quá lượng tồn! Tiếp tục xuất?", "Xuất quá số lượng tồn", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            //        if (result == System.Windows.Forms.DialogResult.Cancel)
+            //        {
+            //            grvProducts.CurrentRow.Cells[7].Value = string.Empty;
+            //            return false;
+            //        }
+            //    }
+            //    //Validate Sold Price
+            //    decimal soldPrice = 0;
+            //    if (grvProducts.Rows[0].Cells[6].Value == null)
+            //    {
+            //        MessageBox.Show("Giá không hợp lệ!");
+            //        grvProducts.CurrentRow.Cells[7].Value = string.Empty;
+            //        return false;
+            //    }
 
-                if (!decimal.TryParse(grvProducts.Rows[0].Cells[6].Value.ToString(), out soldPrice))
-                {
-                    MessageBox.Show("Giá không hợp lệ!");
-                    grvProducts.Rows[0].Cells[7].Value = string.Empty;
-                    return false;
-                }
+            //    if (!decimal.TryParse(grvProducts.Rows[0].Cells[6].Value.ToString(), out soldPrice))
+            //    {
+            //        MessageBox.Show("Giá không hợp lệ!");
+            //        grvProducts.Rows[0].Cells[7].Value = string.Empty;
+            //        return false;
+            //    }
 
-                if (grvProducts.Rows[0].Cells[SOLD_BY].Value == null)
-                {
-                    MessageBox.Show("Bạn hãy nhập người bán!");
-                    return false;
-                }
-            }
+            //    if (grvProducts.Rows[0].Cells[SOLD_BY].Value == null & OutputTypeCode != Constant.OutputType.XCK)
+            //    {
+            //        MessageBox.Show("Bạn hãy nhập người bán!");
+            //        return false;
+            //    }
+            //}
 
-            if (grvProducts.Rows.Count > 1)
+            if (grvProducts.Rows.Count >= 1)
             {
                 foreach (DataGridViewRow row in grvProducts.Rows)
                 {
-                    if (row != grvProducts.Rows[grvProducts.Rows.Count - 1])
+                    if (!row.IsNewRow)
                     {
                         int quantity;
-                        if (row.Cells[5].Value == null)
+                        if (row.Cells[Constant.ProductGridColumName.QUANTITY].Value == null)
                         {
                             MessageBox.Show("Số lượng không hợp lệ!");
-                            row.Cells[7].Value = string.Empty;
+                            row.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
                             return false;
                         }
 
-                        if (!int.TryParse(row.Cells[5].Value.ToString(), out quantity))
+                        if (!int.TryParse(row.Cells[Constant.ProductGridColumName.QUANTITY].Value.ToString(), out quantity))
                         {
                             MessageBox.Show("Số lượng không hợp lệ!");
-                            grvProducts.CurrentRow.Cells[7].Value = string.Empty;
+                            grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
                             return false;
                         }
 
-                        if (int.Parse(row.Cells[9].Value.ToString()) - quantity < 0)
+                        if (int.Parse(row.Cells[Constant.ProductGridColumName.CLOSING_BALANCE].Value.ToString()) - quantity < 0)
                         {
                             DialogResult result = MessageBox.Show("Số lượng xuất bán vượt quá lượng tồn! Tiếp tục xuất?", "Xuất quá số lượng tồn", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                             if (result == System.Windows.Forms.DialogResult.Cancel)
                             {
-                                grvProducts.CurrentRow.Cells[7].Value = string.Empty;
+                                grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
                                 return false;
                             }
                         }
                         //Validate Sold Price
                         decimal soldPrice = 0;
-                        if (row.Cells[6].Value == null)
+                        if (row.Cells[Constant.ProductGridColumName.PRICE].Value == null)
                         {
                             MessageBox.Show("Giá không hợp lệ!");
-                            grvProducts.CurrentRow.Cells[7].Value = string.Empty;
+                            grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
                             return false;
                         }
 
-                        if (!decimal.TryParse(row.Cells[6].Value.ToString(), out soldPrice))
+                        if (!decimal.TryParse(row.Cells[Constant.ProductGridColumName.PRICE].Value.ToString(), out soldPrice))
                         {
                             MessageBox.Show("Giá không hợp lệ!");
-                            row.Cells[7].Value = string.Empty;
+                            row.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
                             return false;
                         }
 
                         DataGridViewComboBoxCell cboxSoldBy = row.Cells[SOLD_BY] as DataGridViewComboBoxCell;
-                        if (cboxSoldBy.Value == null)
+                        if (cboxSoldBy.Value == null && OutputTypeCode != Constant.OutputType.XCK)
                         {
                             MessageBox.Show("Bạn hãy nhập người bán!");
                             return false;
@@ -1102,7 +1253,6 @@ namespace JS_Manage
             }
             return true;
         }
-
         private void RenderPurchaseReceiptOrderGridview(DataGridView grvPurchaseReceiptOrderSumary)
         {
             grvPurchaseReceiptOrderSumary.Columns["OrderDate"].HeaderText = Constant.PurchaseReceiptOrder_OrderDate;
@@ -1114,29 +1264,94 @@ namespace JS_Manage
             grvPurchaseReceiptOrderSumary.Columns["IsCOD"].Width = 20;
             grvPurchaseReceiptOrderSumary.Columns[ORIGINAL_PRICE_ORDER_GRID_COLUMN_NAME].HeaderText = Constant.PurchaseReceiptOrder_OriginalPrice;
             grvPurchaseReceiptOrderSumary.Columns[ORIGINAL_PRICE_ORDER_GRID_COLUMN_NAME].DefaultCellStyle.Format = NUMBER_FORMAT;
-            grvPurchaseReceiptOrderSumary.Columns["Quantity"].HeaderText = Constant.PurchaseReceiptOrder_Quantity;
-            grvPurchaseReceiptOrderSumary.Columns["Quantity"].Width = 30;
+            grvPurchaseReceiptOrderSumary.Columns[Constant.ProductGridColumName.QUANTITY].HeaderText = Constant.PurchaseReceiptOrder_Quantity;
+            grvPurchaseReceiptOrderSumary.Columns[Constant.ProductGridColumName.QUANTITY].Width = 30;
             grvPurchaseReceiptOrderSumary.Columns["Discount"].HeaderText = Constant.PurchaseReceiptOrder_Discount;
             grvPurchaseReceiptOrderSumary.Columns["Discount"].DefaultCellStyle.Format = NUMBER_FORMAT;
             grvPurchaseReceiptOrderSumary.Columns["UsedAmount"].HeaderText = Constant.PurchaseReceiptOrder_UsedAmount;
             grvPurchaseReceiptOrderSumary.Columns["UsedAmount"].DefaultCellStyle.Format = NUMBER_FORMAT;
             grvPurchaseReceiptOrderSumary.Columns[AMOUNT_ORDER_GRID_COLUMN_NAME].HeaderText = Constant.PurchaseReceiptOrder_Amount;
             grvPurchaseReceiptOrderSumary.Columns[AMOUNT_ORDER_GRID_COLUMN_NAME].DefaultCellStyle.Format = NUMBER_FORMAT;
-            grvPurchaseReceiptOrderSumary.Columns[PURCHASE_USER_NAME].HeaderText = Constant.PurchaseReceiptOrder_SoldBy;
-            grvPurchaseReceiptOrderSumary.Columns[PURCHASE_USER_NAME].Width = 50;
-            grvPurchaseReceiptOrderSumary.Columns["PurchaseReceiptOrderId"].Visible = false;
-            grvPurchaseReceiptOrderSumary.Columns[PURCHASE_USER_ID].Visible = false;
+            grvPurchaseReceiptOrderSumary.Columns[Constant.ProductGridColumName.USER_NAME].HeaderText = Constant.PurchaseReceiptOrder_SoldBy;
+            grvPurchaseReceiptOrderSumary.Columns[Constant.ProductGridColumName.USER_NAME].Width = 50;
+            grvPurchaseReceiptOrderSumary.Columns[Constant.ProductGridColumName.PURCHASE_RECEIPT_ORDER_ID].Visible = false;
+            grvPurchaseReceiptOrderSumary.Columns[Constant.ProductGridColumName.USER_ID].Visible = false;
             grvPurchaseReceiptOrderSumary.Columns["Paid"].HeaderText = Constant.PurchaseReceiptOrder_Paid;
             grvPurchaseReceiptOrderSumary.Columns["Paid"].DefaultCellStyle.Format = NUMBER_FORMAT;
-            grvPurchaseReceiptOrderSumary.Columns[PURCHASE_USER_NAME].Width = 60;
+            grvPurchaseReceiptOrderSumary.Columns[Constant.ProductGridColumName.USER_NAME].Width = 60;
+            grvPurchaseReceiptOrderSumary.Columns[Constant.OutputType.COLUMN_NAME_OUTPUT_TYPE_CODE].Visible = false;
 
         }
+        private void RenderProductTransOrderGridView(DataGridView grvPurchaseReceiptOrderSumary)
+        {
+            grvPurchaseReceiptOrderSumary.Columns["ProductTransOrderId"].Visible = false;
+            grvPurchaseReceiptOrderSumary.Columns["TransDate"].HeaderText = "Ngày";
+            grvPurchaseReceiptOrderSumary.Columns["FromStore"].HeaderText = "Kho Xuất";
+            grvPurchaseReceiptOrderSumary.Columns["ToStore"].HeaderText = "Kho nhập";
+            grvPurchaseReceiptOrderSumary.Columns["Quantity"].HeaderText = "Số lượng";
+            grvPurchaseReceiptOrderSumary.Columns["OutputTypeCode"].Visible = false;
+            grvPurchaseReceiptOrderSumary.Columns["Approved"].ReadOnly = true;
+            grvPurchaseReceiptOrderSumary.Columns["Approved"].HeaderText = "Duyệt";
+        }
+        private void BindProductTransOrder(int productTransOrderId)
+        {
+            if (productTransOrderId == 0)
+                return;
+            ClearData();
+            cboxIsCod.CheckedChanged -= cboxIsCod_CheckedChanged;
 
+            JSManagementDataSet.ProductTransOrderDataTable productTransOrderData = productTransOrderTableAdapter.GetDataById(productTransOrderId);
+            if (productTransOrderData.Rows.Count != 1)
+                return;
+            DateTime transDate = productTransOrderData[0].TransDate;
+            int fromStoreId = productTransOrderData[0].FromStoreId;
+            int toStoreId = productTransOrderData[0].ToStoreId;
+            int prodId = 0;
+
+            dateTimePickerPerchaseReceiptDate.Value = transDate;
+            cboxOutPutType.SelectedValue = Constant.OutputType.XCK;
+            cboxOutPutType.Enabled = false;
+            ucOutputStore.StoreId = fromStoreId;
+            ucInputStore.StoreId = toStoreId;
+            lbPurchaseReceiptOrderId.Text = productTransOrderId.ToString();
+
+            JSManagementDataSet.ProductTransMappingDataTable proTranMapData = productTransMappingTA.GetDataByProductTransOrderId(productTransOrderId);
+            JSManagementDataSetTableAdapters.ProductTableAdapter productTableAdapter = new JSManagementDataSetTableAdapters.ProductTableAdapter();
+            productTableAdapter.Connection = CommonHelper.GetSQLConnection();
+
+            for (int i = 0; i < proTranMapData.Rows.Count;i++ )
+            {
+                prodId = proTranMapData[i].ProductId;               
+                grvProducts.Rows.Add(1);
+                prodId = proTranMapData[i].ProductId;
+                JSManagementDataSet.ProductDataTable productData = productTableAdapter.GetProductById(prodId, fromStoreId);
+                if (productData.Rows.Count > 0)
+                {
+                    grvProducts.Rows[i].Cells[PRODUCT_CODE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ProductCode;
+                    grvProducts.Rows[i].Cells[PRODUCT_TYPE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ProductType;
+                    grvProducts.Rows[i].Cells[BRAND_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Brand;
+                    grvProducts.Rows[i].Cells[SIZE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Size;
+                    grvProducts.Rows[i].Cells[PRICE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Price;
+                    grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value = proTranMapData[i].Quantity;
+                    grvProducts.Rows[i].Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value = proTranMapData[i].ProductTransMappingId;
+                    grvProducts.Rows[i].Cells[CLOSING_BALLANCE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ClosingBalance + proTranMapData[i].Quantity;
+
+                    grvProducts.Rows[i].Cells[SOLD_PRICE_PRODUCT_GRID_COLUMN_NAME].Value = 0;
+                    grvProducts.Rows[i].Cells[AMOUNT_PRODUCT_GRID_COLUMN_NAME].Value = 0;
+                    grvProducts.Rows[i].Cells[PRODUCT_ID_PRODUCT_GRID_COLUMN_NAME].Value = proTranMapData[i].ProductId;
+                   
+                    
+                   
+
+                }
+            }
+
+        }
         private void BindDataToEdit(int purchaseReceiptOrderId)
         {
             if (purchaseReceiptOrderId == 0)
                 return;
-
+           
             ClearData();
             cboxIsCod.CheckedChanged -= cboxIsCod_CheckedChanged;
 
@@ -1152,7 +1367,7 @@ namespace JS_Manage
             decimal amount = 0;
             int quantity = 0;
             int bankAccountId = 0;
-            string outputTypeCode = purchaseReceiptOrderData[0].OutputTypeCode;
+            string outputTypeCode = purchaseReceiptOrderData[0].OutputTypeCode.Trim();
             int inputStoreId = purchaseReceiptOrderData[0].InputStoreId;
             int storeId = purchaseReceiptOrderData[0].StoreId;
 
@@ -1165,6 +1380,7 @@ namespace JS_Manage
             cboxIsCod.Enabled = true;
             txtOrderNote.Text = purchaseReceiptOrderData[0].OrderNote;
             cboxOutPutType.SelectedValue = purchaseReceiptOrderData[0].OutputTypeCode;
+            cboxOutPutType.Enabled = false;
             ucOutputStore.StoreId = storeId;
             ucInputStore.StoreId = inputStoreId;
 
@@ -1193,14 +1409,14 @@ namespace JS_Manage
 
 
 
-            JSManagementDataSet.PurchaseReceiptOrderDetailDataTable purchaseReceiptOrderDetailTable = purchaseOrderDetailTableAdapter.GetPurchaseReceiptOrderById(purchaseReceiptOrderId);
+            JSManagementDataSet.PurchaseReceiptOrderDetailDataTable productMappingTable = purchaseOrderDetailTableAdapter.GetPurchaseReceiptOrderById(purchaseReceiptOrderId);
             JSManagementDataSetTableAdapters.ProductTableAdapter productTableAdapter = new JSManagementDataSetTableAdapters.ProductTableAdapter();
             productTableAdapter.Connection = CommonHelper.GetSQLConnection();
 
-            for (int i = 0; i < purchaseReceiptOrderDetailTable.Rows.Count; i++)
+            for (int i = 0; i < productMappingTable.Rows.Count; i++)
             {
                 grvProducts.Rows.Add(1);
-                int productId = purchaseReceiptOrderDetailTable[i].ProductId;
+                int productId = productMappingTable[i].ProductId;
                 JSManagementDataSet.ProductDataTable productData = productTableAdapter.GetProductById(productId, storeId);
                 if (productData.Rows.Count > 0)
                 {
@@ -1209,10 +1425,10 @@ namespace JS_Manage
                     grvProducts.Rows[i].Cells[BRAND_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Brand;
                     grvProducts.Rows[i].Cells[SIZE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Size;
                     grvProducts.Rows[i].Cells[PRICE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Price;
-                    grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value = purchaseReceiptOrderDetailTable[i].Quantity;
+                    grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value = productMappingTable[i].Quantity;
 
                     quantity = int.Parse(grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
-                    soldPrice = purchaseReceiptOrderDetailTable[i].Price;
+                    soldPrice = productMappingTable[i].Price;
                     amount = decimal.Parse((quantity * soldPrice).ToString());
                     if (outputTypeCode == Constant.OutputType.XTH && !LoginInfor.IsAdmin)
                     {
@@ -1225,13 +1441,13 @@ namespace JS_Manage
 
                     grvProducts.Rows[i].Cells[SOLD_PRICE_PRODUCT_GRID_COLUMN_NAME].Value = soldPrice;
                     grvProducts.Rows[i].Cells[AMOUNT_PRODUCT_GRID_COLUMN_NAME].Value = amount;
-                    grvProducts.Rows[i].Cells[PRODUCT_ID_PRODUCT_GRID_COLUMN_NAME].Value = purchaseReceiptOrderDetailTable[i].ProductId;
-                    grvProducts.Rows[i].Cells[CLOSING_BALLANCE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ClosingBalance + purchaseReceiptOrderDetailTable[i].Quantity;
-                    grvProducts.Rows[i].Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value = purchaseReceiptOrderDetailTable[i].OrderId;
+                    grvProducts.Rows[i].Cells[PRODUCT_ID_PRODUCT_GRID_COLUMN_NAME].Value = productMappingTable[i].ProductId;
+                    grvProducts.Rows[i].Cells[CLOSING_BALLANCE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ClosingBalance + productMappingTable[i].Quantity;
+                    grvProducts.Rows[i].Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value = productMappingTable[i].OrderId;
                     DataGridViewComboBoxCell cboxSoldBy = grvProducts.Rows[i].Cells[SOLD_BY] as DataGridViewComboBoxCell;
                     cboxSoldBy.DisplayMember = USER_NAME;
                     cboxSoldBy.ValueMember = USER_ID;
-                    cboxSoldBy.Value = userTableAdapter.GetDataById(int.Parse(purchaseReceiptOrderDetailTable[i].UserId))[0].UserId;
+                    cboxSoldBy.Value = userTableAdapter.GetDataById(int.Parse(productMappingTable[i].UserId))[0].UserId;
 
                 }
 
@@ -1274,7 +1490,6 @@ namespace JS_Manage
             txtTotalAmount.Text = totalAmount.ToString("#,###") == string.Empty ? "0" : totalAmount.ToString("#,###");
             txtQuantity.Text = quantity.ToString();
         }
-
         private decimal InsertRewardPointUsed(int custId, int purchaseOrderId)
         {
             RewardPointReturn r = new RewardPointReturn();
@@ -1297,7 +1512,6 @@ namespace JS_Manage
             System.Threading.Thread.Sleep(1000);
             return usedAmount;
         }
-
         private void InsertRewardPointEarn(int custId, int purchaseReceiptOrderId)
         {
             if (!custTableAdapter.GetDataByCustomerId(custId)[0].IsAttendRewardPointProgram)
@@ -1319,7 +1533,6 @@ namespace JS_Manage
             rewardPointHistoryTableAdapters.Insert(custId, purchaseReceiptOrderId, rewardPointEarn, rewardPointEarn + pointsBallance, 0, message, DateTime.Now);
 
         }
-
         private void UpdateRewardPointEarn(int custId, int purchaseReceiptOrderId)
         {
             if (!custTableAdapter.GetDataByCustomerId(custId)[0].IsAttendRewardPointProgram)
@@ -1356,7 +1569,6 @@ namespace JS_Manage
                 rewardPointHistoryTableAdapters.UpdatePointsBalanceById(pointsBallance + rewardPointAdjusts, rewardPointHistoryId);
             }
         }
-
         private void DeleteRewardPoint(int custId, int purchaseReceiptOrderId)
         {
             //Delete reward point used
@@ -1383,7 +1595,6 @@ namespace JS_Manage
                 rewardPointHistoryTableAdapters.UpdatePointsBalanceById(pointsBallance - rewardpointEarned + rewardpointUsed, rewardPointHistoryId);
             }
         }
-
         private void CalcuateRewardPoints(int custId)
         {
             if (custTableAdapter.GetDataByCustomerId(custId).Rows.Count == 0)
@@ -1442,8 +1653,82 @@ namespace JS_Manage
             }
 
         }
+        private bool ValidateAndConfirmPurchaseOrderBeforeEdit(int purchaseReceiptOrderId, string action)
+        {
+            JSManagementDataSet.PurchaseReceiptOrderDataTable purchaseReceiptOrder = purchaseReceiptOrderTableAdapter.GetById(purchaseReceiptOrderId);
 
+            if (!CommonHelper.CheckCurrentDay(purchaseReceiptOrder[0].CreatedDate))
+            {
+                MessageBox.Show(string.Format("Bạn không thể {0} phiếu bán hàng, hãy liên hệ với Admin",action), "", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                return false;
+            }
 
+            if (purchaseReceiptOrder[0] == null)
+            {
+                MessageBox.Show("Phiếu xuất hàng không tồn tại");
+                return false;
+            }
+
+            if (!CheckActiveDate(purchaseReceiptOrder[0].OrderDate)) return false;
+
+            DialogResult mesageResult = MessageBox.Show(string.Format("Bạn có muốn {0} phiếu xuất hàng?", action), string.Format("{0} phiếu xuất hàng",action), MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (mesageResult == System.Windows.Forms.DialogResult.Cancel)
+                return false;
+
+            return true;
+   
+        }
+
+        private bool ValidateAndConfirmProductTransOrderBeforeEdit(int productTransOrderId, string action)
+        {
+            JSManagementDataSet.ProductTransOrderDataTable productTransOrder = productTransOrderTableAdapter.GetDataById (productTransOrderId);
+
+            if (!CommonHelper.CheckCurrentDay(productTransOrder[0].CreatedDate))
+            {
+                MessageBox.Show(string.Format("Bạn không thể {0} phiếu bán hàng, hãy liên hệ với Admin", action), "", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (productTransOrder[0] == null)
+            {
+                MessageBox.Show("Phiếu xuất hàng không tồn tại");
+                return false;
+            }
+
+            if (!CheckActiveDate(productTransOrder[0].TransDate)) return false;
+
+            DialogResult mesageResult = MessageBox.Show(string.Format("Bạn có muốn {0} phiếu xuất hàng?", action), string.Format("{0} phiếu xuất hàng", action), MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (mesageResult == System.Windows.Forms.DialogResult.Cancel)
+                return false;
+
+            return true;
+
+        }
+        private void ShowDiaglog()
+        {
+            PurchaseOrderMessageBoxForm purchaseOrderMessageBoxForm = new PurchaseOrderMessageBoxForm();
+            purchaseOrderMessageBoxForm.StartPosition = FormStartPosition.CenterScreen;
+            purchaseOrderMessageBoxForm.ShowDialog();
+
+            if (purchaseOrderMessageBoxForm.MessageBoxResult == PurchaseOrderDialogResult.PrintBill)
+            {
+                btPrint_Click(new object(), new EventArgs());
+                return;
+            }
+
+            if (purchaseOrderMessageBoxForm.MessageBoxResult == PurchaseOrderDialogResult.PrintPostOfficeLeter)
+            {
+                btPrintPostOfficeLetter_Click(new object(), new EventArgs());
+                return;
+            }
+
+            if (purchaseOrderMessageBoxForm.MessageBoxResult == PurchaseOrderDialogResult.CreateOtherPurchaseOrder)
+            {
+                ClearData();
+                dateTimePickerPerchaseReceiptDate.Focus();
+                return;
+            }
+        }
         #endregion Ultitlity
 
         #region Print
@@ -2040,10 +2325,10 @@ namespace JS_Manage
 
             cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.CASH;
 
-           
-            paymentMethodUserControl2.BankAccountDataTable = bankAccountTableAdapter.GetData();
-            paymentMethodUserControl2.CboxBankAccountDisplayMember = BANK_ACCOUNT_NAME_DISPLAY_MEMBER;
-            paymentMethodUserControl2.CboxBankAccountValueMember = BANK_ACCOUNT_ID_Value_MEMBER;
+            paymentMethodUserControl2.BankAccountDataSource = bankAccountTableAdapter.GetData();
+            paymentMethodUserControl2.CboxBankAccountDisplayMember = Constant.BankAccount.BANK_ACCOUNT_NAME_DISPLAY_MEMBER;
+            paymentMethodUserControl2.CboxBankAccountValueMember = Constant.BankAccount.BANK_ACCOUNT_ID_Value_MEMBER;
+            paymentMethodUserControl2.AddPaymentMethodItemForSearch();
 
             ucOutputStore.StoreDataSource = storeTableAdapter.GetData();
             ucOutputStore.StoreId = LoginInfor.StoreId;
@@ -2052,10 +2337,15 @@ namespace JS_Manage
 
             this.WindowState = FormWindowState.Maximized;
 
-            if (PurchaseOrderId != 0)
+            if (PurchaseReceiveOrderId != 0)
             {
-                BindDataToEdit(PurchaseOrderId);
+                BindDataToEdit(PurchaseReceiveOrderId);
                 return;
+            }
+
+            if(ProductTransOrderId != 0)
+            {
+                BindProductTransOrder(ProductTransOrderId);
             }
         }
 
@@ -2136,10 +2426,16 @@ namespace JS_Manage
 
         }
 
-        public int PurchaseOrderId 
+        public int PurchaseReceiveOrderId 
         {
             get { return int.Parse(lbPurchaseReceiptOrderId.Text); }
             set { lbPurchaseReceiptOrderId.Text = value.ToString(); }
+        }
+
+        public int ProductTransOrderId
+        {
+            get;
+            set;
         }
         public string OutputTypeCode
         {
@@ -2182,16 +2478,16 @@ namespace JS_Manage
             get { return dateTimePickerPerchaseReceiptDate.Value; }
         }
 
-        public int? InputStoreId
+        public int InputStoreId
         {
-            get {
-                
-                if(ucInputStore.StoreId == 0) 
-                {
-                    return null;
-                }                    
+            get {              
+                                   
                 return ucInputStore.StoreId;
             }
+        }
+        public string OrderNote
+        {
+            get { return txtOrderNote.Text; }
         }
 
         private void cboxOutPutType_SelectedIndexChanged(object sender, EventArgs e)

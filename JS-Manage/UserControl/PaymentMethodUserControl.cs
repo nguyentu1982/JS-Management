@@ -16,6 +16,7 @@ namespace JS_Manage
         private string _cboxBankAccountDisplayMember;
         private string _cboxBankAccountValueMember;
         private JSManagementDataSet.BankAccountDataTable _bankAccountDataTable;
+        public bool isForSearch;
         public PaymentMethodUserControl()
         {
             InitializeComponent();
@@ -24,8 +25,7 @@ namespace JS_Manage
 
         private void PaymentMethodUserControl_Load(object sender, EventArgs e)
         {
-            cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.ALL;
-           
+
         }        
 
         private void cboxPaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
@@ -50,10 +50,19 @@ namespace JS_Manage
             _paymentMethod = cboxPaymentMethod.SelectedItem.ToString();
         }
 
+        public void AddPaymentMethodItemForSearch()
+        {            
+            cboxPaymentMethod.Items.Add("Tất cả");
+            cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.ALL;            
+        }
+
         public string PaymentMethod
         {
-            get { return _paymentMethod; }
-            set { _paymentMethod = value; }
+            get { if (cboxPaymentMethod.SelectedItem!=null) 
+                    return cboxPaymentMethod.SelectedItem.ToString();
+            return string.Empty;
+            }
+            set { cboxPaymentMethod.SelectedItem = value; }
         }
 
         public List<int> BankAccountIds
@@ -72,7 +81,7 @@ namespace JS_Manage
             set { _cboxBankAccountValueMember = value; }
         }
 
-        public JSManagementDataSet.BankAccountDataTable BankAccountDataTable
+        public JSManagementDataSet.BankAccountDataTable BankAccountDataSource
         {
             set { _bankAccountDataTable = value; }
         }
@@ -118,7 +127,6 @@ namespace JS_Manage
             }
 
         }
-
         
     }
 }

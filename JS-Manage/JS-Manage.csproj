@@ -193,12 +193,6 @@
     <Compile Include="ProductAddForm.Designer.cs">
       <DependentUpon>ProductAddForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProductInputFormV1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProductInputFormV1.Designer.cs">
-      <DependentUpon>ProductInputFormV1.cs</DependentUpon>
-    </Compile>
     <Compile Include="CostsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -314,9 +308,6 @@
     <EmbeddedResource Include="ProductAddForm.resx">
       <DependentUpon>ProductAddForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProductInputFormV1.resx">
-      <DependentUpon>ProductInputFormV1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CostsForm.resx">
       <DependentUpon>CostsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -405,7 +396,7 @@
     <None Include="JSManagementDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>JSManagementDataSet1.Designer.cs</LastGenOutput>
+      <LastGenOutput>JSManagementDataSet.Designer.cs</LastGenOutput>
     </None>
     <None Include="JSManagementDataSet.xss">
       <DependentUpon>JSManagementDataSet.xsd</DependentUpon>

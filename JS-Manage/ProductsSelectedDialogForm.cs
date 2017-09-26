@@ -69,45 +69,45 @@ namespace JS_Manage
                 int quantity = 1;
                 if (i == 0)
                 {
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.PRODUCT_CODE_COLUMN_NAME].Value = lbProductCode.Text;
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.PRODUCT_TYPE_COLUMNNAME].Value = lbProductType.Text;
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.PRODUCT_TYPE_COLUMNNAME].ReadOnly = true;
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.PRODUCT_BRAND_COLUMN_NAME].Value = lbBrand.Text;
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.PRODUCT_BRAND_COLUMN_NAME].ReadOnly = true;
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.SIZE_COLUMN_NAME].Value = castedItem["Size"];
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.SIZE_COLUMN_NAME].ReadOnly = true;
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.QUANTITY_COLUMN_NAME].Value = Setting.GetIntergerSetting("ProductInputQuantity") == 0 ? 1 : Setting.GetIntergerSetting("ProductInputQuantity");
-                    quantity = (int)grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.QUANTITY_COLUMN_NAME].Value;
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.PRODUCT_ID_COLUMN_NAME].Value = castedItem["ProductId"];
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.PRODUCT_ID_COLUMN_NAME].ReadOnly = true;
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.PRODUCT_CODE].Value = lbProductCode.Text;
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.PRODUCT_TYPE].Value = lbProductType.Text;
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.PRODUCT_TYPE].ReadOnly = true;
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.BRAND].Value = lbBrand.Text;
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.BRAND].ReadOnly = true;
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.SIZE].Value = castedItem["Size"];
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.SIZE].ReadOnly = true;
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.QUANTITY].Value = Setting.GetIntergerSetting("ProductInputQuantity") == 0 ? 1 : Setting.GetIntergerSetting("ProductInputQuantity");
+                    quantity = (int)grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.QUANTITY].Value;
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.PRODUCT_ID].Value = castedItem["ProductId"];
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.PRODUCT_ID].ReadOnly = true;
                     if (Setting.GetBoolSetting(Constant.Setting.ALLOW_USER_VIEW_ALL_COST) || LoginInfor.IsAdmin)
                     {
                         cost = productTableAdapter.GetDataByProductId(int.Parse(castedItem["ProductId"].ToString()))[0].ProductCost;
                     }
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.COST_COLUMN_NAME].Value = cost;
-                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInput.AMOUNT_COLUMN_NAME].Value = quantity * cost;
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.COST].Value = cost;
+                    grvProducts.Rows[currentIndex].Cells[Constant.ProductInputColumnName.AMOUNT].Value = quantity * cost;
                 }
                 else
                 {
                     DataGridViewRow row = (DataGridViewRow )grvProducts.Rows[0].Clone();
                     grvProducts.NotifyCurrentCellDirty(true);
                     grvProducts.Rows.Insert(currentIndex + i, row);
-                    row.Cells[Constant.ProductInput.PRODUCT_CODE_COLUMN_NAME].Value = lbProductCode.Text;
-                    row.Cells[Constant.ProductInput.PRODUCT_TYPE_COLUMNNAME].Value = lbProductType.Text;
-                    row.Cells[Constant.ProductInput.PRODUCT_TYPE_COLUMNNAME].ReadOnly = true;
-                    row.Cells[Constant.ProductInput.PRODUCT_BRAND_COLUMN_NAME].Value = lbBrand.Text;
-                    row.Cells[Constant.ProductInput.PRODUCT_BRAND_COLUMN_NAME].ReadOnly = true;
-                    row.Cells[Constant.ProductInput.SIZE_COLUMN_NAME].Value = castedItem["Size"];
-                    row.Cells[Constant.ProductInput.SIZE_COLUMN_NAME].ReadOnly = true;
-                    row.Cells[Constant.ProductInput.QUANTITY_COLUMN_NAME].Value = Setting.GetIntergerSetting("ProductInputQuantity") == 0 ? 1 : Setting.GetIntergerSetting("ProductInputQuantity");
-                    row.Cells[Constant.ProductInput.PRODUCT_ID_COLUMN_NAME].Value = castedItem["ProductId"];
-                    row.Cells[Constant.ProductInput.PRODUCT_ID_COLUMN_NAME].ReadOnly = true;
+                    row.Cells[Constant.ProductInputColumnName.PRODUCT_CODE].Value = lbProductCode.Text;
+                    row.Cells[Constant.ProductInputColumnName.PRODUCT_TYPE].Value = lbProductType.Text;
+                    row.Cells[Constant.ProductInputColumnName.PRODUCT_TYPE].ReadOnly = true;
+                    row.Cells[Constant.ProductInputColumnName.BRAND].Value = lbBrand.Text;
+                    row.Cells[Constant.ProductInputColumnName.BRAND].ReadOnly = true;
+                    row.Cells[Constant.ProductInputColumnName.SIZE].Value = castedItem["Size"];
+                    row.Cells[Constant.ProductInputColumnName.SIZE].ReadOnly = true;
+                    row.Cells[Constant.ProductInputColumnName.QUANTITY].Value = Setting.GetIntergerSetting("ProductInputQuantity") == 0 ? 1 : Setting.GetIntergerSetting("ProductInputQuantity");
+                    row.Cells[Constant.ProductInputColumnName.PRODUCT_ID].Value = castedItem["ProductId"];
+                    row.Cells[Constant.ProductInputColumnName.PRODUCT_ID].ReadOnly = true;
                     if (Setting.GetBoolSetting(Constant.Setting.ALLOW_USER_VIEW_ALL_COST) || LoginInfor.IsAdmin)
                     {
                         cost = productTableAdapter.GetDataByProductId(int.Parse(castedItem["ProductId"].ToString()))[0].ProductCost;
                     }
-                    row.Cells[Constant.ProductInput.COST_COLUMN_NAME].Value = cost;
-                    row.Cells[Constant.ProductInput.AMOUNT_COLUMN_NAME].Value = quantity * cost;
+                    row.Cells[Constant.ProductInputColumnName.COST].Value = cost;
+                    row.Cells[Constant.ProductInputColumnName.AMOUNT].Value = quantity * cost;
                 }
                                                          
             }

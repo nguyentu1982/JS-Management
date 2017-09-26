@@ -93,7 +93,7 @@ namespace JS_Manage
             if (ID != 0)
             {
                 PurchaseReceiptOrderForm purchaseOrderForm = new PurchaseReceiptOrderForm();
-                purchaseOrderForm.PurchaseOrderId = ID;
+                purchaseOrderForm.PurchaseReceiveOrderId = ID;
                 purchaseOrderForm.ShowDialog();
             }
         }

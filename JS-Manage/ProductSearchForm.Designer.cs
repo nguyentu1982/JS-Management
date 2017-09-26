@@ -114,7 +114,7 @@
             this.grvProductList.Size = new System.Drawing.Size(1146, 367);
             this.grvProductList.TabIndex = 3;
             this.grvProductList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvProductList_CellDoubleClick);
-            this.grvProductList.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
+            this.grvProductList.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvProductList_CellEnter);
             this.grvProductList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             // 
             // label1
@@ -402,7 +402,7 @@
             this.grvProductInOutDetail.Name = "grvProductInOutDetail";
             this.grvProductInOutDetail.Size = new System.Drawing.Size(462, 230);
             this.grvProductInOutDetail.TabIndex = 100;
-            this.grvProductInOutDetail.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvProductInOutDetail_CellDoubleClick);
+            this.grvProductInOutDetail.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvProductInOutDetail_CellEnter);
             // 
             // lbProductHeader
             // 

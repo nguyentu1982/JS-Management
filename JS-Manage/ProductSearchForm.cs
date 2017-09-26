@@ -177,18 +177,18 @@ namespace JS_Manage
             }
 
             DataGridView grvProducts = PurchaseReceiptOrderForm.Controls.Find("grvProducts", true)[0] as DataGridView;
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[0].Value = productCode;            
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[1].Value = productType;
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[1].ReadOnly = true;
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[2].Value = brand;
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[2].ReadOnly = true;
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[3].Value = size;
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[3].ReadOnly = true;
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[4].Value = price;
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[4].ReadOnly = true;
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[5].Value = Setting.GetIntergerSetting("DefaultQuantityForOder") == 0 ? 1 : Setting.GetIntergerSetting("DefaultQuantityForOder");
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[8].Value = productId;
-            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[9].Value = closingBalance;
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.PRODUCT_CODE].Value = productCode;            
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.PRODUCT_TYPE].Value = productType;
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.PRODUCT_TYPE].ReadOnly = true;
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.BRAND].Value = brand;
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.BRAND].ReadOnly = true;
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.SIZE].Value = size;
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.SIZE].ReadOnly = true;
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.PRICE].Value = price;
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.PRICE].ReadOnly = true;
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.QUANTITY].Value = Setting.GetIntergerSetting("DefaultQuantityForOder") == 0 ? 1 : Setting.GetIntergerSetting("DefaultQuantityForOder");
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.PRODUCT_ID].Value = productId;
+            grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[Constant.ProductGridColumName.CLOSING_BALANCE].Value = closingBalance;
             //grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[10].Value = 0;
             //grvProducts.Rows[purchaseReceiptOrderProductGridRowIndex].Cells[11].Value = 0;
             this.Close();
@@ -365,11 +365,8 @@ namespace JS_Manage
         }
 
         private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {            
-            BindData(e);
-            int row = e.RowIndex;
-            if (row > 0)
-                this.grvProductList.Rows[row].Selected = true; 
+        {
+
         }
 
         private void BindData(DataGridViewCellEventArgs e)
@@ -385,28 +382,28 @@ namespace JS_Manage
             JSManagementDataSet.ProductDataTable productDataTable =  productTableAdapter.GetProductById(productId, storeId);
            
 
-            string productCode = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.PRODUCT_CODE].ToString();
-            string brand = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.BRAND].ToString();
-            string productType = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.PRODUCT_TYPE].ToString();
-            string productCost = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.PRODUCT_COST].ToString();
-            string price = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.PRICE].ToString();
-            string size = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.SIZE].ToString();
-            string openingBalance = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.OPENING_BALANCE].ToString();
-            string input = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.INPUT].ToString();
-            string output = productDataTable.Rows[0][Constant.ProductSearch.ProductGridColumnName.OUTPUT].ToString();
-            string closingBalance = row.Cells[Constant.ProductSearch.ProductGridColumnName.CLOSING_BALANCE].Value.ToString();
+            string productCode = productDataTable[0].ProductCode;
+            string brand = productDataTable[0].Brand;
+            string productType = productDataTable[0].ProductType;
+            decimal productCost = productDataTable[0].ProductCost;
+            decimal price = productDataTable[0].Price;
+            string size = productDataTable[0].Size;
+            decimal openingBalance = productDataTable[0].OpeningBalance;
+            decimal input = productDataTable[0].Input;
+            decimal output = productDataTable[0].Output;
+            decimal closingBalance = productDataTable[0].ClosingBalance;
             lbProductHeader.Text = string.Format("Sửa mã hàng {0} Hiệu:{1} Size:{2}", productCode, brand, size);
             txtProductCode.Text = productCode;
             cbBoxProductType.Text = productType;
             cbBoxBrand.Text = brand;
             lbProductId.Text = productId.ToString();
-            txtPrice.Text = price;
+            txtPrice.Text = price.ToString();
             cbBoxSize.Text = size;
-            txtInputPrice.Text = productCost;
-            numericUpDownOpeningBalance.Value = decimal.Parse(openingBalance == string.Empty ? "0" : openingBalance);
-            numericUpDownInput.Value = decimal.Parse(input == string.Empty ? "0" : input);
-            numericUpDownOutput.Value = decimal.Parse(output == string.Empty ? "0" : output);
-            numericUpDownClosingBalance.Value = decimal.Parse(closingBalance == string.Empty ? "0" : closingBalance);
+            txtInputPrice.Text = productCost.ToString();
+            numericUpDownOpeningBalance.Value =  openingBalance;
+            numericUpDownInput.Value =  input;
+            numericUpDownOutput.Value =  output;
+            numericUpDownClosingBalance.Value = closingBalance;
 
             grvProductInOutDetail.DataSource = getProductInOutDetailTableAdapter.GetProductInOutDetailByProductId(productId,storeId);
             FormatProductInOutDetailGridview();
@@ -710,7 +707,7 @@ namespace JS_Manage
             }
         }
 
-        private void grvProductInOutDetail_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void grvProductInOutDetail_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
 
             int id = 0;
@@ -718,19 +715,35 @@ namespace JS_Manage
             {
                 return;
             }
-            string action = grvProductInOutDetail.CurrentRow.Cells[Constant.ProductSearch.ProductInOutDetailGridColumnName.ACTION].Value.ToString();
-            if (action == Constant.ProductSearch.ProductInOutDetailGridColumnName.XUAT)
+            //string action = grvProductInOutDetail.CurrentRow.Cells[Constant.ProductSearch.ProductInOutDetailGridColumnName.ACTION].Value.ToString();
+            string inOutTypeCode = grvProductInOutDetail.CurrentRow.Cells[Constant.ProductSearch.ProductInOutDetailGridColumnName.IN_OUT_TYPE_CODE].Value.ToString().Trim();
+            if (inOutTypeCode == Constant.OutputType.XBH || inOutTypeCode == Constant.OutputType.XTH)
             {
                 PurchaseReceiptOrderForm purchaseOrderForm = new PurchaseReceiptOrderForm();
-                purchaseOrderForm.PurchaseOrderId = id;
+                purchaseOrderForm.PurchaseReceiveOrderId = id;
                 purchaseOrderForm.ShowDialog();
                 return;
             }
 
-            if (action == Constant.ProductSearch.ProductInOutDetailGridColumnName.NHAP)
+            if(inOutTypeCode == Constant.OutputType.XCK)
+            {
+                PurchaseReceiptOrderForm purchaseOrderForm = new PurchaseReceiptOrderForm();
+                purchaseOrderForm.ProductTransOrderId = id;
+                purchaseOrderForm.ShowDialog();
+                return;
+            }
+
+            if (inOutTypeCode == Constant.InputType.NH)
             {
                 productInputForm productInputForm = new productInputForm();
                 productInputForm.ProductInputOrderId = id;
+                productInputForm.ShowDialog();
+                return;
+            }
+            if (inOutTypeCode == Constant.InputType.NCK)
+            {
+                productInputForm productInputForm = new productInputForm();
+                productInputForm.ProductTransOrderId = id;
                 productInputForm.ShowDialog();
                 return;
             }
@@ -769,6 +782,14 @@ namespace JS_Manage
         {
             DataGridViewRow row = grvProductList.Rows[e.RowIndex];
             row.DefaultCellStyle.BackColor = Color.Yellow;
+        }
+
+        private void grvProductList_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            BindData(e);
+            int row = e.RowIndex;
+            if (row > 0)
+                this.grvProductList.Rows[row].Selected = true;
         }           
     }
 }

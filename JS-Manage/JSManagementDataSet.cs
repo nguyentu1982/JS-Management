@@ -7,7 +7,4 @@
 
 namespace JS_Manage.JSManagementDataSetTableAdapters {
     
-    
-    public partial class PurchaseReceiptOrderSumaryTableAdapter {
-    }
 }

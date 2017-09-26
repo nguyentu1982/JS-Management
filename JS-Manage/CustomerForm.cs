@@ -58,7 +58,8 @@ namespace JS_Manage
             grvCustomer.CellEnter += grvCustomer_CellEnter;
             comboBoxCustomerType.DataSource = customerTypeTableAdapter.GetData();
             comboBoxCustomerType.DisplayMember = CUST_TYPE_NAME;
-            comboBoxCustomerType.ValueMember = CUST_TYPE_ID;            
+            comboBoxCustomerType.ValueMember = CUST_TYPE_ID;
+            txtCustIdFind.Text = CustId.ToString();
         }
         private void btSave_Click(object sender, EventArgs e)
         {
@@ -612,10 +613,10 @@ namespace JS_Manage
 
             if (mainform.Controls.Count > 0)
             {
-                TextBox txtCustomerCode = mainform.Controls.Find("txtCustomerCode", true)[0] as TextBox;
-                //Label lbCustomerInfo = mainform.Controls.Find("lbCustomerInfo", true)[0] as Label;
-                //lbCustomerInfo.Text = string.Format("{0}, {1}, {2}", custName, custAddress, custPhone);
-                txtCustomerCode.Text = custID;
+                //TextBox txtCustomerCode = mainform.Controls.Find("txtCustomerCode", true)[0] as TextBox;
+                ////Label lbCustomerInfo = mainform.Controls.Find("lbCustomerInfo", true)[0] as Label;
+                ////lbCustomerInfo.Text = string.Format("{0}, {1}, {2}", custName, custAddress, custPhone);
+                //txtCustomerCode.Text = custID;
                 this.Close();
             }
             else

@@ -35,7 +35,7 @@ namespace JS_Manage
             grvProductReport.Columns["Brand"].HeaderText = "Hiệu";
             grvProductReport.Columns["ProductType"].HeaderText = "Loại SP";
             grvProductReport.Columns["Size"].HeaderText = "Size";
-            grvProductReport.Columns["Price"].Visible = false;
+            //grvProductReport.Columns["Price"].Visible = false;
         }
 
         private void LoadDefaultData()
