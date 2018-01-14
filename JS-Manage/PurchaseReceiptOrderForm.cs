@@ -184,6 +184,7 @@ namespace JS_Manage
                 {
                     int rowIndex = grvProducts.CurrentCell.RowIndex;
                     int productId = int.Parse( grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.PRODUCT_ID].Value.ToString());
+                  
                     JSManagementDataSet.ProductDataTable productData = productTA.GetProductById(productId, LoginInfor.StoreId);
                     int quantity = 0;
 
@@ -201,17 +202,17 @@ namespace JS_Manage
                         return;
                     }
 
-                    if (productData[0].ClosingBalance - quantity < 0)
-                    {
-                        DialogResult result = MessageBox.Show("Số lượng xuất bán vượt quá lượng tồn! Tiếp tục xuất?", "Xuất quá số lượng tồn", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                        if (result == System.Windows.Forms.DialogResult.Cancel)
-                        {
-                            grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
-                            grvProducts.CurrentCell = grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.QUANTITY];
-                            return;
-                        }
-                    }
-
+                    //if (productData[0].ClosingBalance - quantity < 0)
+                    //{
+                    //    DialogResult result = MessageBox.Show("Số lượng xuất bán vượt quá lượng tồn! Tiếp tục xuất?", "Xuất quá số lượng tồn", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    //    if (result == System.Windows.Forms.DialogResult.Cancel)
+                    //    {
+                    //        grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
+                    //        grvProducts.CurrentCell = grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.QUANTITY];
+                    //        return;
+                    //    }
+                    //}
+                    
                     decimal soldPrice = 0;
                     if (grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value == null)
                     {
@@ -1198,11 +1199,17 @@ namespace JS_Manage
 
             if (grvProducts.Rows.Count >= 1)
             {
+                if (grvProducts.Rows.Count == 1 && grvProducts.Rows[0].IsNewRow) return false;
                 foreach (DataGridViewRow row in grvProducts.Rows)
                 {
                     if (!row.IsNewRow)
                     {
                         int quantity;
+                        int productId = 0;
+                        if (row.Cells[Constant.ProductGridColumName.PRODUCT_ID].Value == null) return false;
+                        int.TryParse(row.Cells[Constant.ProductGridColumName.PRODUCT_ID].Value.ToString(), out productId);
+                        JSManagementDataSet.ProductDataTable product = this.productTA.GetProductById(productId, OutPutStoreId);
+                        if( product.Rows.Count != 1) return false;
                         if (row.Cells[Constant.ProductGridColumName.QUANTITY].Value == null)
                         {
                             MessageBox.Show("Số lượng không hợp lệ!");
@@ -1217,25 +1224,51 @@ namespace JS_Manage
                             return false;
                         }
 
-                        if (int.Parse(row.Cells[Constant.ProductGridColumName.CLOSING_BALANCE].Value.ToString()) - quantity < 0)
-                        {
-                            DialogResult result = MessageBox.Show("Số lượng xuất bán vượt quá lượng tồn! Tiếp tục xuất?", "Xuất quá số lượng tồn", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                            if (result == System.Windows.Forms.DialogResult.Cancel)
+                        if(this.PurchaseReceiveOrderId == 0)
+                        {  
+                            if (product[0].ClosingBalance - quantity < 0)
                             {
-                                grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
-                                return false;
+                                DialogResult result = MessageBox.Show("Số lượng xuất bán vượt quá lượng tồn! Tiếp tục xuất?", "Xuất quá số lượng tồn", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                                if (result == System.Windows.Forms.DialogResult.Cancel)
+                                {
+                                    grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;                                    
+                                    return false;
+                                }
                             }
                         }
+                        else
+                        {
+                            int oldQuantity = 0;
+                            JSManagementDataSet.PurchaseReceiptOrderDetailDataTable productData = this.purchaseOrderDetailTableAdapter.GetPurchaseReceiptOrderById(this.PurchaseReceiveOrderId);
+                            for(int i =0 ; i<productData.Rows.Count; i++)
+                            {
+                                if(productData[i].ProductId == productId)
+                                {
+                                    oldQuantity += productData[i].Quantity;
+                                }
+                            }
+
+                            if (product[0].ClosingBalance + oldQuantity - quantity < 0)
+                            {
+                                DialogResult result = MessageBox.Show("Số lượng xuất bán vượt quá lượng tồn! Tiếp tục xuất?", "Xuất quá số lượng tồn", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                                if (result == System.Windows.Forms.DialogResult.Cancel)
+                                {
+                                    grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
+                                    return false;
+                                }
+                            }
+                        }
+
                         //Validate Sold Price
                         decimal soldPrice = 0;
-                        if (row.Cells[Constant.ProductGridColumName.PRICE].Value == null)
+                        if (row.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value == null)
                         {
                             MessageBox.Show("Giá không hợp lệ!");
                             grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
                             return false;
                         }
 
-                        if (!decimal.TryParse(row.Cells[Constant.ProductGridColumName.PRICE].Value.ToString(), out soldPrice))
+                        if (!decimal.TryParse(row.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value.ToString(), out soldPrice))
                         {
                             MessageBox.Show("Giá không hợp lệ!");
                             row.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
@@ -2245,7 +2278,7 @@ namespace JS_Manage
         #endregion Print
 
         private void PurchaseReceiptOrderForm_KeyDown(object sender, KeyEventArgs e)
-        {
+            {
             if (e.KeyCode == Keys.Escape) this.Close();
 
             if (e.Control && e.KeyCode == Keys.S)
@@ -2315,7 +2348,7 @@ namespace JS_Manage
             cboxOutputTypeFind.ValueMember = Constant.OutputType.VALUE_MEMBER;
 
             DataGridViewComboBoxColumn cboxSoldBy = grvProducts.Columns[SOLD_BY] as DataGridViewComboBoxColumn;
-            cboxSoldBy.DataSource = userTableAdapter.GetData();
+            cboxSoldBy.DataSource = userTableAdapter.GetActiveUser();
             cboxSoldBy.DisplayMember = USER_NAME;
             cboxSoldBy.ValueMember = USER_ID;
 

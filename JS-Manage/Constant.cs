@@ -51,6 +51,8 @@ namespace JS_Manage
             public const string CLOSING_BALANCE = "ClosingBallance";
 
             public const string SOLD_PRICE = "SoldPrice";
+
+            public const string ORDER_ID = "OrderId";
         }
         public static class BankAccount
         {

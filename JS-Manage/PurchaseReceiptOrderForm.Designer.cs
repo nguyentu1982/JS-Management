@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PurchaseReceiptOrderForm));
             this.lbPerchaseReceiptOrderHeader = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -66,6 +66,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cboxOutputTypeFind = new System.Windows.Forms.ComboBox();
+            this.ucCustomerSelectFind = new JS_Manage.CustomerSelectUserControl();
+            this.paymentMethodUserControl2 = new JS_Manage.PaymentMethodUserControl();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxSoldBy = new System.Windows.Forms.ComboBox();
             this.chkListBox = new System.Windows.Forms.CheckedListBox();
@@ -84,6 +86,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cboxBankAccount = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtQuantity = new System.Windows.Forms.TextBox();
             this.cboxPrePaid = new System.Windows.Forms.CheckBox();
             this.txtRemainPaid = new System.Windows.Forms.TextBox();
             this.lbRemainPaid = new System.Windows.Forms.Label();
@@ -93,15 +97,11 @@
             this.cboxIsCod = new System.Windows.Forms.CheckBox();
             this.cboxIsRewardPointUse = new System.Windows.Forms.CheckBox();
             this.txtBillNumber = new System.Windows.Forms.TextBox();
-            this.cboxOutPutType = new System.Windows.Forms.ComboBox();
-            this.cboxIsRewardPointPrint = new System.Windows.Forms.CheckBox();
-            this.ucCustomerSelectFind = new JS_Manage.CustomerSelectUserControl();
-            this.paymentMethodUserControl2 = new JS_Manage.PaymentMethodUserControl();
             this.ucCustomerSelect = new JS_Manage.CustomerSelectUserControl();
             this.ucOutputStore = new JS_Manage.StoreSelectedUserControl();
+            this.cboxOutPutType = new System.Windows.Forms.ComboBox();
             this.ucInputStore = new JS_Manage.StoreSelectedUserControl();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtQuantity = new System.Windows.Forms.TextBox();
+            this.cboxIsRewardPointPrint = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grvProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvPurchaseReceiptOrderSumary)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -155,7 +155,7 @@
             this.IncomeId,
             this.SoldBy});
             this.grvProducts.GridColor = System.Drawing.SystemColors.WindowFrame;
-            this.grvProducts.Location = new System.Drawing.Point(14, 143);
+            this.grvProducts.Location = new System.Drawing.Point(14, 191);
             this.grvProducts.Name = "grvProducts";
             this.grvProducts.Size = new System.Drawing.Size(672, 247);
             this.grvProducts.TabIndex = 140;
@@ -191,9 +191,9 @@
             // 
             // Price
             // 
-            dataGridViewCellStyle4.Format = "N0";
-            dataGridViewCellStyle4.NullValue = null;
-            this.Price.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Format = "N0";
+            dataGridViewCellStyle1.NullValue = null;
+            this.Price.DefaultCellStyle = dataGridViewCellStyle1;
             this.Price.HeaderText = "Giá";
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
@@ -207,18 +207,18 @@
             // 
             // SoldPrice
             // 
-            dataGridViewCellStyle5.Format = "N0";
-            dataGridViewCellStyle5.NullValue = null;
-            this.SoldPrice.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Format = "N0";
+            dataGridViewCellStyle2.NullValue = null;
+            this.SoldPrice.DefaultCellStyle = dataGridViewCellStyle2;
             this.SoldPrice.HeaderText = "Giá bán";
             this.SoldPrice.Name = "SoldPrice";
             this.SoldPrice.Width = 70;
             // 
             // Amount
             // 
-            dataGridViewCellStyle6.Format = "N0";
-            dataGridViewCellStyle6.NullValue = null;
-            this.Amount.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Format = "N0";
+            dataGridViewCellStyle3.NullValue = null;
+            this.Amount.DefaultCellStyle = dataGridViewCellStyle3;
             this.Amount.HeaderText = "Thành Tiền";
             this.Amount.Name = "Amount";
             // 
@@ -257,7 +257,7 @@
             // 
             // btSave
             // 
-            this.btSave.Location = new System.Drawing.Point(6, 476);
+            this.btSave.Location = new System.Drawing.Point(6, 531);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(94, 23);
             this.btSave.TabIndex = 150;
@@ -267,7 +267,7 @@
             // 
             // btDelete
             // 
-            this.btDelete.Location = new System.Drawing.Point(106, 476);
+            this.btDelete.Location = new System.Drawing.Point(106, 531);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(94, 23);
             this.btDelete.TabIndex = 160;
@@ -277,7 +277,7 @@
             // 
             // btAddNew
             // 
-            this.btAddNew.Location = new System.Drawing.Point(206, 476);
+            this.btAddNew.Location = new System.Drawing.Point(206, 531);
             this.btAddNew.Name = "btAddNew";
             this.btAddNew.Size = new System.Drawing.Size(115, 23);
             this.btAddNew.TabIndex = 170;
@@ -296,7 +296,7 @@
             // 
             // btPrint
             // 
-            this.btPrint.Location = new System.Drawing.Point(327, 476);
+            this.btPrint.Location = new System.Drawing.Point(327, 531);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(94, 23);
             this.btPrint.TabIndex = 180;
@@ -426,6 +426,25 @@
             this.cboxOutputTypeFind.Size = new System.Drawing.Size(121, 21);
             this.cboxOutputTypeFind.TabIndex = 200;
             // 
+            // ucCustomerSelectFind
+            // 
+            this.ucCustomerSelectFind.CustId = 0;
+            this.ucCustomerSelectFind.Location = new System.Drawing.Point(294, 27);
+            this.ucCustomerSelectFind.Name = "ucCustomerSelectFind";
+            this.ucCustomerSelectFind.Size = new System.Drawing.Size(340, 23);
+            this.ucCustomerSelectFind.TabIndex = 180;
+            this.ucCustomerSelectFind.TabIndexCustSelect = 1;
+            // 
+            // paymentMethodUserControl2
+            // 
+            this.paymentMethodUserControl2.AutoSize = true;
+            this.paymentMethodUserControl2.BankAccountIds = ((System.Collections.Generic.List<int>)(resources.GetObject("paymentMethodUserControl2.BankAccountIds")));
+            this.paymentMethodUserControl2.Location = new System.Drawing.Point(296, 47);
+            this.paymentMethodUserControl2.Name = "paymentMethodUserControl2";
+            this.paymentMethodUserControl2.PaymentMethod = "";
+            this.paymentMethodUserControl2.Size = new System.Drawing.Size(376, 30);
+            this.paymentMethodUserControl2.TabIndex = 190;
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -461,7 +480,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(204, 398);
+            this.label5.Location = new System.Drawing.Point(204, 453);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 17);
             this.label5.TabIndex = 73;
@@ -471,7 +490,7 @@
             // 
             this.txtTotalAmount.BackColor = System.Drawing.SystemColors.Info;
             this.txtTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalAmount.Location = new System.Drawing.Point(313, 396);
+            this.txtTotalAmount.Location = new System.Drawing.Point(313, 451);
             this.txtTotalAmount.Name = "txtTotalAmount";
             this.txtTotalAmount.ReadOnly = true;
             this.txtTotalAmount.Size = new System.Drawing.Size(111, 22);
@@ -481,7 +500,7 @@
             // 
             // btPrintPostOfficeLetter
             // 
-            this.btPrintPostOfficeLetter.Location = new System.Drawing.Point(428, 476);
+            this.btPrintPostOfficeLetter.Location = new System.Drawing.Point(428, 531);
             this.btPrintPostOfficeLetter.Name = "btPrintPostOfficeLetter";
             this.btPrintPostOfficeLetter.Size = new System.Drawing.Size(214, 23);
             this.btPrintPostOfficeLetter.TabIndex = 190;
@@ -492,7 +511,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 141);
+            this.label7.Location = new System.Drawing.Point(16, 185);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(89, 13);
             this.label7.TabIndex = 76;
@@ -529,7 +548,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(204, 423);
+            this.label13.Location = new System.Drawing.Point(204, 478);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(99, 17);
             this.label13.TabIndex = 1007;
@@ -539,7 +558,7 @@
             // 
             this.txtRewardPointUsedAmount.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.txtRewardPointUsedAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRewardPointUsedAmount.Location = new System.Drawing.Point(314, 421);
+            this.txtRewardPointUsedAmount.Location = new System.Drawing.Point(314, 476);
             this.txtRewardPointUsedAmount.Name = "txtRewardPointUsedAmount";
             this.txtRewardPointUsedAmount.ReadOnly = true;
             this.txtRewardPointUsedAmount.Size = new System.Drawing.Size(111, 22);
@@ -551,7 +570,7 @@
             // 
             this.txtTotalAmountPaid.BackColor = System.Drawing.SystemColors.Info;
             this.txtTotalAmountPaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalAmountPaid.Location = new System.Drawing.Point(528, 422);
+            this.txtTotalAmountPaid.Location = new System.Drawing.Point(528, 477);
             this.txtTotalAmountPaid.Name = "txtTotalAmountPaid";
             this.txtTotalAmountPaid.ReadOnly = true;
             this.txtTotalAmountPaid.Size = new System.Drawing.Size(111, 22);
@@ -562,7 +581,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(433, 424);
+            this.label14.Location = new System.Drawing.Point(433, 479);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(91, 17);
             this.label14.TabIndex = 1009;
@@ -637,14 +656,35 @@
             this.panel1.Controls.Add(this.cboxIsRewardPointPrint);
             this.panel1.Location = new System.Drawing.Point(3, 11);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(696, 507);
+            this.panel1.Size = new System.Drawing.Size(696, 706);
             this.panel1.TabIndex = 25;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(434, 453);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(77, 17);
+            this.label6.TabIndex = 1019;
+            this.label6.Text = "Số Lượng";
+            // 
+            // txtQuantity
+            // 
+            this.txtQuantity.BackColor = System.Drawing.SystemColors.Info;
+            this.txtQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtQuantity.Location = new System.Drawing.Point(528, 450);
+            this.txtQuantity.Name = "txtQuantity";
+            this.txtQuantity.ReadOnly = true;
+            this.txtQuantity.Size = new System.Drawing.Size(111, 22);
+            this.txtQuantity.TabIndex = 1020;
+            this.txtQuantity.Text = "0";
             // 
             // cboxPrePaid
             // 
             this.cboxPrePaid.AutoSize = true;
             this.cboxPrePaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxPrePaid.Location = new System.Drawing.Point(87, 448);
+            this.cboxPrePaid.Location = new System.Drawing.Point(87, 503);
             this.cboxPrePaid.Name = "cboxPrePaid";
             this.cboxPrePaid.Size = new System.Drawing.Size(102, 21);
             this.cboxPrePaid.TabIndex = 142;
@@ -656,7 +696,7 @@
             // 
             this.txtRemainPaid.BackColor = System.Drawing.SystemColors.Info;
             this.txtRemainPaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRemainPaid.Location = new System.Drawing.Point(528, 448);
+            this.txtRemainPaid.Location = new System.Drawing.Point(528, 503);
             this.txtRemainPaid.Name = "txtRemainPaid";
             this.txtRemainPaid.ReadOnly = true;
             this.txtRemainPaid.Size = new System.Drawing.Size(111, 22);
@@ -668,7 +708,7 @@
             // 
             this.lbRemainPaid.AutoSize = true;
             this.lbRemainPaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbRemainPaid.Location = new System.Drawing.Point(439, 450);
+            this.lbRemainPaid.Location = new System.Drawing.Point(439, 505);
             this.lbRemainPaid.Name = "lbRemainPaid";
             this.lbRemainPaid.Size = new System.Drawing.Size(58, 17);
             this.lbRemainPaid.TabIndex = 1017;
@@ -679,7 +719,7 @@
             // 
             this.txtPrePaid.BackColor = System.Drawing.SystemColors.Info;
             this.txtPrePaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrePaid.Location = new System.Drawing.Point(314, 448);
+            this.txtPrePaid.Location = new System.Drawing.Point(314, 503);
             this.txtPrePaid.Name = "txtPrePaid";
             this.txtPrePaid.Size = new System.Drawing.Size(111, 22);
             this.txtPrePaid.TabIndex = 145;
@@ -691,7 +731,7 @@
             // 
             this.lbprePaid.AutoSize = true;
             this.lbprePaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbprePaid.Location = new System.Drawing.Point(204, 449);
+            this.lbprePaid.Location = new System.Drawing.Point(204, 504);
             this.lbprePaid.Name = "lbprePaid";
             this.lbprePaid.Size = new System.Drawing.Size(75, 17);
             this.lbprePaid.TabIndex = 1015;
@@ -701,8 +741,9 @@
             // txtOrderNote
             // 
             this.txtOrderNote.Location = new System.Drawing.Point(106, 106);
+            this.txtOrderNote.Multiline = true;
             this.txtOrderNote.Name = "txtOrderNote";
-            this.txtOrderNote.Size = new System.Drawing.Size(580, 20);
+            this.txtOrderNote.Size = new System.Drawing.Size(580, 77);
             this.txtOrderNote.TabIndex = 130;
             // 
             // cboxIsCod
@@ -734,47 +775,6 @@
             this.txtBillNumber.Size = new System.Drawing.Size(129, 20);
             this.txtBillNumber.TabIndex = 80;
             // 
-            // cboxOutPutType
-            // 
-            this.cboxOutPutType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxOutPutType.FormattingEnabled = true;
-            this.cboxOutPutType.Location = new System.Drawing.Point(312, 32);
-            this.cboxOutPutType.Name = "cboxOutPutType";
-            this.cboxOutPutType.Size = new System.Drawing.Size(100, 21);
-            this.cboxOutPutType.TabIndex = 30;
-            this.cboxOutPutType.SelectedIndexChanged += new System.EventHandler(this.cboxOutPutType_SelectedIndexChanged);
-            // 
-            // cboxIsRewardPointPrint
-            // 
-            this.cboxIsRewardPointPrint.AutoSize = true;
-            this.cboxIsRewardPointPrint.Checked = true;
-            this.cboxIsRewardPointPrint.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxIsRewardPointPrint.Location = new System.Drawing.Point(420, 35);
-            this.cboxIsRewardPointPrint.Name = "cboxIsRewardPointPrint";
-            this.cboxIsRewardPointPrint.Size = new System.Drawing.Size(97, 17);
-            this.cboxIsRewardPointPrint.TabIndex = 40;
-            this.cboxIsRewardPointPrint.Text = "In điểm thưởng";
-            this.cboxIsRewardPointPrint.UseVisualStyleBackColor = true;
-            // 
-            // ucCustomerSelectFind
-            // 
-            this.ucCustomerSelectFind.CustId = 0;
-            this.ucCustomerSelectFind.Location = new System.Drawing.Point(294, 27);
-            this.ucCustomerSelectFind.Name = "ucCustomerSelectFind";
-            this.ucCustomerSelectFind.Size = new System.Drawing.Size(340, 23);
-            this.ucCustomerSelectFind.TabIndex = 180;
-            this.ucCustomerSelectFind.TabIndexCustSelect = 1;
-            // 
-            // paymentMethodUserControl2
-            // 
-            this.paymentMethodUserControl2.AutoSize = true;
-            this.paymentMethodUserControl2.BankAccountIds = ((System.Collections.Generic.List<int>)(resources.GetObject("paymentMethodUserControl2.BankAccountIds")));
-            this.paymentMethodUserControl2.Location = new System.Drawing.Point(296, 47);
-            this.paymentMethodUserControl2.Name = "paymentMethodUserControl2";
-            this.paymentMethodUserControl2.PaymentMethod = "Tất cả";
-            this.paymentMethodUserControl2.Size = new System.Drawing.Size(357, 30);
-            this.paymentMethodUserControl2.TabIndex = 190;
-            // 
             // ucCustomerSelect
             // 
             this.ucCustomerSelect.CustId = 0;
@@ -793,6 +793,16 @@
             this.ucOutputStore.StoreId = 0;
             this.ucOutputStore.TabIndex = 1014;
             // 
+            // cboxOutPutType
+            // 
+            this.cboxOutPutType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxOutPutType.FormattingEnabled = true;
+            this.cboxOutPutType.Location = new System.Drawing.Point(312, 32);
+            this.cboxOutPutType.Name = "cboxOutPutType";
+            this.cboxOutPutType.Size = new System.Drawing.Size(100, 21);
+            this.cboxOutPutType.TabIndex = 30;
+            this.cboxOutPutType.SelectedIndexChanged += new System.EventHandler(this.cboxOutPutType_SelectedIndexChanged);
+            // 
             // ucInputStore
             // 
             this.ucInputStore.Location = new System.Drawing.Point(485, 50);
@@ -802,26 +812,17 @@
             this.ucInputStore.TabIndex = 60;
             this.ucInputStore.Visible = false;
             // 
-            // label6
+            // cboxIsRewardPointPrint
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(434, 398);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(77, 17);
-            this.label6.TabIndex = 1019;
-            this.label6.Text = "Số Lượng";
-            // 
-            // txtQuantity
-            // 
-            this.txtQuantity.BackColor = System.Drawing.SystemColors.Info;
-            this.txtQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQuantity.Location = new System.Drawing.Point(528, 395);
-            this.txtQuantity.Name = "txtQuantity";
-            this.txtQuantity.ReadOnly = true;
-            this.txtQuantity.Size = new System.Drawing.Size(111, 22);
-            this.txtQuantity.TabIndex = 1020;
-            this.txtQuantity.Text = "0";
+            this.cboxIsRewardPointPrint.AutoSize = true;
+            this.cboxIsRewardPointPrint.Checked = true;
+            this.cboxIsRewardPointPrint.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cboxIsRewardPointPrint.Location = new System.Drawing.Point(420, 35);
+            this.cboxIsRewardPointPrint.Name = "cboxIsRewardPointPrint";
+            this.cboxIsRewardPointPrint.Size = new System.Drawing.Size(97, 17);
+            this.cboxIsRewardPointPrint.TabIndex = 40;
+            this.cboxIsRewardPointPrint.Text = "In điểm thưởng";
+            this.cboxIsRewardPointPrint.UseVisualStyleBackColor = true;
             // 
             // PurchaseReceiptOrderForm
             // 
