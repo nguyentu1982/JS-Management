@@ -107,7 +107,7 @@
             this.btAddNew.Location = new System.Drawing.Point(159, 447);
             this.btAddNew.Name = "btAddNew";
             this.btAddNew.Size = new System.Drawing.Size(117, 23);
-            this.btAddNew.TabIndex = 8;
+            this.btAddNew.TabIndex = 120;
             this.btAddNew.Text = "&Tiếp tục nhập hàng";
             this.btAddNew.UseVisualStyleBackColor = true;
             this.btAddNew.Click += new System.EventHandler(this.btAddNew_Click);
@@ -117,7 +117,7 @@
             this.btDelete.Location = new System.Drawing.Point(77, 448);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(75, 23);
-            this.btDelete.TabIndex = 7;
+            this.btDelete.TabIndex = 110;
             this.btDelete.Text = "&Xóa";
             this.btDelete.UseVisualStyleBackColor = true;
             this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
@@ -127,7 +127,7 @@
             this.btSave.Location = new System.Drawing.Point(5, 449);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(65, 23);
-            this.btSave.TabIndex = 5;
+            this.btSave.TabIndex = 100;
             this.btSave.Text = "&Save";
             this.btSave.UseVisualStyleBackColor = true;
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
@@ -190,7 +190,8 @@
             this.grvProducts.Location = new System.Drawing.Point(7, 163);
             this.grvProducts.Name = "grvProducts";
             this.grvProducts.Size = new System.Drawing.Size(678, 253);
-            this.grvProducts.TabIndex = 3;
+            this.grvProducts.TabIndex = 70;
+            this.grvProducts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvProducts_CellContentClick);
             this.grvProducts.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvProducts_CellEndEdit);
             this.grvProducts.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.grvProducts_EditingControlShowing);
             this.grvProducts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grvProducts_KeyDown);
@@ -387,7 +388,7 @@
             this.btProductInforPrint.Location = new System.Drawing.Point(281, 448);
             this.btProductInforPrint.Name = "btProductInforPrint";
             this.btProductInforPrint.Size = new System.Drawing.Size(103, 23);
-            this.btProductInforPrint.TabIndex = 64;
+            this.btProductInforPrint.TabIndex = 130;
             this.btProductInforPrint.Text = "In Thông tin SP";
             this.btProductInforPrint.UseVisualStyleBackColor = true;
             this.btProductInforPrint.Click += new System.EventHandler(this.btProductInforPrint_Click);
@@ -401,7 +402,7 @@
             this.txtTotalAmount.Name = "txtTotalAmount";
             this.txtTotalAmount.ReadOnly = true;
             this.txtTotalAmount.Size = new System.Drawing.Size(100, 22);
-            this.txtTotalAmount.TabIndex = 63;
+            this.txtTotalAmount.TabIndex = 90;
             // 
             // label8
             // 
@@ -421,7 +422,7 @@
             this.txtTotalQuantity.Name = "txtTotalQuantity";
             this.txtTotalQuantity.ReadOnly = true;
             this.txtTotalQuantity.Size = new System.Drawing.Size(68, 21);
-            this.txtTotalQuantity.TabIndex = 61;
+            this.txtTotalQuantity.TabIndex = 80;
             // 
             // label7
             // 

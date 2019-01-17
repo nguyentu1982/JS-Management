@@ -40,6 +40,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btOK = new System.Windows.Forms.Button();
             this.btCancel = new System.Windows.Forms.Button();
+            this.lbProdId = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -148,11 +149,22 @@
             this.btCancel.Text = "Cancel";
             this.btCancel.UseVisualStyleBackColor = true;
             // 
+            // lbProdId
+            // 
+            this.lbProdId.AutoSize = true;
+            this.lbProdId.Location = new System.Drawing.Point(243, 36);
+            this.lbProdId.Name = "lbProdId";
+            this.lbProdId.Size = new System.Drawing.Size(13, 13);
+            this.lbProdId.TabIndex = 11;
+            this.lbProdId.Text = "0";
+            this.lbProdId.Visible = false;
+            // 
             // ProductsSelectedDialogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 239);
+            this.Controls.Add(this.lbProdId);
             this.Controls.Add(this.btCancel);
             this.Controls.Add(this.btOK);
             this.Controls.Add(this.label5);
@@ -186,5 +198,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btOK;
         private System.Windows.Forms.Button btCancel;
+        private System.Windows.Forms.Label lbProdId;
     }
 }

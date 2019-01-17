@@ -2,6 +2,9 @@
     
     
     public partial class JSManagementDataSet {
+        partial class ProdDataTable
+        {
+        }
     }
 }
 

@@ -102,6 +102,8 @@
             this.cboxOutPutType = new System.Windows.Forms.ComboBox();
             this.ucInputStore = new JS_Manage.StoreSelectedUserControl();
             this.cboxIsRewardPointPrint = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.ucTxtCurrencyDeliveryCost = new JS_Manage.UCTextBoxCurrency();
             ((System.ComponentModel.ISupportInitialize)(this.grvProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvPurchaseReceiptOrderSumary)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -520,7 +522,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 120);
+            this.label8.Location = new System.Drawing.Point(11, 131);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(44, 13);
             this.label8.TabIndex = 78;
@@ -622,9 +624,12 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.ucTxtCurrencyDeliveryCost);
             this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.txtQuantity);
             this.panel1.Controls.Add(this.cboxPrePaid);
+            this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.txtRemainPaid);
             this.panel1.Controls.Add(this.lbPointsBalanceAmount);
             this.panel1.Controls.Add(this.lbRemainPaid);
@@ -740,10 +745,10 @@
             // 
             // txtOrderNote
             // 
-            this.txtOrderNote.Location = new System.Drawing.Point(106, 106);
+            this.txtOrderNote.Location = new System.Drawing.Point(106, 131);
             this.txtOrderNote.Multiline = true;
             this.txtOrderNote.Name = "txtOrderNote";
-            this.txtOrderNote.Size = new System.Drawing.Size(580, 77);
+            this.txtOrderNote.Size = new System.Drawing.Size(580, 52);
             this.txtOrderNote.TabIndex = 130;
             // 
             // cboxIsCod
@@ -824,6 +829,29 @@
             this.cboxIsRewardPointPrint.Text = "In điểm thưởng";
             this.cboxIsRewardPointPrint.UseVisualStyleBackColor = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 110);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(68, 13);
+            this.label11.TabIndex = 1018;
+            this.label11.Text = "Phí gửi hàng";
+            // 
+            // ucTxtCurrencyDeliveryCost
+            // 
+            this.ucTxtCurrencyDeliveryCost.IsTextBox1Enable = true;
+            this.ucTxtCurrencyDeliveryCost.isTextBox1Null = false;
+            this.ucTxtCurrencyDeliveryCost.Location = new System.Drawing.Point(106, 105);
+            this.ucTxtCurrencyDeliveryCost.Name = "ucTxtCurrencyDeliveryCost";
+            this.ucTxtCurrencyDeliveryCost.Size = new System.Drawing.Size(552, 24);
+            this.ucTxtCurrencyDeliveryCost.TabIndex = 125;
+            this.ucTxtCurrencyDeliveryCost.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
             // PurchaseReceiptOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -834,7 +862,6 @@
             this.Controls.Add(this.cboxBankAccount);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.lbAvaiableRewardPoint);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dateTimePickerPerchaseReceiptDate);
@@ -933,5 +960,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn SoldBy;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtQuantity;
+        private UCTextBoxCurrency ucTxtCurrencyDeliveryCost;
+        private System.Windows.Forms.Label label11;
     }
 }

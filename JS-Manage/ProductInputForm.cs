@@ -349,7 +349,7 @@ namespace JS_Manage
 
         private void grvInputProduct_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            //grvProducts_KeyDown(new object(), new KeyEventArgs(Keys.Tab));
         }
 
         private void grvInputProduct_CellEnter(object sender, DataGridViewCellEventArgs e)
@@ -1163,6 +1163,11 @@ namespace JS_Manage
             {
                 cklFindTransStatus.Visible = false;
             }
+        }
+
+        private void grvProducts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         

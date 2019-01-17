@@ -253,12 +253,16 @@ namespace JS_Manage
 		        public const string SIZE = "Size"; 
 		        public const string PRODUCT_COST = "ProductCost"; 
 		        public const string PRICE = "Price";
+                public const string PRICE2 = "Price2";
+                public const string PRICE3 = "Price3";
+                public const string PRICE4 = "Price4";
 		        public const string PRODUCT_TYPE = "ProductType"; 
 		        public const string OPENING_BALANCE = "OpeningBalance"; 
 		        public const string INPUT = "Input";
 		        public const string OUTPUT ="Output";
                 public const string CLOSING_BALANCE = "ClosingBalance";
                 public const string STORE_ID = "StoreId";
+                public const string ProdId = "ProdId";
             }
 
             public static class ProductGridColumnHeader
@@ -316,6 +320,7 @@ namespace JS_Manage
             public const string PRODUCT_CODE_LABEL_CONTROL_NAME ="lbProductCode";
             public const string PRODUCT_TYPE_LABEL_CONTROL_NAME = "lbProductType";
             public const string PRODUCT_BRAND_LABEL_CONTROL_NAME = "lbBrand";
+            public const string PROD_ID_LABEL_CONTROL_NAME = "lbProdId";
         }
 
         public static class ProductInputColumnName
@@ -339,6 +344,23 @@ namespace JS_Manage
             public const string SUPPLIER_COL_HEADER = "Mã NCC";
 
             public const string INPUT_TYPE_CODE = "InputTypeCode";
+        }
+
+        public static class ProductOutputColumnName
+        {
+            public const string PRODUCT_CODE = "ProductCode";
+            public const string PRODUCT_TYPE = "ProductType";
+            public const string BRAND = "Brand";
+            public const string SIZE = "Size";
+            public const string PRICE = "Price";
+            public const string QUANTITY = "Quantity";
+            public const string SOLD_PRICE = "SoldPrice";
+            public const string AMOUNT = "Amount";
+            public const string PRODUCT_ID = "ProductId";
+            public const string CLOSING_BALLANCE = "ClosingBallance";
+            public const string ORDER_ID = "OrderId";
+            public const string INCOME_ID = "IncomeId";
+            public const string SOLD_BY = "SoldBy";
         }
 
         public static class Store

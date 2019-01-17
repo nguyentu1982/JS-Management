@@ -50,19 +50,7 @@ namespace JS_Manage
         private const string SOLD_BY = "SoldBy";
         private const string USER_NAME = "UserName";
         private const string USER_ID = "UserId";
-        private const string PRODUCT_CODE_PRODUCT_GRID_COLUMN_NAME = "ProductCode";
-        private const string PRODUCT_TYPE_PRODUCT_GRID_COLUMN_NAME = "ProductType";
-        private const string BRAND_PRODUCT_GRID_COLUMN_NAME = "Brand";
-        private const string SIZE_PRODUCT_GRID_COLUMN_NAME = "Size";
-        private const string PRICE_PRODUCT_GRID_COLUMN_NAME = "Price";
-        private const string QUANTITY_PRODUCT_GRID_COLUMN_NAME = "Quantity";
-        private const string SOLD_PRICE_PRODUCT_GRID_COLUMN_NAME = "SoldPrice";
-        private const string AMOUNT_PRODUCT_GRID_COLUMN_NAME = "Amount";
-        private const string PRODUCT_ID_PRODUCT_GRID_COLUMN_NAME = "ProductId";
-        private const string CLOSING_BALLANCE_PRODUCT_GRID_COLUMN_NAME = "ClosingBallance";
-        private const string ORDER_ID_PRODUCT_GRID_COLUMN_NAME = "OrderId";
-        private const string INCOME_ID_PRODUCT_GRID_COLUMN_NAME = "IncomeId";
-        private const string SOLD_BY_PRODUCT_GRID_COLUMN_NAME = "SoldBy";
+        
         private const string SETTING_ALLOW_USER_VIEW_COST = "AllowUserViewAllCost";
         private const string PURCHASE_RECEIPT_ORDER_ID_COLUMN_NAME = "PurchaseReceiptOrderId";
 
@@ -176,6 +164,7 @@ namespace JS_Manage
                     txtProductCodeSearch.Text = productCodeSearch;
                     proSearchForm.purchaseReceiptOrderProductGridRowIndex = grvProducts.CurrentCell.RowIndex;
                     proSearchForm.isOpenedByPurchaseReceiptOrder = true;
+                    proSearchForm.OutputTypeCode = this.OutputTypeCode;
                     proSearchForm.ShowDialog();
 
                 }
@@ -214,19 +203,22 @@ namespace JS_Manage
                     //}
                     
                     decimal soldPrice = 0;
-                    if (grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value == null)
+                    if(OutputTypeCode != Constant.OutputType.XCK)
                     {
-                        MessageBox.Show("Giá không hợp lệ!");
-                        grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
-                        return;
-                    }
+                        if (grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value == null)
+                        {
+                            MessageBox.Show("Giá không hợp lệ!");
+                            grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
+                            return;
+                        }
 
-                    if (!decimal.TryParse(grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value.ToString(), out soldPrice))
-                    {
-                        MessageBox.Show("Giá không hợp lệ!");
-                        grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
-                        return;
-                    }
+                        if (!decimal.TryParse(grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value.ToString(), out soldPrice))
+                        {
+                            MessageBox.Show("Giá không hợp lệ!");
+                            grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
+                            return;
+                        }
+                    }                    
 
                     grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = quantity * soldPrice;
 
@@ -452,7 +444,8 @@ namespace JS_Manage
         }
         private void cboxIsCod_CheckedChanged(object sender, EventArgs e)
         {
-            if (lbPurchaseReceiptOrderId.Text == "0")                
+            int purchaseReceiptOrderId = int.Parse(lbPurchaseReceiptOrderId.Text);
+            if (purchaseReceiptOrderId== 0)                
             {
                 if(cboxIsCod.Checked)
                 {
@@ -466,19 +459,20 @@ namespace JS_Manage
                 return;
             }
             // lbPurchaseReceiptOrderId.Text = 0 mean that is new purchase order 
-            int purchaseReceiptOrderId = int.Parse(lbPurchaseReceiptOrderId.Text);;
-            decimal amount = 0;
-            int? bankAccountId = null;
-            string paymentMethod = cboxPaymentMethod.SelectedItem.ToString();            
-            string outputTypeCode = cboxOutPutType.SelectedValue.ToString();
 
-            if (paymentMethod == Constant.PaymentMethod.BANK_TRANSFER)
-            {
-                bankAccountId = int.Parse(cboxBankAccount.SelectedValue.ToString());
-            }
+            if (purchaseReceiptOrderId != 0)
+            {                
+                decimal amount = 0;
+                int? bankAccountId = null;
+                string paymentMethod = cboxPaymentMethod.SelectedItem.ToString();            
+                string outputTypeCode = cboxOutPutType.SelectedValue.ToString();
 
-            if (purchaseReceiptOrderId!=0)
-            {
+                if (paymentMethod == Constant.PaymentMethod.BANK_TRANSFER)
+                {
+                    bankAccountId = int.Parse(cboxBankAccount.SelectedValue.ToString());
+                }
+
+            
                 var purchaseReceiptOrder = purchaseReceiptOrderTableAdapter.GetById(purchaseReceiptOrderId);
                 if (!LoginInfor.IsAdmin && Setting.GetBoolSetting(Constant.Not_Allow_User_Edit_On_Other_CreatedDate))
                 {
@@ -500,9 +494,9 @@ namespace JS_Manage
                     }
 
                     using (TransactionScope tran = new TransactionScope())
-                    {  
-                        purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, DateTime.Now, LoginInfor.UserName, bankAccountId, ucOutputStore.StoreId, InputStoreId ,purchaseReceiptOrderId);
-                        
+                    {
+                        purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, DateTime.Now, LoginInfor.UserName, bankAccountId, ucOutputStore.StoreId, InputStoreId, DeliveryCost, purchaseReceiptOrderId);
+
                         JSManagementDataSet.IncomeDataTable incomeData = incomeTableAdapter.GetIncomesByPurchaseOrderId(int.Parse(lbPurchaseReceiptOrderId.Text));
 
                         for (int i = 0; i < incomeData.Rows.Count; i++)
@@ -524,8 +518,8 @@ namespace JS_Manage
                     }
                     using (TransactionScope tran = new TransactionScope())
                     {
-                        amount = decimal.Parse(txtTotalAmountPaid.Text);                       
-                        purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, DateTime.Now, LoginInfor.UserName, bankAccountId, ucOutputStore.StoreId, InputStoreId , purchaseReceiptOrderId);                    
+                        amount = decimal.Parse(txtTotalAmountPaid.Text);
+                        purchaseReceiptOrderTableAdapter.UpdateById(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, DateTime.Now, LoginInfor.UserName, bankAccountId, ucOutputStore.StoreId, InputStoreId, DeliveryCost, purchaseReceiptOrderId);
                         incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), amount, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, null, ucCustomerSelect.CustId);
                         tran.Complete();
                     }
@@ -692,17 +686,18 @@ namespace JS_Manage
                         toBankAccountId, 
                         ucOutputStore.StoreId, 
                         null, 
+                        DeliveryCost,
                         PurchaseReceiveOrderId);
 
                     foreach (DataGridViewRow row in grvProducts.Rows)
                     {
                         if (!row.IsNewRow)
                         {
-                            orderId = row.Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value == null ? 0 : int.Parse(row.Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
-                            quantity = int.Parse(row.Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
-                            size = row.Cells[SIZE_PRODUCT_GRID_COLUMN_NAME].Value.ToString();
-                            productId = int.Parse(row.Cells[PRODUCT_ID_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
-                            soldPrice = decimal.Parse(row.Cells[SOLD_PRICE_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
+                            orderId = row.Cells[Constant.ProductOutputColumnName.ORDER_ID].Value == null ? 0 : int.Parse(row.Cells[Constant.ProductOutputColumnName.ORDER_ID].Value.ToString());
+                            quantity = int.Parse(row.Cells[Constant.ProductOutputColumnName.QUANTITY].Value.ToString());
+                            size = row.Cells[Constant.ProductOutputColumnName.SIZE].Value.ToString();
+                            productId = int.Parse(row.Cells[Constant.ProductOutputColumnName.PRODUCT_ID].Value.ToString());
+                            soldPrice = decimal.Parse(row.Cells[Constant.ProductOutputColumnName.SOLD_PRICE].Value.ToString());
                             soldBy = int.Parse(row.Cells[SOLD_BY].Value.ToString());
 
                             if (orderId != 0)
@@ -747,7 +742,7 @@ namespace JS_Manage
                     {
                         paid = amount - usedAmountRewardPoint;
                     }
-
+                    paid = paid - DeliveryCost;
                     if (!cboxIsCod.Checked && outputTypeCode == Constant.OutputType.XBH)
                     {
                         if (incomeIds == 0)
@@ -802,9 +797,9 @@ namespace JS_Manage
                 {
                     if (!r.IsNewRow)
                     {
-                        quantity = int.Parse(r.Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
-                        productId = int.Parse(r.Cells[PRODUCT_ID_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
-                        productTransMappingId =r.Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value == null? 0: int.Parse(r.Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
+                        quantity = int.Parse(r.Cells[Constant.ProductOutputColumnName.QUANTITY].Value.ToString());
+                        productId = int.Parse(r.Cells[Constant.ProductOutputColumnName.PRODUCT_ID].Value.ToString());
+                        productTransMappingId = r.Cells[Constant.ProductOutputColumnName.ORDER_ID].Value == null ? 0 : int.Parse(r.Cells[Constant.ProductOutputColumnName.ORDER_ID].Value.ToString());
                         if (productTransMappingId == 0 )
                         {
                             productTransMappingTA.InsertProductTransMappingReturnId(proTransOrderId, productId, quantity);
@@ -832,6 +827,7 @@ namespace JS_Manage
             object result;
             string outputTypeCode = cboxOutPutType.SelectedValue.ToString().Trim();
             decimal paid = 0;
+            decimal deliveryCost = ucTxtCurrencyDeliveryCost.isTextBox1Null==true? 0 : ucTxtCurrencyDeliveryCost.Value;
             decimal amount = 0;
 
             if (cboxPaymentMethod.SelectedItem.ToString() == Constant.PaymentMethod.BANK_TRANSFER)
@@ -844,7 +840,7 @@ namespace JS_Manage
             using (TransactionScope tran = new TransactionScope())
             {
                
-                result = purchaseReceiptOrderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, createdDate, createdBy, lastEditedDate, lastEditedBy, bankAccountId, ucOutputStore.StoreId, null);
+                result = purchaseReceiptOrderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, CustId, txtBillNumber.Text, cboxIsCod.Checked, txtOrderNote.Text, outputTypeCode, createdDate, createdBy, lastEditedDate, lastEditedBy, bankAccountId, ucOutputStore.StoreId, null, deliveryCost);
 
                 if (result == null)
                     return;
@@ -856,18 +852,30 @@ namespace JS_Manage
                     int productId;
                     string size;
                     int quantity;
-                    decimal soldPrice;
+                    decimal soldPrice=0;
                     int soldBy;
 
                     foreach (DataGridViewRow row in grvProducts.Rows)
                     {
                         if (row != grvProducts.Rows[grvProducts.Rows.Count - 1])
                         {
-                            quantity = int.Parse(row.Cells[5].Value.ToString());
-                            size = row.Cells[3].Value.ToString();
-                            productId = int.Parse(row.Cells[8].Value.ToString());
-                            soldPrice = decimal.Parse(row.Cells[6].Value.ToString());
-                            soldBy = int.Parse(row.Cells[SOLD_BY].Value.ToString());
+                            quantity = int.Parse(row.Cells[Constant.ProductOutputColumnName.QUANTITY].Value.ToString());
+                            size = row.Cells[Constant.ProductOutputColumnName.SIZE].Value.ToString();
+                            productId = int.Parse(row.Cells[Constant.ProductOutputColumnName.PRODUCT_ID].Value.ToString());
+                            if(this.OutputTypeCode == Constant.OutputType.XTH)
+                            {
+                                if(!LoginInfor.IsAdmin || !Setting.GetBoolSetting(Constant.Setting.ALLOW_USER_VIEW_ALL_COST))
+                                {
+                                    JSManagementDataSet.ProductDataTable prod = productTA.GetDataByProductId(productId);
+                                    soldPrice = prod[0].ProductCost;
+                                }
+                            }
+                            else
+                            {
+                                soldPrice = decimal.Parse(row.Cells[Constant.ProductOutputColumnName.SOLD_PRICE].Value.ToString());
+                            }
+                            
+                            soldBy = int.Parse(row.Cells[Constant.ProductOutputColumnName.SOLD_BY].Value.ToString());
                             object orderId = orderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, ucCustomerSelect.CustId, productId, size, quantity, soldPrice, txtBillNumber.Text, cboxIsCod.Checked, purchaseReceiptOrderId, soldBy);
                             if (!cboxIsCod.Checked && outputTypeCode == Constant.OutputType.XBH)
                                 amount += soldPrice * quantity;
@@ -900,7 +908,8 @@ namespace JS_Manage
                 {
                     paid = amount - usedAmountRewardPoint;
                 }
-
+                //delivery cost
+                paid = paid - DeliveryCost;
                 if (!cboxIsCod.Checked && outputTypeCode == Constant.OutputType.XBH)
                 {
                     incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value, "", string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText), string.Format("Thu tiền đơn hàng mã số {0}", purchaseReceiptOrderId.ToString()), paid, LoginInfor.UserName, DateTime.Now, LoginInfor.UserName, DateTime.Now, null, null, purchaseReceiptOrderId, null, null, ucCustomerSelect.CustId);
@@ -1075,6 +1084,7 @@ namespace JS_Manage
             cboxPrePaid.Checked = false;
             cboxOutPutType.SelectedValue = Constant.OutputType.XBH;
             cboxOutPutType.Enabled = true;
+            ucTxtCurrencyDeliveryCost.Value = 0;
         }
         private bool CheckActiveDate(DateTime date)
         {
@@ -1260,20 +1270,23 @@ namespace JS_Manage
                         }
 
                         //Validate Sold Price
-                        decimal soldPrice = 0;
-                        if (row.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value == null)
+                        if(OutputTypeCode != Constant.OutputType.XCK)
                         {
-                            MessageBox.Show("Giá không hợp lệ!");
-                            grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
-                            return false;
-                        }
+                            decimal soldPrice = 0;
+                            if (row.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value == null)
+                            {
+                                MessageBox.Show("Giá không hợp lệ!");
+                                grvProducts.CurrentRow.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
+                                return false;
+                            }
 
-                        if (!decimal.TryParse(row.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value.ToString(), out soldPrice))
-                        {
-                            MessageBox.Show("Giá không hợp lệ!");
-                            row.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
-                            return false;
-                        }
+                            if (!decimal.TryParse(row.Cells[Constant.ProductGridColumName.SOLD_PRICE].Value.ToString(), out soldPrice))
+                            {
+                                MessageBox.Show("Giá không hợp lệ!");
+                                row.Cells[Constant.ProductGridColumName.AMOUNT].Value = string.Empty;
+                                return false;
+                            }
+                        }                        
 
                         DataGridViewComboBoxCell cboxSoldBy = row.Cells[SOLD_BY] as DataGridViewComboBoxCell;
                         if (cboxSoldBy.Value == null && OutputTypeCode != Constant.OutputType.XCK)
@@ -1360,18 +1373,18 @@ namespace JS_Manage
                 JSManagementDataSet.ProductDataTable productData = productTableAdapter.GetProductById(prodId, fromStoreId);
                 if (productData.Rows.Count > 0)
                 {
-                    grvProducts.Rows[i].Cells[PRODUCT_CODE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ProductCode;
-                    grvProducts.Rows[i].Cells[PRODUCT_TYPE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ProductType;
-                    grvProducts.Rows[i].Cells[BRAND_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Brand;
-                    grvProducts.Rows[i].Cells[SIZE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Size;
-                    grvProducts.Rows[i].Cells[PRICE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Price;
-                    grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value = proTranMapData[i].Quantity;
-                    grvProducts.Rows[i].Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value = proTranMapData[i].ProductTransMappingId;
-                    grvProducts.Rows[i].Cells[CLOSING_BALLANCE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ClosingBalance + proTranMapData[i].Quantity;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.PRODUCT_CODE].Value = productData[0].ProductCode;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.PRODUCT_TYPE].Value = productData[0].ProductType;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.BRAND].Value = productData[0].Brand;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.SIZE].Value = productData[0].Size;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.PRICE].Value = productData[0].Price;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.QUANTITY].Value = proTranMapData[i].Quantity;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.ORDER_ID].Value = proTranMapData[i].ProductTransMappingId;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.CLOSING_BALLANCE].Value = productData[0].ClosingBalance + proTranMapData[i].Quantity;
 
-                    grvProducts.Rows[i].Cells[SOLD_PRICE_PRODUCT_GRID_COLUMN_NAME].Value = 0;
-                    grvProducts.Rows[i].Cells[AMOUNT_PRODUCT_GRID_COLUMN_NAME].Value = 0;
-                    grvProducts.Rows[i].Cells[PRODUCT_ID_PRODUCT_GRID_COLUMN_NAME].Value = proTranMapData[i].ProductId;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.SOLD_PRICE].Value = 0;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.AMOUNT].Value = 0;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.PRODUCT_ID].Value = proTranMapData[i].ProductId;
                    
                     
                    
@@ -1416,6 +1429,7 @@ namespace JS_Manage
             cboxOutPutType.Enabled = false;
             ucOutputStore.StoreId = storeId;
             ucInputStore.StoreId = inputStoreId;
+            ucTxtCurrencyDeliveryCost.Value = purchaseReceiptOrderData[0].DeliveryCost;
 
             bankAccountId = purchaseReceiptOrderData[0].BankAccountId;
             if (bankAccountId != 0)
@@ -1453,14 +1467,14 @@ namespace JS_Manage
                 JSManagementDataSet.ProductDataTable productData = productTableAdapter.GetProductById(productId, storeId);
                 if (productData.Rows.Count > 0)
                 {
-                    grvProducts.Rows[i].Cells[PRODUCT_CODE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ProductCode;
-                    grvProducts.Rows[i].Cells[PRODUCT_TYPE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ProductType;
-                    grvProducts.Rows[i].Cells[BRAND_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Brand;
-                    grvProducts.Rows[i].Cells[SIZE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Size;
-                    grvProducts.Rows[i].Cells[PRICE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].Price;
-                    grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value = productMappingTable[i].Quantity;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.PRODUCT_CODE].Value = productData[0].ProductCode;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.PRODUCT_TYPE].Value = productData[0].ProductType;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.BRAND].Value = productData[0].Brand;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.SIZE].Value = productData[0].Size;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.PRICE].Value = productData[0].Price;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.QUANTITY].Value = productMappingTable[i].Quantity;
 
-                    quantity = int.Parse(grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
+                    quantity = int.Parse(grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.QUANTITY].Value.ToString());
                     soldPrice = productMappingTable[i].Price;
                     amount = decimal.Parse((quantity * soldPrice).ToString());
                     if (outputTypeCode == Constant.OutputType.XTH && !LoginInfor.IsAdmin)
@@ -1472,11 +1486,11 @@ namespace JS_Manage
                         }
                     }
 
-                    grvProducts.Rows[i].Cells[SOLD_PRICE_PRODUCT_GRID_COLUMN_NAME].Value = soldPrice;
-                    grvProducts.Rows[i].Cells[AMOUNT_PRODUCT_GRID_COLUMN_NAME].Value = amount;
-                    grvProducts.Rows[i].Cells[PRODUCT_ID_PRODUCT_GRID_COLUMN_NAME].Value = productMappingTable[i].ProductId;
-                    grvProducts.Rows[i].Cells[CLOSING_BALLANCE_PRODUCT_GRID_COLUMN_NAME].Value = productData[0].ClosingBalance + productMappingTable[i].Quantity;
-                    grvProducts.Rows[i].Cells[ORDER_ID_PRODUCT_GRID_COLUMN_NAME].Value = productMappingTable[i].OrderId;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.SOLD_PRICE].Value = soldPrice;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.AMOUNT].Value = amount;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.PRODUCT_ID].Value = productMappingTable[i].ProductId;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.CLOSING_BALLANCE].Value = productData[0].ClosingBalance + productMappingTable[i].Quantity;
+                    grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.ORDER_ID].Value = productMappingTable[i].OrderId;
                     DataGridViewComboBoxCell cboxSoldBy = grvProducts.Rows[i].Cells[SOLD_BY] as DataGridViewComboBoxCell;
                     cboxSoldBy.DisplayMember = USER_NAME;
                     cboxSoldBy.ValueMember = USER_ID;
@@ -1494,12 +1508,12 @@ namespace JS_Manage
                 {
                     cboxIsCod.Enabled = false;
                 }
-                firstIncome = incomeData[0].Amount;
+                firstIncome = incomeData[0].Amount ;
             }
             UpdateTotalAmountTextBox();
             if(!isCOD)
             {
-                if (firstIncome != decimal.Parse(txtTotalAmountPaid.Text))
+                if (firstIncome + purchaseReceiptOrderData[0].DeliveryCost != decimal.Parse(txtTotalAmountPaid.Text))
                 {
                     cboxPrePaid.Checked = true;
                     txtPrePaid.Text = firstIncome == 0 ? "0" : firstIncome.ToString("#,###");
@@ -1514,11 +1528,11 @@ namespace JS_Manage
             int quantity = 0;
             for (int i = 0; i < grvProducts.Rows.Count; i++)
             {
-                if (grvProducts.Rows[i].Cells[AMOUNT_PRODUCT_GRID_COLUMN_NAME].Value != null)
-                    totalAmount += decimal.Parse(grvProducts.Rows[i].Cells[AMOUNT_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
+                if (grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.AMOUNT].Value != null)
+                    totalAmount += decimal.Parse(grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.AMOUNT].Value.ToString());
 
-                if (grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value != null)
-                    quantity += int.Parse(grvProducts.Rows[i].Cells[QUANTITY_PRODUCT_GRID_COLUMN_NAME].Value.ToString());
+                if (grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.QUANTITY].Value != null)
+                    quantity += int.Parse(grvProducts.Rows[i].Cells[Constant.ProductOutputColumnName.QUANTITY].Value.ToString());
             }
             txtTotalAmount.Text = totalAmount.ToString("#,###") == string.Empty ? "0" : totalAmount.ToString("#,###");
             txtQuantity.Text = quantity.ToString();
@@ -2521,6 +2535,11 @@ namespace JS_Manage
         public string OrderNote
         {
             get { return txtOrderNote.Text; }
+        }
+
+        public decimal DeliveryCost
+        {
+            get { return ucTxtCurrencyDeliveryCost.isTextBox1Null==true? 0 : ucTxtCurrencyDeliveryCost.Value;}
         }
 
         private void cboxOutPutType_SelectedIndexChanged(object sender, EventArgs e)

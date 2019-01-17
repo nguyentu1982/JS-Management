@@ -18,7 +18,7 @@ namespace JS_Manage
 
         JSManagementDataSetTableAdapters.ProductTableAdapter productTableAdapter;
         JSManagementDataSetTableAdapters.StoreTableAdapter storeTableAdapter;
-        
+        JSManagementDataSetTableAdapters.ProdTableAdapter prodTableAdapter;
         public int purchaseReceiptOrderProductGridRowIndex;
         public bool isOpenedByPurchaseReceiptOrder = false;
         public int inputProductGridRowIndex;
@@ -35,6 +35,8 @@ namespace JS_Manage
             storeTableAdapter = new JSManagementDataSetTableAdapters.StoreTableAdapter();
             storeTableAdapter.Connection = CommonHelper.GetSQLConnection();
             this.prnDialog = new System.Windows.Forms.PrintDialog();
+            prodTableAdapter = new JSManagementDataSetTableAdapters.ProdTableAdapter();
+            prodTableAdapter.Connection = CommonHelper.GetSQLConnection();
             this.prnPreview = new System.Windows.Forms.PrintPreviewDialog();
             this.prnDocument = new System.Drawing.Printing.PrintDocument();
             // the Event of 'PrintPage'
@@ -93,8 +95,8 @@ namespace JS_Manage
         {
             DataGridViewRow row = grvProductList.Rows[e.RowIndex];
 
-            
 
+            string prodId = row.Cells[Constant.ProductSearch.ProductGridColumnName.ProdId].Value.ToString();
             string productId = row.Cells[Constant.ProductSearch.ProductGridColumnName.PRODUCT_ID].Value.ToString();
             string productCode = row.Cells[Constant.ProductSearch.ProductGridColumnName.PRODUCT_CODE].Value.ToString();
             string brand = row.Cells[Constant.ProductSearch.ProductGridColumnName.BRAND].Value.ToString();
@@ -113,11 +115,12 @@ namespace JS_Manage
                 Label lbProductCode = proSelectedDialogForm.Controls.Find(Constant.ProductsSelectedDialog.PRODUCT_CODE_LABEL_CONTROL_NAME,true)[0] as Label;
                 Label lbProductType = proSelectedDialogForm.Controls.Find(Constant.ProductsSelectedDialog.PRODUCT_TYPE_LABEL_CONTROL_NAME, true)[0] as Label;
                 Label lbProductBrand = proSelectedDialogForm.Controls.Find(Constant.ProductsSelectedDialog.PRODUCT_BRAND_LABEL_CONTROL_NAME, true)[0] as Label;
-
+                Label lbProdId = proSelectedDialogForm.Controls.Find(Constant.ProductsSelectedDialog.PROD_ID_LABEL_CONTROL_NAME, true)[0] as Label;
                 lbProductCode.Text = productCode;
                 lbProductType.Text = productType;
                 lbProductBrand.Text = brand;
-                
+                lbProdId.Text = prodId;
+                proSelectedDialogForm.isWorkingOnInputOrder = true;
                 proSelectedDialogForm.StartPosition = FormStartPosition.CenterScreen;
                 proSelectedDialogForm.ShowDialog();
                 
@@ -194,6 +197,30 @@ namespace JS_Manage
             this.Close();
         }
 
+        private void OpenProductsSelectedDialogForm(DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = grvProductList.Rows[e.RowIndex];
+            int productId = int.Parse(row.Cells[Constant.ProductSearch.ProductGridColumnName.PRODUCT_ID].Value.ToString());
+            JSManagementDataSet.ProductDataTable prod = productTableAdapter.GetDataByProductId(productId);
+
+
+            ProductsSelectedDialogForm proSelectedDialogForm = new ProductsSelectedDialogForm();
+            Label lbProductCode = proSelectedDialogForm.Controls.Find(Constant.ProductsSelectedDialog.PRODUCT_CODE_LABEL_CONTROL_NAME, true)[0] as Label;
+            Label lbProductType = proSelectedDialogForm.Controls.Find(Constant.ProductsSelectedDialog.PRODUCT_TYPE_LABEL_CONTROL_NAME, true)[0] as Label;
+            Label lbProductBrand = proSelectedDialogForm.Controls.Find(Constant.ProductsSelectedDialog.PRODUCT_BRAND_LABEL_CONTROL_NAME, true)[0] as Label;
+            Label lbProdId = proSelectedDialogForm.Controls.Find(Constant.ProductsSelectedDialog.PROD_ID_LABEL_CONTROL_NAME, true)[0] as Label;
+            lbProductCode.Text = prod[0].ProductCode;
+            lbProductType.Text = prod[0].ProductType;
+            lbProductBrand.Text = prod[0].Brand;
+            lbProdId.Text = prod[0].ProdId.ToString();
+            proSelectedDialogForm.isWorkingOnOutputOrder = true;
+            proSelectedDialogForm.OutputTypeCode = this.OutputTypeCode;
+            proSelectedDialogForm.StartPosition = FormStartPosition.CenterScreen;
+            proSelectedDialogForm.ShowDialog();
+            
+            this.Close();
+        }
+
         private void btSave_Click(object sender, EventArgs e)
         {
             try
@@ -252,19 +279,26 @@ namespace JS_Manage
                     return;
                 }
             }
-
-            string productCode = txtProductCode.Text;
-            string productType = cbBoxProductType.Text;
-            string brand = cbBoxBrand.Text;
+            
             string size = cbBoxSize.Text;
             decimal productCost = decimal.Parse(txtInputPrice.Text == string.Empty ? "0" : txtInputPrice.Text);
             decimal price = decimal.Parse(txtPrice.Text);
-            int openningBalance = int.Parse(numericUpDownOpeningBalance.Value.ToString());
-            int input = int.Parse(numericUpDownInput.Value.ToString());
-            int output = int.Parse(numericUpDownOutput.Value.ToString());
-            int closingBalance = int.Parse(numericUpDownClosingBalance.Value.ToString());
-            
-            if (productTableAdapter.UpdateProductById(productCode, brand, size, productCost, price, productType, openningBalance, input, output, closingBalance, productId) > 0)
+            decimal price2 = 0;
+            decimal.TryParse(txtPrice2.Text, out price2);
+            decimal price3 = 0;
+            decimal.TryParse(txtPrice3.Text, out price3);
+            decimal price4 = 0;
+            decimal.TryParse(txtPrice4.Text, out price4);
+            //int openningBalance = int.Parse(numericUpDownOpeningBalance.Value.ToString());
+            //int input = int.Parse(numericUpDownInput.Value.ToString());
+            //int output = int.Parse(numericUpDownOutput.Value.ToString());
+            //int closingBalance = int.Parse(numericUpDownClosingBalance.Value.ToString());
+            string productCode = this.txtProductCode.Text;
+            string productType = this.cbBoxProductType.Text;
+            string brand = this.cbBoxBrand.Text;
+            int prodId = this.productTableAdapter.GetDataByProductId(productId)[0].ProdId;
+
+            if (productTableAdapter.UpdateProductById( size, productCost, price, price2, price3, price4,  productId) > 0 && prodTableAdapter.UpdateQuery(productCode, brand, productType, prodId)>0)
             {
                 MessageBox.Show("Sửa mã hàng thành công!");
                 txtProductCode_TextChanged(new object(), new EventArgs());
@@ -279,12 +313,16 @@ namespace JS_Manage
             string size = cbBoxSize.Text;
             decimal productCost = decimal.Parse(txtInputPrice.Text == string.Empty ? "0" : txtInputPrice.Text);
             decimal price = decimal.Parse(txtPrice.Text);
+            decimal price2 = decimal.Parse(txtPrice2.Text);
+            decimal price3 = decimal.Parse(txtPrice3.Text);
+            decimal price4 = decimal.Parse(txtPrice4.Text);
+            int prodId = int.Parse(lbProdId.Text);
             int openningBalance = int.Parse(numericUpDownOpeningBalance.Value.ToString());
             int input = int.Parse(numericUpDownInput.Value.ToString());
             int output = int.Parse(numericUpDownOutput.Value.ToString());
             int closingBalance = int.Parse(numericUpDownClosingBalance.Value.ToString());
 
-            if (int.Parse(productTableAdapter.InsertProductReturnId(productCode, brand, size, productCost, price, productType, openningBalance, input, output, closingBalance).ToString()) > 0)
+            if (int.Parse(productTableAdapter.InsertProductReturnId(size, price, productCost, price2, price3, price4, prodId).ToString()) > 0)
             {
                 MessageBox.Show("Thêm mã hàng thành công");
                 ClearData();
@@ -319,12 +357,17 @@ namespace JS_Manage
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.PRODUCT_TYPE].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.PRODUCT_TYPE;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.PRODUCT_COST].Visible = false;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.PRICE].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.PRICE;
+            grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.PRICE].DefaultCellStyle.Format = "N0";
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.SIZE].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.SIZE;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.OPENING_BALANCE].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.OPENING_BALANCE;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.INPUT].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.INPUT;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.OUTPUT].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.OUTPUT;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.CLOSING_BALANCE].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.CLOSING_BALANCE;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.STORE_ID].Visible = false;
+            grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.PRICE2].Visible = false;
+            grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.PRICE3].Visible = false;
+            grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.PRICE4].Visible = false;
+            grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.ProdId].Visible = false;
             
         }
 
@@ -387,6 +430,9 @@ namespace JS_Manage
             string productType = productDataTable[0].ProductType;
             decimal productCost = productDataTable[0].ProductCost;
             decimal price = productDataTable[0].Price;
+            decimal price2 = productDataTable[0].Price2;
+            decimal price3 = productDataTable[0].Price3;
+            decimal price4 = productDataTable[0].Price4;
             string size = productDataTable[0].Size;
             decimal openingBalance = productDataTable[0].OpeningBalance;
             decimal input = productDataTable[0].Input;
@@ -397,9 +443,13 @@ namespace JS_Manage
             cbBoxProductType.Text = productType;
             cbBoxBrand.Text = brand;
             lbProductId.Text = productId.ToString();
-            txtPrice.Text = price.ToString();
+            lbProdId.Text = productDataTable[0].ProdId.ToString();
+            txtPrice.Text = price.ToString("#,###");
+            txtPrice2.Text = price2 == 0? "0": price2.ToString("#,###");
+            txtPrice3.Text = price3 == 0 ? "0" : price3.ToString("#,###");
+            txtPrice4.Text = price4 == 0 ? "0" : price4.ToString("#,###");
             cbBoxSize.Text = size;
-            txtInputPrice.Text = productCost.ToString();
+            txtInputPrice.Text = productCost == 0 ? "0" : productCost.ToString("#,###");
             numericUpDownOpeningBalance.Value =  openingBalance;
             numericUpDownInput.Value =  input;
             numericUpDownOutput.Value =  output;
@@ -465,7 +515,8 @@ namespace JS_Manage
         }
 
         private void btCopyProduct_Click(object sender, EventArgs e)
-        {            
+        {
+            if (grvProductList.CurrentCell == null) return;
             if (grvProductList.CurrentCell.RowIndex == -1 || grvProductList.CurrentCell.RowIndex == grvProductList.Rows.Count - 1)
                 return;
 
@@ -648,7 +699,14 @@ namespace JS_Manage
 
             if (isOpenedByPurchaseReceiptOrder)
             {
-                PassProductInforToPurchaseReceiptOrderForm(e);
+                if(this.OutputTypeCode == Constant.OutputType.XBH)
+                {
+                    PassProductInforToPurchaseReceiptOrderForm(e);
+                }
+                if(this.OutputTypeCode==Constant.OutputType.XCK || this.OutputTypeCode == Constant.OutputType.XTH)
+                {
+                    OpenProductsSelectedDialogForm(e);
+                }
                 return;
             }
 
@@ -790,6 +848,8 @@ namespace JS_Manage
             int row = e.RowIndex;
             if (row > 0)
                 this.grvProductList.Rows[row].Selected = true;
-        }           
+        }
+
+        public string OutputTypeCode { get; set; }
     }
 }

@@ -13,11 +13,14 @@ namespace JS_Manage
     public partial class ProductAddForm : Form
     {
         JSManagementDataSetTableAdapters.ProductTableAdapter productTableAdapter;
+        JSManagementDataSetTableAdapters.ProdTableAdapter prodTableAdapter;
         public ProductAddForm()
         {
             InitializeComponent();
             productTableAdapter = new JSManagementDataSetTableAdapters.ProductTableAdapter();
             productTableAdapter.Connection = CommonHelper.GetSQLConnection();
+            prodTableAdapter = new JSManagementDataSetTableAdapters.ProdTableAdapter();
+            prodTableAdapter.Connection = CommonHelper.GetSQLConnection();
         }
 
         private void btSave_Click(object sender, EventArgs e)
@@ -32,13 +35,25 @@ namespace JS_Manage
             string brand = cbBoxBrand.Text;
             decimal inputPrice = decimal.Parse(txtInputPrice.Text);
             decimal price = decimal.Parse(txtPrice.Text);
+            decimal price2 = 0;
+            decimal.TryParse(txtPrice2.Text, out price2);
+            decimal price3 = 0;
+            decimal.TryParse(txtPrice3.Text, out price3);
+            decimal price4 = 0;
+            decimal.TryParse(txtPrice4.Text, out price4);
+            string note = txtNote.Text;
+            int prodId=0;
 
             using (TransactionScope tran = new TransactionScope())
             {
-                foreach (object item in chkListBoxSize.CheckedItems)
+                int.TryParse(prodTableAdapter.InsertProdReturnId(productCode, brand, inputPrice, price, price2, price3, price4, productType, note).ToString(), out prodId);
+                if(prodId != 0)
                 {
-                    productTableAdapter.InsertProductReturnId(productCode, brand, item.ToString(), inputPrice, price, productType, 0, 0, 0, 0);
-                }
+                    foreach (object item in chkListBoxSize.CheckedItems)
+                    {
+                        productTableAdapter.InsertProductReturnId(item.ToString(), price, inputPrice, price2, price3, price4, prodId);
+                    }
+                }                
 
                 tran.Complete();
             }
@@ -61,6 +76,10 @@ namespace JS_Manage
             cbBoxBrand.Text = string.Empty;           
             txtInputPrice.Text = "0";
             txtPrice.Text = string.Empty;
+            txtPrice2.Text = string.Empty;
+            txtPrice3.Text = string.Empty;
+            txtPrice4.Text = string.Empty;
+            txtNote.Text = string.Empty;
             foreach (int i in chkListBoxSize.CheckedIndices)
             {
                 chkListBoxSize.SetItemCheckState(i, CheckState.Unchecked);
@@ -119,7 +138,7 @@ namespace JS_Manage
             {
                 if (productTableAdapter.GetProductByCodeBrandSizeType(productCode, brand, item.ToString(), productType).Rows.Count > 0)
                 {
-                    MessageBox.Show(string.Format("Mã hàng: {0}, Loại hàng: {1}, Nhãn hiệu: {2}, Size: {3} đã có!", productCode, productType, brand, item.ToString()));
+                    MessageBox.Show(string.Format("Mã hàng: {0}, Loại hàng: {1}, Nhãn hiệu: {2}, Size: {3} đã tồn tại, bạn hãy tạo mã khác!", productCode, productType, brand, item.ToString()));
                     isProductExisted = true;
                 }
             }
@@ -148,6 +167,65 @@ namespace JS_Manage
 
             cbBoxProductType.DataSource = productTypeTableAdapter.GetDistinctProductType();
             
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PictureBox picture;
+            Image img;
+            // open file dialog   
+            OpenFileDialog open = new OpenFileDialog();
+            int x = 0 ;
+            Point p;
+            // image filters  
+            open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+            open.Multiselect = true;
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                 foreach(string s in open.FileNames)
+                 {
+                     picture = new PictureBox();
+                     picture.Image = null;
+                     img = Image.FromFile(s);
+                     float width = img.Width;
+                     float height = img.Height;
+                     float ratio = width/height;
+                     if(ratio >1)
+                     {
+                         picture.Image = img.GetThumbnailImage(Convert.ToInt32(100*ratio), 100, () => false, IntPtr.Zero);
+                         picture.Height = 100;
+                         picture.Width = Convert.ToInt32(100 * ratio);
+                        
+                     }
+                     else
+                     {
+                         picture.Image = img.GetThumbnailImage(100, Convert.ToInt32(100*ratio), () => false, IntPtr.Zero);
+                         picture.Width = 100;
+                         picture.Height = Convert.ToInt32(100 * ratio);                         
+                     }                        
+                     
+                     panelPictures.Controls.Add(picture);
+                     p = new Point();
+                     p.X = x;
+                     picture.Location = p;
+                     x += picture.Width;   
+                     picture.Click +=picture_Click(s);
+                 }
+                
+            }
+            
+            
+            
+        }
+
+        private EventHandler picture_Click(string s)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

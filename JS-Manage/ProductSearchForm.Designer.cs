@@ -63,7 +63,14 @@
             this.grvProductInOutDetail = new System.Windows.Forms.DataGridView();
             this.lbProductHeader = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lbProdId = new System.Windows.Forms.Label();
+            this.txtPrice4 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtPrice3 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtPrice2 = new System.Windows.Forms.TextBox();
             this.btLowStockReport = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
             this.btCopyProduct = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cboxStoreFind = new System.Windows.Forms.ComboBox();
@@ -152,7 +159,7 @@
             // 
             this.txtProductCode.Location = new System.Drawing.Point(115, 46);
             this.txtProductCode.Name = "txtProductCode";
-            this.txtProductCode.Size = new System.Drawing.Size(100, 20);
+            this.txtProductCode.Size = new System.Drawing.Size(130, 20);
             this.txtProductCode.TabIndex = 4;
             // 
             // lbProductId
@@ -168,7 +175,7 @@
             // 
             this.cbBoxSize.DisplayMember = "Size";
             this.cbBoxSize.FormattingEnabled = true;
-            this.cbBoxSize.Location = new System.Drawing.Point(423, 69);
+            this.cbBoxSize.Location = new System.Drawing.Point(103, 68);
             this.cbBoxSize.Name = "cbBoxSize";
             this.cbBoxSize.Size = new System.Drawing.Size(54, 21);
             this.cbBoxSize.TabIndex = 7;
@@ -177,7 +184,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(389, 74);
+            this.label6.Location = new System.Drawing.Point(14, 72);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(27, 13);
             this.label6.TabIndex = 42;
@@ -187,7 +194,7 @@
             // 
             this.cbBoxBrand.DisplayMember = "Brand";
             this.cbBoxBrand.FormattingEnabled = true;
-            this.cbBoxBrand.Location = new System.Drawing.Point(275, 70);
+            this.cbBoxBrand.Location = new System.Drawing.Point(481, 39);
             this.cbBoxBrand.Name = "cbBoxBrand";
             this.cbBoxBrand.Size = new System.Drawing.Size(100, 21);
             this.cbBoxBrand.TabIndex = 6;
@@ -196,7 +203,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(215, 74);
+            this.label4.Location = new System.Drawing.Point(419, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 13);
             this.label4.TabIndex = 40;
@@ -206,7 +213,7 @@
             // 
             this.cbBoxProductType.DisplayMember = "ProductType";
             this.cbBoxProductType.FormattingEnabled = true;
-            this.cbBoxProductType.Location = new System.Drawing.Point(115, 70);
+            this.cbBoxProductType.Location = new System.Drawing.Point(304, 42);
             this.cbBoxProductType.Name = "cbBoxProductType";
             this.cbBoxProductType.Size = new System.Drawing.Size(100, 21);
             this.cbBoxProductType.TabIndex = 5;
@@ -215,7 +222,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(23, 79);
+            this.label3.Location = new System.Drawing.Point(241, 47);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 13);
             this.label3.TabIndex = 38;
@@ -223,7 +230,7 @@
             // 
             // txtInputPrice
             // 
-            this.txtInputPrice.Location = new System.Drawing.Point(560, 69);
+            this.txtInputPrice.Location = new System.Drawing.Point(481, 66);
             this.txtInputPrice.Name = "txtInputPrice";
             this.txtInputPrice.Size = new System.Drawing.Size(74, 20);
             this.txtInputPrice.TabIndex = 8;
@@ -232,7 +239,7 @@
             // lbInputPrice
             // 
             this.lbInputPrice.AutoSize = true;
-            this.lbInputPrice.Location = new System.Drawing.Point(490, 73);
+            this.lbInputPrice.Location = new System.Drawing.Point(422, 70);
             this.lbInputPrice.Name = "lbInputPrice";
             this.lbInputPrice.Size = new System.Drawing.Size(52, 13);
             this.lbInputPrice.TabIndex = 48;
@@ -241,7 +248,7 @@
             // 
             // txtPrice
             // 
-            this.txtPrice.Location = new System.Drawing.Point(103, 93);
+            this.txtPrice.Location = new System.Drawing.Point(304, 68);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(101, 20);
             this.txtPrice.TabIndex = 9;
@@ -249,7 +256,7 @@
             // txtP
             // 
             this.txtP.AutoSize = true;
-            this.txtP.Location = new System.Drawing.Point(26, 102);
+            this.txtP.Location = new System.Drawing.Point(245, 75);
             this.txtP.Name = "txtP";
             this.txtP.Size = new System.Drawing.Size(44, 13);
             this.txtP.TabIndex = 50;
@@ -322,7 +329,7 @@
             // numericUpDownInput
             // 
             this.numericUpDownInput.Enabled = false;
-            this.numericUpDownInput.Location = new System.Drawing.Point(103, 168);
+            this.numericUpDownInput.Location = new System.Drawing.Point(103, 144);
             this.numericUpDownInput.Minimum = new decimal(new int[] {
             100,
             0,
@@ -335,7 +342,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 172);
+            this.label7.Location = new System.Drawing.Point(14, 148);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(74, 13);
             this.label7.TabIndex = 57;
@@ -344,7 +351,7 @@
             // numericUpDownOutput
             // 
             this.numericUpDownOutput.Enabled = false;
-            this.numericUpDownOutput.Location = new System.Drawing.Point(103, 144);
+            this.numericUpDownOutput.Location = new System.Drawing.Point(305, 115);
             this.numericUpDownOutput.Minimum = new decimal(new int[] {
             100,
             0,
@@ -357,7 +364,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 149);
+            this.label8.Location = new System.Drawing.Point(216, 120);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(70, 13);
             this.label8.TabIndex = 59;
@@ -366,7 +373,7 @@
             // numericUpDownClosingBalance
             // 
             this.numericUpDownClosingBalance.Enabled = false;
-            this.numericUpDownClosingBalance.Location = new System.Drawing.Point(103, 192);
+            this.numericUpDownClosingBalance.Location = new System.Drawing.Point(305, 144);
             this.numericUpDownClosingBalance.Minimum = new decimal(new int[] {
             100,
             0,
@@ -379,7 +386,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(14, 196);
+            this.label9.Location = new System.Drawing.Point(216, 148);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(63, 13);
             this.label9.TabIndex = 61;
@@ -416,9 +423,19 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lbProdId);
+            this.groupBox2.Controls.Add(this.txtPrice4);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.txtPrice3);
+            this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Controls.Add(this.txtPrice2);
             this.groupBox2.Controls.Add(this.btLowStockReport);
+            this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.btCopyProduct);
+            this.groupBox2.Controls.Add(this.txtP);
             this.groupBox2.Controls.Add(this.numericUpDownClosingBalance);
+            this.groupBox2.Controls.Add(this.cbBoxProductType);
+            this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.lbProductHeader);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.lbInputPrice);
@@ -442,6 +459,58 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Chi tiết sản phẩm";
             // 
+            // lbProdId
+            // 
+            this.lbProdId.AutoSize = true;
+            this.lbProdId.Location = new System.Drawing.Point(14, 19);
+            this.lbProdId.Name = "lbProdId";
+            this.lbProdId.Size = new System.Drawing.Size(13, 13);
+            this.lbProdId.TabIndex = 72;
+            this.lbProdId.Text = "0";
+            // 
+            // txtPrice4
+            // 
+            this.txtPrice4.Location = new System.Drawing.Point(481, 92);
+            this.txtPrice4.Name = "txtPrice4";
+            this.txtPrice4.Size = new System.Drawing.Size(101, 20);
+            this.txtPrice4.TabIndex = 70;
+            this.txtPrice4.Visible = false;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(425, 96);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(37, 13);
+            this.label16.TabIndex = 71;
+            this.label16.Text = "Giá xả";
+            this.label16.Visible = false;
+            // 
+            // txtPrice3
+            // 
+            this.txtPrice3.Location = new System.Drawing.Point(304, 92);
+            this.txtPrice3.Name = "txtPrice3";
+            this.txtPrice3.Size = new System.Drawing.Size(101, 20);
+            this.txtPrice3.TabIndex = 68;
+            this.txtPrice3.Visible = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(245, 97);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(33, 13);
+            this.label15.TabIndex = 69;
+            this.label15.Text = "Giá sỉ";
+            this.label15.Visible = false;
+            // 
+            // txtPrice2
+            // 
+            this.txtPrice2.Location = new System.Drawing.Point(103, 94);
+            this.txtPrice2.Name = "txtPrice2";
+            this.txtPrice2.Size = new System.Drawing.Size(101, 20);
+            this.txtPrice2.TabIndex = 66;
+            // 
             // btLowStockReport
             // 
             this.btLowStockReport.Location = new System.Drawing.Point(425, 226);
@@ -452,6 +521,15 @@
             this.btLowStockReport.UseVisualStyleBackColor = true;
             this.btLowStockReport.Visible = false;
             this.btLowStockReport.Click += new System.EventHandler(this.btLowStockReport_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(15, 99);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(42, 13);
+            this.label14.TabIndex = 67;
+            this.label14.Text = "Giá KM";
             // 
             // btCopyProduct
             // 
@@ -618,9 +696,6 @@
             this.Controls.Add(this.btAddNew);
             this.Controls.Add(this.btDelete);
             this.Controls.Add(this.btSave);
-            this.Controls.Add(this.txtP);
-            this.Controls.Add(this.cbBoxProductType);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtProductCode);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -710,6 +785,13 @@
         private System.Windows.Forms.Button btLowStockReport;
         private System.Windows.Forms.ComboBox cboxStoreFind;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtPrice4;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txtPrice3;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtPrice2;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lbProdId;
     }
 }
 
