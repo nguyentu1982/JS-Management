@@ -5,10 +5,10 @@
     <Setting Name="JS_DEV_ConnString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=nanhtu.no-ip.org;Initial Catalog=JeansStyleManagement_DEV;Persist Security Info=True;User ID=sa;Password=niemvui&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=45.251.114.246,3314;Initial Catalog=JeansStyleManagement_DEV;User ID=sa&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=nanhtu.no-ip.org;Initial Catalog=JeansStyleManagement_DEV;Persist Security Info=True;User ID=sa;Password=niemvui</Value>
+      <Value Profile="(Default)">Data Source=45.251.114.246,3314;Initial Catalog=JeansStyleManagement_DEV;User ID=sa</Value>
     </Setting>
   </Settings>
 </SettingsFile>

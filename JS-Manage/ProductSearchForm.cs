@@ -297,8 +297,9 @@ namespace JS_Manage
             string productType = this.cbBoxProductType.Text;
             string brand = this.cbBoxBrand.Text;
             int prodId = this.productTableAdapter.GetDataByProductId(productId)[0].ProdId;
+            string note = this.txtNote.Text;
 
-            if (productTableAdapter.UpdateProductById( size, productCost, price, price2, price3, price4,  productId) > 0 && prodTableAdapter.UpdateQuery(productCode, brand, productType, prodId)>0)
+            if (productTableAdapter.UpdateProductById( size, productCost, price, price2, price3, price4,  productId) > 0 && prodTableAdapter.UpdateProd(productCode, brand, productType, note, prodId)>0)
             {
                 MessageBox.Show("Sửa mã hàng thành công!");
                 txtProductCode_TextChanged(new object(), new EventArgs());
@@ -317,10 +318,7 @@ namespace JS_Manage
             decimal price3 = decimal.Parse(txtPrice3.Text);
             decimal price4 = decimal.Parse(txtPrice4.Text);
             int prodId = int.Parse(lbProdId.Text);
-            int openningBalance = int.Parse(numericUpDownOpeningBalance.Value.ToString());
-            int input = int.Parse(numericUpDownInput.Value.ToString());
-            int output = int.Parse(numericUpDownOutput.Value.ToString());
-            int closingBalance = int.Parse(numericUpDownClosingBalance.Value.ToString());
+
 
             if (int.Parse(productTableAdapter.InsertProductReturnId(size, price, productCost, price2, price3, price4, prodId).ToString()) > 0)
             {
@@ -338,12 +336,10 @@ namespace JS_Manage
             cbBoxProductType.Text = string.Empty;
             cbBoxBrand.Text = string.Empty;
             cbBoxSize.Text = string.Empty;
-            numericUpDownOpeningBalance.Value = 0;
+            
             txtInputPrice.Text = "0";
             txtPrice.Text = string.Empty;
-            numericUpDownClosingBalance.Value = 0;
-            numericUpDownInput.Value = 0;
-            numericUpDownOutput.Value = 0;
+            
             
         }
 
@@ -420,24 +416,23 @@ namespace JS_Manage
             btAddNew.Visible = true;
             DataGridViewRow row = grvProductList.Rows[e.RowIndex];
             int productId = int.Parse(row.Cells[Constant.ProductSearch.ProductGridColumnName.PRODUCT_ID].Value.ToString());
+            int prodId = int.Parse(row.Cells[Constant.ProductSearch.ProductGridColumnName.ProdId].Value.ToString());
             if(cboxStoreFind.SelectedValue != null)
                   storeId = int.Parse(cboxStoreFind.SelectedValue.ToString());
             JSManagementDataSet.ProductDataTable productDataTable =  productTableAdapter.GetProductById(productId, storeId);
-           
+            JSManagementDataSet.ProdDataTable prodDataTable = prodTableAdapter.GetDataById(prodId);
 
-            string productCode = productDataTable[0].ProductCode;
-            string brand = productDataTable[0].Brand;
-            string productType = productDataTable[0].ProductType;
+
+            string productCode = prodDataTable[0].ProductCode;
+            string brand = prodDataTable[0].Brand;
+            string productType = prodDataTable[0].ProductType;
             decimal productCost = productDataTable[0].ProductCost;
             decimal price = productDataTable[0].Price;
             decimal price2 = productDataTable[0].Price2;
             decimal price3 = productDataTable[0].Price3;
             decimal price4 = productDataTable[0].Price4;
             string size = productDataTable[0].Size;
-            decimal openingBalance = productDataTable[0].OpeningBalance;
-            decimal input = productDataTable[0].Input;
-            decimal output = productDataTable[0].Output;
-            decimal closingBalance = productDataTable[0].ClosingBalance;
+            
             lbProductHeader.Text = string.Format("Sửa mã hàng {0} Hiệu:{1} Size:{2}", productCode, brand, size);
             txtProductCode.Text = productCode;
             cbBoxProductType.Text = productType;
@@ -450,10 +445,7 @@ namespace JS_Manage
             txtPrice4.Text = price4 == 0 ? "0" : price4.ToString("#,###");
             cbBoxSize.Text = size;
             txtInputPrice.Text = productCost == 0 ? "0" : productCost.ToString("#,###");
-            numericUpDownOpeningBalance.Value =  openingBalance;
-            numericUpDownInput.Value =  input;
-            numericUpDownOutput.Value =  output;
-            numericUpDownClosingBalance.Value = closingBalance;
+            txtNote.Text = prodDataTable[0].Note == null ? string.Empty: prodDataTable[0].Note;
 
             grvProductInOutDetail.DataSource = getProductInOutDetailTableAdapter.GetProductInOutDetailByProductId(productId,storeId);
             FormatProductInOutDetailGridview();

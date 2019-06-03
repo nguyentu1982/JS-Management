@@ -26,8 +26,8 @@ namespace JS_Manage.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=nanhtu.no-ip.org;Initial Catalog=JeansStyleManagement_DEV;Persist Sec" +
-            "urity Info=True;User ID=sa;Password=niemvui")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=45.251.114.246,3314;Initial Catalog=JeansStyleManagement_DEV;User ID=" +
+            "sa")]
         public string JS_DEV_ConnString {
             get {
                 return ((string)(this["JS_DEV_ConnString"]));
