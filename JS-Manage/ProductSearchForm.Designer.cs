@@ -36,7 +36,7 @@
             this.chkIsInStock = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtProductCode = new System.Windows.Forms.TextBox();
-            this.lbProductId = new System.Windows.Forms.Label();
+            this.lbProductId = new System.Windows.Forms.TextBox();
             this.cbBoxSize = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.cbBoxBrand = new System.Windows.Forms.ComboBox();
@@ -47,22 +47,16 @@
             this.lbInputPrice = new System.Windows.Forms.Label();
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.txtP = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDownOpeningBalance = new System.Windows.Forms.NumericUpDown();
             this.btSave = new System.Windows.Forms.Button();
             this.btAddNew = new System.Windows.Forms.Button();
             this.btDelete = new System.Windows.Forms.Button();
             this.btSearch = new System.Windows.Forms.Button();
-            this.numericUpDownInput = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownOutput = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDownClosingBalance = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grvProductInOutDetail = new System.Windows.Forms.DataGridView();
             this.lbProductHeader = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtNote = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.lbProdId = new System.Windows.Forms.Label();
             this.txtPrice4 = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -90,10 +84,6 @@
             this.productTableAdapter1 = new JS_Manage.JSManagementDataSetTableAdapters.ProductTableAdapter();
             this.getProductInOutDetailTableAdapter = new JS_Manage.JSManagementDataSetTableAdapters.GetProductInOutDetailTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.grvProductList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpeningBalance)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOutput)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownClosingBalance)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grvProductInOutDetail)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -164,11 +154,12 @@
             // 
             // lbProductId
             // 
-            this.lbProductId.AutoSize = true;
-            this.lbProductId.Location = new System.Drawing.Point(621, 16);
+            this.lbProductId.Location = new System.Drawing.Point(583, 16);
             this.lbProductId.Name = "lbProductId";
-            this.lbProductId.Size = new System.Drawing.Size(13, 13);
+            this.lbProductId.ReadOnly = true;
+            this.lbProductId.Size = new System.Drawing.Size(60, 20);
             this.lbProductId.TabIndex = 8;
+            this.lbProductId.TabStop = false;
             this.lbProductId.Text = "0";
             // 
             // cbBoxSize
@@ -262,29 +253,6 @@
             this.txtP.TabIndex = 50;
             this.txtP.Text = "Giá bán";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 122);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 13);
-            this.label5.TabIndex = 52;
-            this.label5.Text = "Số dư đầu kỳ";
-            // 
-            // numericUpDownOpeningBalance
-            // 
-            this.numericUpDownOpeningBalance.Enabled = false;
-            this.numericUpDownOpeningBalance.Location = new System.Drawing.Point(103, 118);
-            this.numericUpDownOpeningBalance.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownOpeningBalance.Name = "numericUpDownOpeningBalance";
-            this.numericUpDownOpeningBalance.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownOpeningBalance.TabIndex = 10;
-            this.numericUpDownOpeningBalance.Enter += new System.EventHandler(this.numericUpDownOpeningBalance_Enter);
-            // 
             // btSave
             // 
             this.btSave.Location = new System.Drawing.Point(25, 228);
@@ -326,72 +294,6 @@
             this.btSearch.UseVisualStyleBackColor = true;
             this.btSearch.Click += new System.EventHandler(this.button1_Click);
             // 
-            // numericUpDownInput
-            // 
-            this.numericUpDownInput.Enabled = false;
-            this.numericUpDownInput.Location = new System.Drawing.Point(103, 144);
-            this.numericUpDownInput.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownInput.Name = "numericUpDownInput";
-            this.numericUpDownInput.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownInput.TabIndex = 58;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 148);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 13);
-            this.label7.TabIndex = 57;
-            this.label7.Text = "Nhập trong kỳ";
-            // 
-            // numericUpDownOutput
-            // 
-            this.numericUpDownOutput.Enabled = false;
-            this.numericUpDownOutput.Location = new System.Drawing.Point(305, 115);
-            this.numericUpDownOutput.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownOutput.Name = "numericUpDownOutput";
-            this.numericUpDownOutput.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownOutput.TabIndex = 60;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(216, 120);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(70, 13);
-            this.label8.TabIndex = 59;
-            this.label8.Text = "Xuất trong kỳ";
-            // 
-            // numericUpDownClosingBalance
-            // 
-            this.numericUpDownClosingBalance.Enabled = false;
-            this.numericUpDownClosingBalance.Location = new System.Drawing.Point(305, 144);
-            this.numericUpDownClosingBalance.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.numericUpDownClosingBalance.Name = "numericUpDownClosingBalance";
-            this.numericUpDownClosingBalance.Size = new System.Drawing.Size(100, 20);
-            this.numericUpDownClosingBalance.TabIndex = 62;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(216, 148);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(63, 13);
-            this.label9.TabIndex = 61;
-            this.label9.Text = "Tồn cuối kỳ";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.grvProductInOutDetail);
@@ -415,7 +317,7 @@
             // 
             this.lbProductHeader.AutoSize = true;
             this.lbProductHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbProductHeader.Location = new System.Drawing.Point(202, 11);
+            this.lbProductHeader.Location = new System.Drawing.Point(106, 12);
             this.lbProductHeader.Name = "lbProductHeader";
             this.lbProductHeader.Size = new System.Drawing.Size(51, 20);
             this.lbProductHeader.TabIndex = 5;
@@ -423,6 +325,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtNote);
+            this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.lbProdId);
             this.groupBox2.Controls.Add(this.txtPrice4);
             this.groupBox2.Controls.Add(this.label16);
@@ -433,31 +337,40 @@
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.btCopyProduct);
             this.groupBox2.Controls.Add(this.txtP);
-            this.groupBox2.Controls.Add(this.numericUpDownClosingBalance);
             this.groupBox2.Controls.Add(this.cbBoxProductType);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.lbProductHeader);
-            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.lbInputPrice);
-            this.groupBox2.Controls.Add(this.numericUpDownOutput);
             this.groupBox2.Controls.Add(this.txtInputPrice);
             this.groupBox2.Controls.Add(this.lbProductId);
-            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.cbBoxBrand);
-            this.groupBox2.Controls.Add(this.numericUpDownInput);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.cbBoxSize);
             this.groupBox2.Controls.Add(this.txtPrice);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.numericUpDownOpeningBalance);
             this.groupBox2.Location = new System.Drawing.Point(12, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(649, 258);
             this.groupBox2.TabIndex = 64;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Chi tiết sản phẩm";
+            // 
+            // txtNote
+            // 
+            this.txtNote.Location = new System.Drawing.Point(103, 121);
+            this.txtNote.Multiline = true;
+            this.txtNote.Name = "txtNote";
+            this.txtNote.Size = new System.Drawing.Size(194, 80);
+            this.txtNote.TabIndex = 73;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 124);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(44, 13);
+            this.label5.TabIndex = 74;
+            this.label5.Text = "Ghi chú";
             // 
             // lbProdId
             // 
@@ -711,10 +624,6 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ProductSearchForm_KeyDown);
             this.Resize += new System.EventHandler(this.ProductSearchForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.grvProductList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOpeningBalance)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownInput)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOutput)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownClosingBalance)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grvProductInOutDetail)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -738,7 +647,7 @@
         private System.Windows.Forms.CheckBox chkIsInStock;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtProductCode;
-        private System.Windows.Forms.Label lbProductId;
+        private System.Windows.Forms.TextBox lbProductId;
         private System.Windows.Forms.ComboBox cbBoxSize;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbBoxBrand;
@@ -749,8 +658,6 @@
         private System.Windows.Forms.Label lbInputPrice;
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.Label txtP;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDownOpeningBalance;
         private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.Button btAddNew;
         private System.Windows.Forms.Button btDelete;
@@ -758,12 +665,6 @@
         private JSManagementDataSet jSManagementDataSet;
         private System.Windows.Forms.BindingSource productBindingSource;
         private JSManagementDataSetTableAdapters.ProductTableAdapter productTableAdapter1;
-        private System.Windows.Forms.NumericUpDown numericUpDownInput;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDownOutput;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown numericUpDownClosingBalance;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView grvProductInOutDetail;
         private System.Windows.Forms.BindingSource getProductInOutDetailBindingSource;
@@ -792,6 +693,8 @@
         private System.Windows.Forms.TextBox txtPrice2;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label lbProdId;
+        private System.Windows.Forms.TextBox txtNote;
+        private System.Windows.Forms.Label label5;
     }
 }
 
