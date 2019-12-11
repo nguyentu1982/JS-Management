@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PurchaseReceiptOrderForm));
             this.lbPerchaseReceiptOrderHeader = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -86,7 +86,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cboxBankAccount = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ucTxtCurrencyDeliveryCost = new JS_Manage.UCTextBoxCurrency();
             this.label6 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.txtQuantity = new System.Windows.Forms.TextBox();
             this.cboxPrePaid = new System.Windows.Forms.CheckBox();
             this.txtRemainPaid = new System.Windows.Forms.TextBox();
@@ -102,8 +104,6 @@
             this.cboxOutPutType = new System.Windows.Forms.ComboBox();
             this.ucInputStore = new JS_Manage.StoreSelectedUserControl();
             this.cboxIsRewardPointPrint = new System.Windows.Forms.CheckBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.ucTxtCurrencyDeliveryCost = new JS_Manage.UCTextBoxCurrency();
             ((System.ComponentModel.ISupportInitialize)(this.grvProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvPurchaseReceiptOrderSumary)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -193,9 +193,9 @@
             // 
             // Price
             // 
-            dataGridViewCellStyle1.Format = "N0";
-            dataGridViewCellStyle1.NullValue = null;
-            this.Price.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Format = "N0";
+            dataGridViewCellStyle4.NullValue = null;
+            this.Price.DefaultCellStyle = dataGridViewCellStyle4;
             this.Price.HeaderText = "Giá";
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
@@ -209,18 +209,18 @@
             // 
             // SoldPrice
             // 
-            dataGridViewCellStyle2.Format = "N0";
-            dataGridViewCellStyle2.NullValue = null;
-            this.SoldPrice.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Format = "N0";
+            dataGridViewCellStyle5.NullValue = null;
+            this.SoldPrice.DefaultCellStyle = dataGridViewCellStyle5;
             this.SoldPrice.HeaderText = "Giá bán";
             this.SoldPrice.Name = "SoldPrice";
             this.SoldPrice.Width = 70;
             // 
             // Amount
             // 
-            dataGridViewCellStyle3.Format = "N0";
-            dataGridViewCellStyle3.NullValue = null;
-            this.Amount.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Format = "N0";
+            dataGridViewCellStyle6.NullValue = null;
+            this.Amount.DefaultCellStyle = dataGridViewCellStyle6;
             this.Amount.HeaderText = "Thành Tiền";
             this.Amount.Name = "Amount";
             // 
@@ -259,7 +259,7 @@
             // 
             // btSave
             // 
-            this.btSave.Location = new System.Drawing.Point(6, 531);
+            this.btSave.Location = new System.Drawing.Point(6, 598);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(94, 23);
             this.btSave.TabIndex = 150;
@@ -269,7 +269,7 @@
             // 
             // btDelete
             // 
-            this.btDelete.Location = new System.Drawing.Point(106, 531);
+            this.btDelete.Location = new System.Drawing.Point(106, 598);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(94, 23);
             this.btDelete.TabIndex = 160;
@@ -279,7 +279,7 @@
             // 
             // btAddNew
             // 
-            this.btAddNew.Location = new System.Drawing.Point(206, 531);
+            this.btAddNew.Location = new System.Drawing.Point(206, 598);
             this.btAddNew.Name = "btAddNew";
             this.btAddNew.Size = new System.Drawing.Size(115, 23);
             this.btAddNew.TabIndex = 170;
@@ -298,7 +298,7 @@
             // 
             // btPrint
             // 
-            this.btPrint.Location = new System.Drawing.Point(327, 531);
+            this.btPrint.Location = new System.Drawing.Point(327, 598);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(94, 23);
             this.btPrint.TabIndex = 180;
@@ -482,7 +482,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(204, 453);
+            this.label5.Location = new System.Drawing.Point(438, 453);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 17);
             this.label5.TabIndex = 73;
@@ -492,7 +492,7 @@
             // 
             this.txtTotalAmount.BackColor = System.Drawing.SystemColors.Info;
             this.txtTotalAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalAmount.Location = new System.Drawing.Point(313, 451);
+            this.txtTotalAmount.Location = new System.Drawing.Point(527, 451);
             this.txtTotalAmount.Name = "txtTotalAmount";
             this.txtTotalAmount.ReadOnly = true;
             this.txtTotalAmount.Size = new System.Drawing.Size(111, 22);
@@ -502,7 +502,7 @@
             // 
             // btPrintPostOfficeLetter
             // 
-            this.btPrintPostOfficeLetter.Location = new System.Drawing.Point(428, 531);
+            this.btPrintPostOfficeLetter.Location = new System.Drawing.Point(428, 598);
             this.btPrintPostOfficeLetter.Name = "btPrintPostOfficeLetter";
             this.btPrintPostOfficeLetter.Size = new System.Drawing.Size(214, 23);
             this.btPrintPostOfficeLetter.TabIndex = 190;
@@ -664,21 +664,44 @@
             this.panel1.Size = new System.Drawing.Size(696, 706);
             this.panel1.TabIndex = 25;
             // 
+            // ucTxtCurrencyDeliveryCost
+            // 
+            this.ucTxtCurrencyDeliveryCost.IsTextBox1Enable = true;
+            this.ucTxtCurrencyDeliveryCost.isTextBox1Null = false;
+            this.ucTxtCurrencyDeliveryCost.Location = new System.Drawing.Point(106, 105);
+            this.ucTxtCurrencyDeliveryCost.Name = "ucTxtCurrencyDeliveryCost";
+            this.ucTxtCurrencyDeliveryCost.Size = new System.Drawing.Size(552, 24);
+            this.ucTxtCurrencyDeliveryCost.TabIndex = 125;
+            this.ucTxtCurrencyDeliveryCost.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(434, 453);
+            this.label6.Location = new System.Drawing.Point(218, 456);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 17);
             this.label6.TabIndex = 1019;
             this.label6.Text = "Số Lượng";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 110);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(68, 13);
+            this.label11.TabIndex = 1018;
+            this.label11.Text = "Phí gửi hàng";
+            // 
             // txtQuantity
             // 
             this.txtQuantity.BackColor = System.Drawing.SystemColors.Info;
             this.txtQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQuantity.Location = new System.Drawing.Point(528, 450);
+            this.txtQuantity.Location = new System.Drawing.Point(314, 450);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.ReadOnly = true;
             this.txtQuantity.Size = new System.Drawing.Size(111, 22);
@@ -760,7 +783,6 @@
             this.cboxIsCod.TabIndex = 90;
             this.cboxIsCod.Text = "C&OD/Trả sau";
             this.cboxIsCod.UseVisualStyleBackColor = true;
-            this.cboxIsCod.CheckedChanged += new System.EventHandler(this.cboxIsCod_CheckedChanged);
             // 
             // cboxIsRewardPointUse
             // 
@@ -828,29 +850,6 @@
             this.cboxIsRewardPointPrint.TabIndex = 40;
             this.cboxIsRewardPointPrint.Text = "In điểm thưởng";
             this.cboxIsRewardPointPrint.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 110);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(68, 13);
-            this.label11.TabIndex = 1018;
-            this.label11.Text = "Phí gửi hàng";
-            // 
-            // ucTxtCurrencyDeliveryCost
-            // 
-            this.ucTxtCurrencyDeliveryCost.IsTextBox1Enable = true;
-            this.ucTxtCurrencyDeliveryCost.isTextBox1Null = false;
-            this.ucTxtCurrencyDeliveryCost.Location = new System.Drawing.Point(106, 105);
-            this.ucTxtCurrencyDeliveryCost.Name = "ucTxtCurrencyDeliveryCost";
-            this.ucTxtCurrencyDeliveryCost.Size = new System.Drawing.Size(552, 24);
-            this.ucTxtCurrencyDeliveryCost.TabIndex = 125;
-            this.ucTxtCurrencyDeliveryCost.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
             // 
             // PurchaseReceiptOrderForm
             // 
