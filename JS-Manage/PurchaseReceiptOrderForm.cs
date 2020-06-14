@@ -1626,7 +1626,8 @@ namespace JS_Manage
             }
             UpdateTotalAmountTextBox();
 
-            if (incomeData.Count > 1 && firstIncome>0)
+
+            if (firstIncome < decimal.Parse(txtTotalAmountPaid.Text) && firstIncome>0)
             {
                 cboxPrePaid.Checked = true;
                 txtPrePaid.Text = firstIncome == 0 ? "0" : firstIncome.ToString("#,###");

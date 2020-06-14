@@ -13,6 +13,8 @@ namespace JS_Manage
         JSManagementDataSetTableAdapters.OrdersTableAdapter orderTableAdapter;
         JSManagementDataSetTableAdapters.ReceivableFromCustomersTableAdapter receivableCustomerAdapter;
         JSManagementDataSetTableAdapters.BankAccountTableAdapter bankAccountTableAdapter;
+        JSManagementDataSetTableAdapters.PurchaseReceiptOrderTableAdapter purchaseReceipOrderAdapter;
+        JSManagementDataSetTableAdapters.IncomeTableAdapter incomeTableAdapter;
         public bool isOpenByIncome = false;
         public int bankAccountIdPassFromOtherControl = 0;
         public ReceivableFromCustomersForm()
@@ -26,6 +28,12 @@ namespace JS_Manage
 
             bankAccountTableAdapter = new JSManagementDataSetTableAdapters.BankAccountTableAdapter();
             bankAccountTableAdapter.Connection = CommonHelper.GetSQLConnection();
+
+            purchaseReceipOrderAdapter = new JSManagementDataSetTableAdapters.PurchaseReceiptOrderTableAdapter();
+            purchaseReceipOrderAdapter.Connection = CommonHelper.GetSQLConnection();
+
+            incomeTableAdapter = new JSManagementDataSetTableAdapters.IncomeTableAdapter();
+            incomeTableAdapter.Connection = CommonHelper.GetSQLConnection();
         }
 
         private void ReceivableFromCustomersForm_Load(object sender, EventArgs e)
@@ -39,7 +47,7 @@ namespace JS_Manage
             grvReceivableFromCustomer.DataSource = receivableCustomerAdapter.GetReceivableFromCustomersByCustIdBillNumberIsInDebt(int.Parse(lbCustId.Text), txtBillNumber.Text, chkIsInDebt.Checked, dateTimePickerFrom.Value, dateTimePickerTo.Value, bankAccountId);
             grvReceivableFromCustomer.CellEnter +=grvReceivableFromCustomer_CellEnter;
 
-            
+            cboxBankAccount.SelectedIndexChanged +=cboxBankAccount_SelectedIndexChanged;
         }
 
         private void grvReceivableFromCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -142,8 +150,8 @@ namespace JS_Manage
         private void btFind_Click(object sender, EventArgs e)
         {
             int bankAccountId = 0;           
-            bankAccountId = int.Parse(cboxBankAccount.SelectedValue.ToString());           
-
+            bankAccountId = int.Parse(cboxBankAccount.SelectedValue.ToString());
+            grvReceivableFromCustomer.Columns.Clear();
             grvReceivableFromCustomer.DataSource = receivableCustomerAdapter.GetReceivableFromCustomersByCustIdBillNumberIsInDebt(int.Parse(lbCustId.Text), txtBillNumber.Text, chkIsInDebt.Checked, dateTimePickerFrom.Value, dateTimePickerTo.Value, bankAccountId);
             grvReceivableFromCustomer.Columns["OrderId"].Visible = false;
             grvReceivableFromCustomer.Columns["BillNumber"].HeaderText = "Mã số bưu gửi";
@@ -151,6 +159,16 @@ namespace JS_Manage
             grvReceivableFromCustomer.Columns["Amount"].HeaderText = "Tổng tiền";
             grvReceivableFromCustomer.Columns["IncomeAmount"].HeaderText = "Đã thanh toán";
             grvReceivableFromCustomer.Columns["PurchaseReceiptOrderId"].Visible = false;
+
+            DataGridViewButtonColumn AddReceiableCustomerButtonColumn = new DataGridViewButtonColumn();
+            AddReceiableCustomerButtonColumn.Name = "button_column";
+            AddReceiableCustomerButtonColumn.Text = "Thu công nợ";
+            AddReceiableCustomerButtonColumn.HeaderText = "Thu Công Nợ";
+            int columnIndex = 7;
+            if (grvReceivableFromCustomer.Columns["button_column"] == null)
+            {
+                grvReceivableFromCustomer.Columns.Insert(columnIndex, AddReceiableCustomerButtonColumn);
+            }
         }
 
         private void grvReceivableFromCustomer_CellEnter(object sender, DataGridViewCellEventArgs e)
@@ -306,6 +324,101 @@ namespace JS_Manage
         {
             if (e.KeyCode == Keys.Enter)
                 grvReceivableFromCustomer_CellDoubleClick(new object(), new DataGridViewCellEventArgs(grvReceivableFromCustomer.CurrentCell.ColumnIndex, grvReceivableFromCustomer.CurrentCell.RowIndex));
+        }
+
+        private void grvReceivableFromCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {            
+            DataGridViewRow row = grvReceivableFromCustomer.Rows[e.RowIndex];
+            int purchaseOrderId = 0;
+            if (!int.TryParse(row.Cells["PurchaseReceiptOrderId"].Value.ToString(), out purchaseOrderId))
+            {
+                return;
+            }           
+            
+
+            var senderGrid = (DataGridView)sender;
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                DialogResult insertConfirmMessage = MessageBox.Show(string.Format("Bạn có chắc chắn tạo phiếu thu công nợ khách hàng? "), "Tạo phiếu thu", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (insertConfirmMessage == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    return;
+                }
+               
+
+                if(InsertIncome(purchaseOrderId))
+                    MessageBox.Show("Tạo phiếu thu thành công!");
+            }
+        }
+
+        private bool InsertIncome(int purchaseOrderId)
+        {
+            JSManagementDataSet.PurchaseReceiptOrderDataTable purchaseData = purchaseReceipOrderAdapter.GetById(purchaseOrderId);
+            JSManagementDataSet.ReceivableFromCustomersDataTable receivableData = receivableCustomerAdapter.GetReceivableFromCustomersByPurchaseOrderId(purchaseOrderId);
+            
+            if (purchaseData.Rows.Count == 0 || receivableData.Rows.Count == 0)
+                return false;
+
+            string incomeNumber = purchaseData[0].BillNumber;
+            DateTime incomeDate = DateTime.Now;
+            string payerName = purchaseData[0].BillNumber;
+            string reason = string.Format("Thu nợ tiền hàng ngày {0} / Mã số bưu gửi: {1} / Đơn hàng: {2}", DateTime.Parse(purchaseData[0].OrderDate.ToString()).ToShortDateString(), purchaseData[0].BillNumber, purchaseData[0].PurchaseReceiptOrderId.ToString());
+            decimal amount = receivableData[0].Amount - receivableData[0].IncomeAmount;
+            string createdBy = LoginInfor.UserName;
+            DateTime createdDate = DateTime.Now;
+            
+            int toBankAccountId = purchaseData[0].BankAccountId;
+            string bankAccountName;
+            if(toBankAccountId == 0)
+            {
+                bankAccountName = "Tiền mặt";
+            }
+            else
+            {
+                bankAccountName = bankAccountTableAdapter.GetDataById(toBankAccountId)[0].BankAccountName;
+
+            }
+            int custId = purchaseData[0].CustId;
+
+            object income = new object();
+
+            //StringBuilder sb = new StringBuilder();
+            //sb.AppendLine("Bạn có chắc chắn tạo phiếu thu? ");
+            //sb.AppendLine("Mã số bưu gửi: " + incomeNumber == string.Empty? purchaseData[0].CustId.ToString() : incomeNumber);
+            //sb.AppendLine("Số tiền: " + amount);
+            //sb.AppendLine("Bằng chữ: " + VNCurrency.ToString(amount));
+            //sb.AppendLine("Tới tài khoản: " + bankAccountName);
+
+            //DialogResult reviewConfirmMessage = MessageBox.Show(sb.ToString(), "Bạn có chắc chắn?", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+            //if (reviewConfirmMessage == System.Windows.Forms.DialogResult.Cancel)
+            //{
+            //    return false;
+            //}
+
+            income = incomeTableAdapter.InsertIncomeReturnId(
+                incomeDate, 
+                incomeNumber, 
+                payerName, 
+                reason, 
+                amount, 
+                createdBy, 
+                createdDate, 
+                createdBy, 
+                createdDate, 
+                null, 
+                null, 
+                purchaseOrderId, 
+                null, 
+                toBankAccountId, custId);
+
+            return true;
+        }
+
+        private void cboxBankAccount_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btFind_Click(new object(), new EventArgs());
         }
     }
 }

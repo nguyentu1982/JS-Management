@@ -53,13 +53,13 @@
             this.chkIsInDebt = new System.Windows.Forms.CheckBox();
             this.btFind = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cboxBankAccount = new System.Windows.Forms.ComboBox();
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lbCustId = new System.Windows.Forms.Label();
-            this.cboxBankAccount = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grvReceivableFromCustomer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvProductOutput)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -75,6 +75,7 @@
             this.grvReceivableFromCustomer.Size = new System.Drawing.Size(760, 348);
             this.grvReceivableFromCustomer.TabIndex = 14;
             this.grvReceivableFromCustomer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvReceivableFromCustomer_CellClick);
+            this.grvReceivableFromCustomer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvReceivableFromCustomer_CellContentClick);
             this.grvReceivableFromCustomer.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvReceivableFromCustomer_CellDoubleClick);
             this.grvReceivableFromCustomer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.grvReceivableFromCustomer_KeyDown);
             // 
@@ -301,6 +302,24 @@
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(498, 40);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(56, 13);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "Tài Khoản";
+            // 
+            // cboxBankAccount
+            // 
+            this.cboxBankAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxBankAccount.FormattingEnabled = true;
+            this.cboxBankAccount.Location = new System.Drawing.Point(555, 34);
+            this.cboxBankAccount.Name = "cboxBankAccount";
+            this.cboxBankAccount.Size = new System.Drawing.Size(121, 21);
+            this.cboxBankAccount.TabIndex = 23;
+            // 
             // dateTimePickerTo
             // 
             this.dateTimePickerTo.Location = new System.Drawing.Point(37, 37);
@@ -343,30 +362,12 @@
             this.lbCustId.Text = "0";
             this.lbCustId.Visible = false;
             // 
-            // cboxBankAccount
-            // 
-            this.cboxBankAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxBankAccount.FormattingEnabled = true;
-            this.cboxBankAccount.Location = new System.Drawing.Point(555, 34);
-            this.cboxBankAccount.Name = "cboxBankAccount";
-            this.cboxBankAccount.Size = new System.Drawing.Size(121, 21);
-            this.cboxBankAccount.TabIndex = 23;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(498, 40);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(56, 13);
-            this.label11.TabIndex = 24;
-            this.label11.Text = "Tài Khoản";
-            // 
             // ReceivableFromCustomersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(784, 757);
+            this.ClientSize = new System.Drawing.Size(784, 749);
             this.Controls.Add(this.lbBillNumber);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.grvProductOutput);
