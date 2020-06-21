@@ -35838,10 +35838,12 @@ SELECT IncomeId, IncomeDate, IncomeNumber, PayerName, Reason, Amount, CreateBy, 
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@purchaseReceiptOrderId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = @"SELECT        Amount, CreateBy, CreatedDate, IncomeDate, IncomeId, IncomeNumber, LastEditedBy, LastEditedDate, PayerName, Reason, ISNULL(PurchaseReceiptOrderId, 0) AS PurchaseReceiptOrderId, ISNULL(CostId, 0) 
-                         AS CostId, ISNULL(ToBankAccountId, 0) AS ToBankAccountId, ISNULL(FromBankAccountId, 0) AS FromBankAccountId, ISNULL(CustomerId, 0) AS CustomerId
-FROM            Income
-WHERE        (IncomeId = @incomeId)";
+            this._commandCollection[3].CommandText = @"SELECT        Income.Amount, Income.CreateBy, Income.CreatedDate, Income.IncomeDate, Income.IncomeId, Income.IncomeNumber, Income.LastEditedBy, Income.LastEditedDate, Income.PayerName, Income.Reason, 
+                         ISNULL(Income.PurchaseReceiptOrderId, 0) AS PurchaseReceiptOrderId, ISNULL(Income.CostId, 0) AS CostId, ISNULL(PurchaseReceiptOrder.BankAccountId, 0) AS ToBankAccountId, ISNULL(Income.FromBankAccountId, 0) 
+                         AS FromBankAccountId, ISNULL(Income.CustomerId, 0) AS CustomerId
+FROM            Income INNER JOIN
+                         PurchaseReceiptOrder ON Income.PurchaseReceiptOrderId = PurchaseReceiptOrder.PurchaseReceiptOrderId
+WHERE        (Income.IncomeId = @incomeId)";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@incomeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "IncomeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
