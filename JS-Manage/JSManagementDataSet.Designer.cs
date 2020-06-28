@@ -35841,7 +35841,7 @@ SELECT IncomeId, IncomeDate, IncomeNumber, PayerName, Reason, Amount, CreateBy, 
             this._commandCollection[3].CommandText = @"SELECT        Income.Amount, Income.CreateBy, Income.CreatedDate, Income.IncomeDate, Income.IncomeId, Income.IncomeNumber, Income.LastEditedBy, Income.LastEditedDate, Income.PayerName, Income.Reason, 
                          ISNULL(Income.PurchaseReceiptOrderId, 0) AS PurchaseReceiptOrderId, ISNULL(Income.CostId, 0) AS CostId, ISNULL(PurchaseReceiptOrder.BankAccountId, 0) AS ToBankAccountId, ISNULL(Income.FromBankAccountId, 0) 
                          AS FromBankAccountId, ISNULL(Income.CustomerId, 0) AS CustomerId
-FROM            Income INNER JOIN
+FROM            Income LEFT JOIN
                          PurchaseReceiptOrder ON Income.PurchaseReceiptOrderId = PurchaseReceiptOrder.PurchaseReceiptOrderId
 WHERE        (Income.IncomeId = @incomeId)";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;

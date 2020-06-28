@@ -498,6 +498,7 @@ namespace JS_Manage
             ClearData();
             JSManagementDataSet.IncomeDataTable incomeData = incomeTableAdapter.GetDataByIncomeId(incomeId);
             lbIncomeHeader.Text = "Sửa phiếu thu".ToUpper();
+
             if (incomeData[0].ToBankAccountId != 0)
             {
                 cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.BANK_TRANSFER;
@@ -515,8 +516,8 @@ namespace JS_Manage
             CultureInfo cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
             ucTextBoxCurrency1.Value = incomeData[0].Amount;
 
-
-            lbOrderId.Text = incomeData[0].PurchaseReceiptOrderId.ToString();
+            if(incomeData[0].PurchaseReceiptOrderId >= 0)
+                lbOrderId.Text =  incomeData[0].PurchaseReceiptOrderId.ToString();
             if (lbOrderId.Text != "0")
             {
                 cboxReceivableFromCustomer.CheckedChanged -= cboxReceivableFromCustomer_CheckedChanged;
