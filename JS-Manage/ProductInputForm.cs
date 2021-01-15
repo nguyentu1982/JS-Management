@@ -28,7 +28,7 @@ namespace JS_Manage
         JSManagementDataSetTableAdapters.InputTypeTableAdapter inputTypeTableAdapter;
         JSManagementDataSetTableAdapters.ProductTransOrderTableAdapter productTransOrderTableAdapter;
         JSManagementDataSetTableAdapters.ProductTransMappingTableAdapter productTransMappingTableAdapter;
-        
+        JSManagementDataSetTableAdapters.InputProductsByProductInputOrderIdTableAdapter inputproductsTableAdapter;
         CultureInfo cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
 
         public bool isAdmin = false;
@@ -70,6 +70,9 @@ namespace JS_Manage
             productTransOrderTableAdapter.Connection = CommonHelper.GetSQLConnection();
             productTransMappingTableAdapter = new JSManagementDataSetTableAdapters.ProductTransMappingTableAdapter();
             productTransMappingTableAdapter.Connection = CommonHelper.GetSQLConnection();
+
+            inputproductsTableAdapter = new JSManagementDataSetTableAdapters.InputProductsByProductInputOrderIdTableAdapter();
+            inputproductsTableAdapter.Connection = CommonHelper.GetSQLConnection();
 
             this.prnPreview = new System.Windows.Forms.PrintPreviewDialog();
             this.prnDocument = new System.Drawing.Printing.PrintDocument();
@@ -914,8 +917,6 @@ namespace JS_Manage
             ClearData();
 
             lbInputHeader.Text = "Sửa phiếu nhập hàng".ToUpper();
-            productInputOrderTableAdapter = new JSManagementDataSetTableAdapters.ProductInputOrderTableAdapter();
-            productInputOrderTableAdapter.Connection = CommonHelper.GetSQLConnection();
             JSManagementDataSet.ProductInputOrderDataTable productInputOrderData =  productInputOrderTableAdapter.GetById(productInputOrderId);
             DateTime inputDate = productInputOrderData[0].InputDate;
             int supId = productInputOrderData[0].SupplierId;
@@ -925,11 +926,25 @@ namespace JS_Manage
             dateTimePickerProductInput.Value = inputDate;
             cboxIsPaidLater.Checked = productInputOrderData[0].IsPaidLater;
 
-            JSManagementDataSetTableAdapters.InputProductsByProductInputOrderIdTableAdapter inputproductsTableAdapter = new JSManagementDataSetTableAdapters.InputProductsByProductInputOrderIdTableAdapter();
-            inputproductsTableAdapter.Connection = CommonHelper.GetSQLConnection();
             JSManagementDataSet.InputProductsByProductInputOrderIdDataTable dTable = inputproductsTableAdapter.GetInputProductsByProductInputOrderId(productInputOrderId);
             ucInputStore.StoreId = productInputOrderData[0].StoreId;
             decimal inputPrice;
+
+            JSManagementDataSet.CostDataTable costData = costTableAdapter.GetCostsByProductInputOrderId(productInputOrderId);
+            if(costData.Rows.Count>0)
+            {             
+                List<int> bankIds = new List<int>();
+                foreach(DataRow r in costData.Rows)
+                {
+                    if(r[8] != DBNull.Value)
+                    {
+                        bankIds.Add(int.Parse(r[8].ToString()));
+                    }                    
+                }
+                JSManagementDataSet.BankAccountDataTable bankAccountData = bankAccountTableAdapter.GetData();
+                ucPaymentMethod.LoadData(bankIds, bankAccountData);
+            }
+
             for (int i = 0; i < dTable.Rows.Count; i++)
             {
                 JSManagementDataSet.ProductDataTable product = productTableAdapter.GetDataByProductId(dTable[i].ProductId);
@@ -1168,6 +1183,17 @@ namespace JS_Manage
         private void grvProducts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void cboxIsPaidLater_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (cboxIsPaidLater.Checked)
+            {
+                ucPaymentMethod.Enabled = false;
+            }
+            else
+                ucPaymentMethod.Enabled = true;
         }
 
         

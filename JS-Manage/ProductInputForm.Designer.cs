@@ -58,11 +58,7 @@
             this.cboxApprove = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNote = new System.Windows.Forms.TextBox();
-            this.ucPaymentMethod = new JS_Manage.PaymentMethodUserControl();
-            this.ucSupplierSelect = new JS_Manage.CustomerSelectUserControl();
             this.cboxInputType = new System.Windows.Forms.ComboBox();
-            this.ucOutputStore = new JS_Manage.StoreSelectedUserControl();
-            this.ucInputStore = new JS_Manage.StoreSelectedUserControl();
             this.btProductInforPrint = new System.Windows.Forms.Button();
             this.txtTotalAmount = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -73,6 +69,10 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cklFindTransStatus = new System.Windows.Forms.CheckedListBox();
             this.cboxFindInputType = new System.Windows.Forms.ComboBox();
+            this.ucPaymentMethod = new JS_Manage.PaymentMethodUserControl();
+            this.ucSupplierSelect = new JS_Manage.CustomerSelectUserControl();
+            this.ucOutputStore = new JS_Manage.StoreSelectedUserControl();
+            this.ucInputStore = new JS_Manage.StoreSelectedUserControl();
             this.ucFindCustSelect = new JS_Manage.CustomerSelectUserControl();
             ((System.ComponentModel.ISupportInitialize)(this.grvInputProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvProducts)).BeginInit();
@@ -280,10 +280,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ucPaymentMethod);
+            this.groupBox1.Controls.Add(this.txtNote);
             this.groupBox1.Controls.Add(this.cboxApprove);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtNote);
-            this.groupBox1.Controls.Add(this.ucPaymentMethod);
             this.groupBox1.Controls.Add(this.ucSupplierSelect);
             this.groupBox1.Controls.Add(this.cboxInputType);
             this.groupBox1.Controls.Add(this.ucOutputStore);
@@ -336,25 +336,6 @@
             this.txtNote.Size = new System.Drawing.Size(379, 20);
             this.txtNote.TabIndex = 60;
             // 
-            // ucPaymentMethod
-            // 
-            this.ucPaymentMethod.AutoSize = true;
-            this.ucPaymentMethod.BankAccountIds = ((System.Collections.Generic.List<int>)(resources.GetObject("ucPaymentMethod.BankAccountIds")));
-            this.ucPaymentMethod.Location = new System.Drawing.Point(12, 86);
-            this.ucPaymentMethod.Name = "ucPaymentMethod";
-            this.ucPaymentMethod.PaymentMethod = "";
-            this.ucPaymentMethod.Size = new System.Drawing.Size(376, 30);
-            this.ucPaymentMethod.TabIndex = 40;
-            // 
-            // ucSupplierSelect
-            // 
-            this.ucSupplierSelect.CustId = 0;
-            this.ucSupplierSelect.Location = new System.Drawing.Point(7, 64);
-            this.ucSupplierSelect.Name = "ucSupplierSelect";
-            this.ucSupplierSelect.Size = new System.Drawing.Size(405, 23);
-            this.ucSupplierSelect.TabIndex = 30;
-            this.ucSupplierSelect.TabIndexCustSelect = 1;
-            // 
             // cboxInputType
             // 
             this.cboxInputType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -365,23 +346,6 @@
             this.cboxInputType.Size = new System.Drawing.Size(121, 21);
             this.cboxInputType.TabIndex = 10;
             this.cboxInputType.SelectedIndexChanged += new System.EventHandler(this.cboxInputType_SelectedIndexChanged);
-            // 
-            // ucOutputStore
-            // 
-            this.ucOutputStore.Location = new System.Drawing.Point(484, 39);
-            this.ucOutputStore.Name = "ucOutputStore";
-            this.ucOutputStore.Size = new System.Drawing.Size(201, 21);
-            this.ucOutputStore.StoreId = 0;
-            this.ucOutputStore.TabIndex = 20;
-            this.ucOutputStore.Visible = false;
-            // 
-            // ucInputStore
-            // 
-            this.ucInputStore.Location = new System.Drawing.Point(484, 14);
-            this.ucInputStore.Name = "ucInputStore";
-            this.ucInputStore.Size = new System.Drawing.Size(201, 21);
-            this.ucInputStore.StoreId = 0;
-            this.ucInputStore.TabIndex = 65;
             // 
             // btProductInforPrint
             // 
@@ -442,6 +406,7 @@
             this.cboxIsPaidLater.TabIndex = 50;
             this.cboxIsPaidLater.Text = "Nhập công nợ";
             this.cboxIsPaidLater.UseVisualStyleBackColor = true;
+            this.cboxIsPaidLater.CheckedChanged += new System.EventHandler(this.cboxIsPaidLater_CheckedChanged);
             // 
             // label6
             // 
@@ -494,6 +459,42 @@
             this.cboxFindInputType.Size = new System.Drawing.Size(136, 21);
             this.cboxFindInputType.TabIndex = 68;
             this.cboxFindInputType.SelectedIndexChanged += new System.EventHandler(this.cboxFindInputType_SelectedIndexChanged);
+            // 
+            // ucPaymentMethod
+            // 
+            this.ucPaymentMethod.AutoSize = true;
+            this.ucPaymentMethod.BankAccountIds = ((System.Collections.Generic.List<int>)(resources.GetObject("ucPaymentMethod.BankAccountIds")));
+            this.ucPaymentMethod.Location = new System.Drawing.Point(12, 86);
+            this.ucPaymentMethod.Name = "ucPaymentMethod";
+            this.ucPaymentMethod.PaymentMethod = "";
+            this.ucPaymentMethod.Size = new System.Drawing.Size(376, 30);
+            this.ucPaymentMethod.TabIndex = 40;
+            // 
+            // ucSupplierSelect
+            // 
+            this.ucSupplierSelect.CustId = 0;
+            this.ucSupplierSelect.Location = new System.Drawing.Point(7, 64);
+            this.ucSupplierSelect.Name = "ucSupplierSelect";
+            this.ucSupplierSelect.Size = new System.Drawing.Size(405, 23);
+            this.ucSupplierSelect.TabIndex = 30;
+            this.ucSupplierSelect.TabIndexCustSelect = 1;
+            // 
+            // ucOutputStore
+            // 
+            this.ucOutputStore.Location = new System.Drawing.Point(484, 39);
+            this.ucOutputStore.Name = "ucOutputStore";
+            this.ucOutputStore.Size = new System.Drawing.Size(201, 21);
+            this.ucOutputStore.StoreId = 0;
+            this.ucOutputStore.TabIndex = 20;
+            this.ucOutputStore.Visible = false;
+            // 
+            // ucInputStore
+            // 
+            this.ucInputStore.Location = new System.Drawing.Point(484, 14);
+            this.ucInputStore.Name = "ucInputStore";
+            this.ucInputStore.Size = new System.Drawing.Size(201, 21);
+            this.ucInputStore.StoreId = 0;
+            this.ucInputStore.TabIndex = 65;
             // 
             // ucFindCustSelect
             // 

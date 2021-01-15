@@ -348,7 +348,10 @@ namespace JS_Manage
                
 
                 if(InsertIncome(purchaseOrderId))
+                {
                     MessageBox.Show("Tạo phiếu thu thành công!");
+                    btFind_Click(new object(), new EventArgs());                
+                }                    
             }
         }
 

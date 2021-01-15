@@ -25,7 +25,7 @@ namespace JS_Manage
 
         private void PaymentMethodUserControl_Load(object sender, EventArgs e)
         {
-
+            
         }        
 
         private void cboxPaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
@@ -68,7 +68,11 @@ namespace JS_Manage
         public List<int> BankAccountIds
         {
             get { return _bankAccountIds; }
-            set { _bankAccountIds = value; }
+            set 
+            {
+                _bankAccountIds = value;
+                
+            }
         }
 
         public string CboxBankAccountDisplayMember
@@ -100,7 +104,7 @@ namespace JS_Manage
 
         private void checkedListBoxBankAccount_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+                       
         }
 
         private void checkedListBoxBankAccount_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -127,6 +131,32 @@ namespace JS_Manage
             }
 
         }
-        
+
+
+        internal void LoadData(List<int> bankIds, JSManagementDataSet.BankAccountDataTable bankAccountData)
+        {
+            if (bankIds.Count > 0)
+            {
+                cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.BANK_TRANSFER;
+                checkedListBoxBankAccount.DataSource = bankAccountData;
+                int indexToSelect=-1;
+                
+                for (int j = 0; j < checkedListBoxBankAccount.Items.Count; j++)
+                {
+                    DataRowView castedItem = checkedListBoxBankAccount.Items[j] as DataRowView;
+                    foreach (int i in bankIds)
+                    {
+                        if (castedItem["BankAccountId"].ToString() == i.ToString())
+                        {
+                            indexToSelect = j;
+                        }
+                    }
+                }
+                if(indexToSelect != -1)
+                    checkedListBoxBankAccount.SetItemChecked(indexToSelect, true);
+                btShowHide_Click(new object(), new EventArgs());
+                
+            } 
+        }
     }
 }

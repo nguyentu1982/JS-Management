@@ -60,7 +60,7 @@
             // 
             this.checkedListBoxBankAccount.CheckOnClick = true;
             this.checkedListBoxBankAccount.FormattingEnabled = true;
-            this.checkedListBoxBankAccount.Location = new System.Drawing.Point(187, 5);
+            this.checkedListBoxBankAccount.Location = new System.Drawing.Point(187, 6);
             this.checkedListBoxBankAccount.Name = "checkedListBoxBankAccount";
             this.checkedListBoxBankAccount.Size = new System.Drawing.Size(160, 19);
             this.checkedListBoxBankAccount.TabIndex = 1021;
