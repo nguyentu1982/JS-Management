@@ -58,7 +58,8 @@ namespace JS_Manage
             cboxStoreFind.DisplayMember = Constant.Store.DISPLAY_MEMBER;
             cboxStoreFind.ValueMember = Constant.Store.VALUE_MEMBER;
             cboxStoreFind.SelectedValue = storeId != 0? storeId : LoginInfor.StoreId;
-            cboxStoreFind.Enabled = LoginInfor.IsAdmin;
+            bool isAllowUserViewProductOtherStore = Setting.GetBoolSetting(Constant.Setting.AllowUserViewProductOtherStore);
+            cboxStoreFind.Enabled = LoginInfor.IsAdmin || isAllowUserViewProductOtherStore;
 
             LoadDefaultData();
 
