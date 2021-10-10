@@ -23,6 +23,7 @@ namespace JS_Manage
         public const string PurchaseReceiptOrder_UsedAmount = "Điểm thưởng";
         public const string PurchaseReceiptOrder_Amount = "Thành tiền";
         public const string PurchaseReceiptOrder_Header = "Sửa phiếu xuất";
+        public const string PurchaseReceiptOrderReturned_Header = "Đã Nhận Được Hàng Hoàn";
         public const string PURCHASRE_HEADER_PRE = "Lập phiếu";
        
 
@@ -32,6 +33,9 @@ namespace JS_Manage
 
         public const string Update_Text = "SỬA";
         public const string Delete_Text = "XÓA";
+        public const string Return_Text = "CẬP NHẬT ĐÃ HOÀN HÀNG";
+        public const string NotReturn_Text = "CẬP NHẬT CHƯA HOÀN HÀNG";
+
         public static class ProductGridColumName
         {
             public const string PRODUCT_CODE = "ProductCode";
@@ -378,6 +382,8 @@ namespace JS_Manage
             public const string XBH = "XBH"; //xuất bán hàng
             public const string XTH = "XTH"; //xuất trả hàng
             public const string XCK = "XCK"; //xuất chuyển kho
+            public const string XDH = "XDH"; //xuất đổi hàng
+
 
             public const string COLUMN_NAME_OUTPUT_TYPE_CODE = "OutputTypeCode";
         }

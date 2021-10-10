@@ -2,6 +2,10 @@
     
     
     public partial class JSManagementDataSet {
+        partial class PurchaseReceiptOrderDataTable
+        {
+      }
+    
         partial class ProdDataTable
         {
         }

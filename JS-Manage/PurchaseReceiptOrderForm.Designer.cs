@@ -104,6 +104,7 @@
             this.cboxOutPutType = new System.Windows.Forms.ComboBox();
             this.ucInputStore = new JS_Manage.StoreSelectedUserControl();
             this.cboxIsRewardPointPrint = new System.Windows.Forms.CheckBox();
+            this.btIsReturned = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grvPurchaseReceiptOrderSumary)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -504,7 +505,7 @@
             // 
             this.btPrintPostOfficeLetter.Location = new System.Drawing.Point(428, 598);
             this.btPrintPostOfficeLetter.Name = "btPrintPostOfficeLetter";
-            this.btPrintPostOfficeLetter.Size = new System.Drawing.Size(214, 23);
+            this.btPrintPostOfficeLetter.Size = new System.Drawing.Size(96, 23);
             this.btPrintPostOfficeLetter.TabIndex = 190;
             this.btPrintPostOfficeLetter.Text = "In &bìa bưu gửi";
             this.btPrintPostOfficeLetter.UseVisualStyleBackColor = true;
@@ -624,6 +625,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btIsReturned);
             this.panel1.Controls.Add(this.ucTxtCurrencyDeliveryCost);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label11);
@@ -851,6 +853,16 @@
             this.cboxIsRewardPointPrint.Text = "In điểm thưởng";
             this.cboxIsRewardPointPrint.UseVisualStyleBackColor = true;
             // 
+            // btIsReturned
+            // 
+            this.btIsReturned.Location = new System.Drawing.Point(530, 598);
+            this.btIsReturned.Name = "btIsReturned";
+            this.btIsReturned.Size = new System.Drawing.Size(128, 23);
+            this.btIsReturned.TabIndex = 1021;
+            this.btIsReturned.Text = "Cập nhật hàng hoàn";
+            this.btIsReturned.UseVisualStyleBackColor = true;
+            this.btIsReturned.Click += new System.EventHandler(this.btIsReturned_Click);
+            // 
             // PurchaseReceiptOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -961,5 +973,6 @@
         private System.Windows.Forms.TextBox txtQuantity;
         private UCTextBoxCurrency ucTxtCurrencyDeliveryCost;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btIsReturned;
     }
 }

@@ -364,7 +364,7 @@ namespace JS_Manage
         #region Event Handler
         private void btSave_Click(object sender, EventArgs e)
         {
-            if (OutputTypeCode == Constant.OutputType.XBH || OutputTypeCode == Constant.OutputType.XTH)
+            if (OutputTypeCode == Constant.OutputType.XBH || OutputTypeCode == Constant.OutputType.XTH || OutputTypeCode == Constant.OutputType.XDH)
             {
                 if (!ValidateData())
                 {
@@ -422,7 +422,7 @@ namespace JS_Manage
         }       
         private void btDelete_Click(object sender, EventArgs e)
         {
-            if (OutputTypeCode == Constant.OutputType.XBH || OutputTypeCode == Constant.OutputType.XTH)
+            if (OutputTypeCode == Constant.OutputType.XBH || OutputTypeCode == Constant.OutputType.XTH || OutputTypeCode == Constant.OutputType.XDH)
             {
                 if (!ValidateAndConfirmPurchaseOrderBeforeEdit(this.PurchaseReceiveOrderId, Constant.Delete_Text))
                     return;
@@ -607,7 +607,7 @@ namespace JS_Manage
                 RenderProductTransOrderGridView(grvPurchaseReceiptOrderSumary);
             }
 
-            if (outputTypeCode == Constant.OutputType.XBH || outputTypeCode == Constant.OutputType.XTH)
+            if (outputTypeCode == Constant.OutputType.XBH || outputTypeCode == Constant.OutputType.XTH || outputTypeCode == Constant.OutputType.XDH)
             {
                 grvPurchaseReceiptOrderSumary.DataSource = purchaseOrderSumaryTableAdapter.SearchPurchaseReceiptOrder(startDate, endDate, custId, txtBillNumberFind.Text, isCOD, int.Parse(comboBoxSoldBy.SelectedValue.ToString()), outputTypeCode, bankAccountIds, ucOutputStore.StoreId);
                 RenderPurchaseReceiptOrderGridview(grvPurchaseReceiptOrderSumary);
@@ -627,8 +627,9 @@ namespace JS_Manage
         {
             DataGridViewRow row = grvPurchaseReceiptOrderSumary.Rows[e.RowIndex];
             if (row.IsNewRow) return;
+            string outputTypeCode = row.Cells[Constant.OutputType.COLUMN_NAME_OUTPUT_TYPE_CODE].Value.ToString().Trim() ;
 
-            if (row.Cells[Constant.OutputType.COLUMN_NAME_OUTPUT_TYPE_CODE].Value.ToString().Trim() == Constant.OutputType.XBH || row.Cells[Constant.OutputType.COLUMN_NAME_OUTPUT_TYPE_CODE].Value.ToString().Trim() == Constant.OutputType.XTH)
+            if (outputTypeCode == Constant.OutputType.XBH || outputTypeCode == Constant.OutputType.XTH || outputTypeCode == Constant.OutputType.XDH)
             {
                 int purchaseReceiptOrderId = int.Parse(row.Cells["PurchaseReceiptOrderId"].Value.ToString());
                 BindDataToEdit(purchaseReceiptOrderId);
@@ -680,8 +681,14 @@ namespace JS_Manage
             JSManagementDataSet.PurchaseReceiptOrderDataTable purchaseData = purchaseReceiptOrderTableAdapter.GetById(PurchaseReceiveOrderId);
             if (purchaseData.Rows.Count == 0) return;
 
+            Update();
+        }
+
+        private void Update()
+        {
             try
             {
+
                 using (TransactionScope tran = new TransactionScope())
                 {
                     int orderId;
@@ -700,25 +707,25 @@ namespace JS_Manage
                     {
                         toBankAccountId = int.Parse(cboxBankAccount.SelectedValue.ToString());
                     }
-                    
+
                     JSManagementDataSet.IncomeDataTable incomeDataTable = incomeTableAdapter.GetIncomesByPurchaseOrderId(PurchaseReceiveOrderId);
                     if (incomeDataTable.Rows.Count > 0)
                         incomeId = int.Parse(incomeDataTable.Rows[0][INCOME_ID].ToString());
 
-                    
+
 
                     purchaseReceiptOrderTableAdapter.UpdateById(
-                        dateTimePickerPerchaseReceiptDate.Value, 
-                        CustId, 
-                        txtBillNumber.Text, 
-                        cboxIsCod.Checked, 
-                        txtOrderNote.Text, 
-                        outputTypeCode, 
-                        DateTime.Now, 
-                        LoginInfor.UserName, 
-                        toBankAccountId, 
-                        ucOutputStore.StoreId, 
-                        null, 
+                        dateTimePickerPerchaseReceiptDate.Value,
+                        CustId,
+                        txtBillNumber.Text,
+                        cboxIsCod.Checked,
+                        txtOrderNote.Text,
+                        outputTypeCode,
+                        DateTime.Now,
+                        LoginInfor.UserName,
+                        toBankAccountId,
+                        ucOutputStore.StoreId,
+                        null,
                         DeliveryCost,
                         PurchaseReceiveOrderId);
 
@@ -735,33 +742,33 @@ namespace JS_Manage
 
                             if (orderId != 0)
                             {
-                                orderTableAdapter.UpdateOrderById(dateTimePickerPerchaseReceiptDate.Text, 
+                                orderTableAdapter.UpdateOrderById(dateTimePickerPerchaseReceiptDate.Text,
                                                                   ucCustomerSelect.CustId,
-                                                                  productId, 
-                                                                  size, 
-                                                                  quantity, 
-                                                                  soldPrice, 
-                                                                  txtBillNumber.Text, 
-                                                                  cboxIsCod.Checked, 
-                                                                  soldBy, 
+                                                                  productId,
+                                                                  size,
+                                                                  quantity,
+                                                                  soldPrice,
+                                                                  txtBillNumber.Text,
+                                                                  cboxIsCod.Checked,
+                                                                  soldBy,
                                                                   orderId);
                             }
 
                             if (orderId == 0)
                             {
-                                object orderIdReturn = orderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value, 
-                                                                                        ucCustomerSelect.CustId, 
-                                                                                        productId, 
-                                                                                        size, 
-                                                                                        quantity, 
-                                                                                        soldPrice, 
-                                                                                        txtBillNumber.Text, 
-                                                                                        cboxIsCod.Checked, 
-                                                                                        PurchaseReceiveOrderId, 
+                                object orderIdReturn = orderTableAdapter.InsertReturnId(dateTimePickerPerchaseReceiptDate.Value,
+                                                                                        ucCustomerSelect.CustId,
+                                                                                        productId,
+                                                                                        size,
+                                                                                        quantity,
+                                                                                        soldPrice,
+                                                                                        txtBillNumber.Text,
+                                                                                        cboxIsCod.Checked,
+                                                                                        PurchaseReceiveOrderId,
                                                                                         soldBy);
                             }
 
-                            if (!cboxIsCod.Checked && outputTypeCode==Constant.OutputType.XBH)
+                            if (!cboxIsCod.Checked && outputTypeCode == Constant.OutputType.XBH)
                             {
                                 amount += soldPrice * quantity;
                             }
@@ -840,10 +847,10 @@ namespace JS_Manage
                                                                     null,
                                                                     toBankAccountId,
                                                                     ucCustomerSelect.CustId);
-                            }   
+                            }
                         }
-                                             
-                    }  
+
+                    }
 
                     tran.Complete();
                 }
@@ -1531,7 +1538,17 @@ namespace JS_Manage
             int inputStoreId = purchaseReceiptOrderData[0].InputStoreId;
             int storeId = purchaseReceiptOrderData[0].StoreId;
 
-            lbPerchaseReceiptOrderHeader.Text = Constant.PurchaseReceiptOrder_Header.ToUpper();
+            if(purchaseReceiptOrderData[0].IsReturnSupplier)
+            {
+                lbPerchaseReceiptOrderHeader.Text = Constant.PurchaseReceiptOrderReturned_Header.ToUpper();
+                lbPerchaseReceiptOrderHeader.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lbPerchaseReceiptOrderHeader.Text = Constant.PurchaseReceiptOrder_Header.ToUpper();
+                lbPerchaseReceiptOrderHeader.ForeColor = Color.Black;
+            }
+            
             lbPurchaseReceiptOrderId.Text = purchaseReceiptOrderId.ToString();
             dateTimePickerPerchaseReceiptDate.Value = orderDate;
             ucCustomerSelect.CustId = custId;
@@ -2667,6 +2684,9 @@ namespace JS_Manage
 
         private void cboxOutPutType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (PurchaseReceiveOrderId != 0)
+                return;
+
             string outputTypeDesc = cboxOutPutType.GetItemText(cboxOutPutType.SelectedItem);
             string outputTypeCode = cboxOutPutType.SelectedValue.ToString().Trim().ToUpper();
             lbPerchaseReceiptOrderHeader.Text = string.Format("{0} {1}", Constant.PURCHASRE_HEADER_PRE.ToUpper(), outputTypeDesc.ToUpper());
@@ -2723,6 +2743,19 @@ namespace JS_Manage
                 txtRemainPaid.Visible = false;
                 txtPrePaid.Text = "0";
             }
+        }
+
+        private void btIsReturned_Click(object sender, EventArgs e)
+        {
+            JSManagementDataSet.PurchaseReceiptOrderDataTable purchaseData = purchaseReceiptOrderTableAdapter.GetById(PurchaseReceiveOrderId);
+            if (purchaseData.Rows.Count == 0) return;
+            string messageText = purchaseData[0].IsReturnSupplier == true ? Constant.NotReturn_Text : Constant.Return_Text;
+            if (!ValidateAndConfirmPurchaseOrderBeforeEdit(PurchaseReceiveOrderId, messageText))
+                return;
+
+            Update();
+            purchaseReceiptOrderTableAdapter.UpdateIsReturnedById(DateTime.Now, LoginInfor.UserName, !purchaseData[0].IsReturnSupplier, purchaseData[0].PurchaseReceiptOrderId);
+            PurchaseReceiptOrderForm_Load(new object(), new EventArgs());
         }
     }
 }

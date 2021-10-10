@@ -691,14 +691,14 @@ namespace JS_Manage
                 return;
 
             if (isOpenedByPurchaseReceiptOrder)
-            {
-                if(this.OutputTypeCode == Constant.OutputType.XBH)
-                {
-                    PassProductInforToPurchaseReceiptOrderForm(e);
-                }
+            {                
                 if(this.OutputTypeCode==Constant.OutputType.XCK || this.OutputTypeCode == Constant.OutputType.XTH)
                 {
                     OpenProductsSelectedDialogForm(e);
+                }
+                else
+                {
+                    PassProductInforToPurchaseReceiptOrderForm(e);
                 }
                 return;
             }
@@ -768,7 +768,7 @@ namespace JS_Manage
             }
             //string action = grvProductInOutDetail.CurrentRow.Cells[Constant.ProductSearch.ProductInOutDetailGridColumnName.ACTION].Value.ToString();
             string inOutTypeCode = grvProductInOutDetail.CurrentRow.Cells[Constant.ProductSearch.ProductInOutDetailGridColumnName.IN_OUT_TYPE_CODE].Value.ToString().Trim();
-            if (inOutTypeCode == Constant.OutputType.XBH || inOutTypeCode == Constant.OutputType.XTH)
+            if (inOutTypeCode == Constant.OutputType.XBH || inOutTypeCode == Constant.OutputType.XTH )
             {
                 PurchaseReceiptOrderForm purchaseOrderForm = new PurchaseReceiptOrderForm();
                 purchaseOrderForm.PurchaseReceiveOrderId = id;
