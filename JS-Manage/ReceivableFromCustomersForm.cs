@@ -340,7 +340,18 @@ namespace JS_Manage
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
-                DialogResult insertConfirmMessage = MessageBox.Show(string.Format("Bạn có chắc chắn tạo phiếu thu công nợ khách hàng? "), "Tạo phiếu thu", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                DialogResult insertConfirmMessage;
+                string invoiceType = string.Empty;
+                if( double.Parse(row.Cells["Amount"].Value.ToString()) >0)
+                {
+                    insertConfirmMessage = MessageBox.Show(string.Format("Bạn có chắc chắn tạo phiếu thu công nợ khách hàng? "), "Tạo phiếu thu", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    invoiceType = "thu";
+                }
+                else
+                {
+                    insertConfirmMessage = MessageBox.Show(string.Format("Bạn có chắc chắn tạo phiếu chi? "), "Tạo phiếu chi", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                    invoiceType = "chi";
+                }
                 if (insertConfirmMessage == System.Windows.Forms.DialogResult.Cancel)
                 {
                     return;
@@ -349,7 +360,7 @@ namespace JS_Manage
 
                 if(InsertIncome(purchaseOrderId))
                 {
-                    MessageBox.Show("Tạo phiếu thu thành công!");
+                    MessageBox.Show(string.Format( "Tạo phiếu {0} thành công!",invoiceType));
                     btFind_Click(new object(), new EventArgs());                
                 }                    
             }
@@ -366,8 +377,16 @@ namespace JS_Manage
             string incomeNumber = purchaseData[0].BillNumber;
             DateTime incomeDate = DateTime.Now;
             string payerName = purchaseData[0].BillNumber;
-            string reason = string.Format("Thu nợ tiền hàng ngày {0} / Mã số bưu gửi: {1} / Đơn hàng: {2}", DateTime.Parse(purchaseData[0].OrderDate.ToString()).ToShortDateString(), purchaseData[0].BillNumber, purchaseData[0].PurchaseReceiptOrderId.ToString());
+            string reason = string.Empty;
             decimal amount = receivableData[0].Amount - receivableData[0].IncomeAmount;
+            if (amount > 0)
+            {
+                reason = string.Format("Thu nợ tiền hàng ngày {0} / Mã số bưu gửi: {1} / Đơn hàng: {2}", DateTime.Parse(purchaseData[0].OrderDate.ToString()).ToShortDateString(), purchaseData[0].BillNumber, purchaseData[0].PurchaseReceiptOrderId.ToString());
+            }
+            else
+            {
+                reason = string.Format("Chi tiền chênh lệch ngày {0} / Mã số bưu gửi: {1} / Đơn hàng: {2}", DateTime.Parse(purchaseData[0].OrderDate.ToString()).ToShortDateString(), purchaseData[0].BillNumber, purchaseData[0].PurchaseReceiptOrderId.ToString());
+            }
             string createdBy = LoginInfor.UserName;
             DateTime createdDate = DateTime.Now;
             
