@@ -82,16 +82,16 @@ namespace JS_Manage
 
                 if (!CheckActiveDate(income[0].IncomeDate)) return;
 
-                result = MessageBox.Show("Bạn có chắc chắn sửa phiếu thu?", "Sửa phiếu thu", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                result = MessageBox.Show("Bạn có chắc chắn " + lbIncomeHeader.Text.ToLower() + "?", lbIncomeHeader.Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                 if (result == System.Windows.Forms.DialogResult.Cancel) return;
 
                 if (!UpdateIncome())
                 {
-                    MessageBox.Show("Sửa phiếu thu KHÔNG thành công!", "Sửa phiếu thu KHÔNG thành công", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(lbIncomeHeader.Text.ToLower() + " KHÔNG thành công!", lbIncomeHeader.Text.ToLower() + " KHÔNG thành công", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                result = MessageBox.Show("Sửa phiếu thu thành công! Bạn có muốn thêm phiếu thu mới", "Thêm phiếu thu mới", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                result = MessageBox.Show(lbIncomeHeader.Text.ToLower() + " thành công! Bạn có muốn thêm phiếu mới", "Thêm phiếu mới", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     ClearData();
@@ -123,12 +123,12 @@ namespace JS_Manage
                 return;
             }
 
-            DialogResult result = MessageBox.Show("Bạn muốn xóa phiếu thu?", "Xóa phiếu thu", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            DialogResult result = MessageBox.Show("Bạn muốn xóa phiếu?", "Xóa phiếu", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == System.Windows.Forms.DialogResult.Cancel) return;
 
             if (!DeleteIncome(incomeId))
             {
-                MessageBox.Show("Xóa phiếu thu KHÔNG thành công!", "Xóa không thành công", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Xóa phiếu KHÔNG thành công!", "Xóa không thành công", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -237,12 +237,21 @@ namespace JS_Manage
 
         private bool UpdateIncome()
         {
-            int incomeId = int.Parse(lbIncomeId.Text);
+            int incomeId = int.Parse(lbIncomeId.Text);            
             string incomeNumber = txtIncomeNumber.Text;
             DateTime incomeDate = dateTimePickerIncome.Value;
             string payerName = txtPayerName.Text;
             string reason = txtReason.Text;
-            decimal amount = ucTextBoxCurrency1.Value;
+            decimal amount = 0;
+            if(incomeTableAdapter.GetDataByIncomeId(incomeId)[0].Amount<0)
+            {
+                amount = -ucTextBoxCurrency1.Value;
+            }
+            else
+            {
+                amount = ucTextBoxCurrency1.Value;
+            }
+            
             string editedBy = LoginInfor.UserName;
             DateTime editedDate = DateTime.Now;
             int purchaseOrderId = int.Parse(lbOrderId.Text);
@@ -321,7 +330,7 @@ namespace JS_Manage
 
         private void ClearData()
         {
-            lbIncomeHeader.Text = "Phiếu thu".ToUpper();
+            lbIncomeHeader.Text = "Tạo phiếu thu".ToUpper();
             lbIncomeId.Text = "0";
             txtIncomeNumber.Text = string.Empty;
             ucTextBoxCurrency1.Value = 0;
@@ -336,7 +345,10 @@ namespace JS_Manage
             customerSelectUserControl1.CustId = 0;
             cboxPaymentMethod.SelectedIndex = 0;
             customerSelectUserControl1.Enabled = true;
-
+            lbType.Text = "Loại thu";
+            lbToAccount.Text = "Đến Tài Khoản";
+            lbPersonName.Text = "Người nộp tiền";
+            lableFromBankAccount.Text = "Từ Tài Khoản";
         }
 
         private bool ValidateIncome()
@@ -497,7 +509,22 @@ namespace JS_Manage
             if (incomeId == 0) return;
             ClearData();
             JSManagementDataSet.IncomeDataTable incomeData = incomeTableAdapter.GetDataByIncomeId(incomeId);
-            lbIncomeHeader.Text = "Sửa phiếu thu".ToUpper();
+            if(incomeData[0].Amount<0)
+            {
+                lbIncomeHeader.Text = "Sửa phiếu chi".ToUpper();
+                lbType.Text = "Loại chi";
+                lbToAccount.Text = "Từ Tài Khoản";             
+                lbPersonName.Text = "Người trả tiền";
+                lableFromBankAccount.Text = "Đến Tài Khoản";
+            }
+            else
+            {
+                lbIncomeHeader.Text = "Sửa phiếu thu".ToUpper();
+                lbType.Text = "Loại thu";
+                lbToAccount.Text = "Đến Tài Khoản";
+                lbPersonName.Text = "Người nộp tiền";
+                lableFromBankAccount.Text = "Từ Tài Khoản";
+            }            
 
             if (incomeData[0].ToBankAccountId != 0)
             {
@@ -514,7 +541,7 @@ namespace JS_Manage
             txtPayerName.Text = incomeData[0].PayerName;
             txtReason.Text = incomeData[0].Reason;
             CultureInfo cul = CultureInfo.GetCultureInfo(Constant.VN_CULTURE_FORMAT);
-            ucTextBoxCurrency1.Value = incomeData[0].Amount;
+            ucTextBoxCurrency1.Value = incomeData[0].Amount>0?incomeData[0].Amount : -incomeData[0].Amount;
 
             if(incomeData[0].PurchaseReceiptOrderId >= 0)
                 lbOrderId.Text =  incomeData[0].PurchaseReceiptOrderId.ToString();

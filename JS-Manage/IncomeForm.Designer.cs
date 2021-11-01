@@ -32,7 +32,7 @@
             this.lbIncomeHeader = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePickerIncome = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbPersonName = new System.Windows.Forms.Label();
             this.txtPayerName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtReason = new System.Windows.Forms.TextBox();
@@ -64,7 +64,7 @@
             this.cboxReceivableFromCustomer = new System.Windows.Forms.CheckBox();
             this.lbCostId = new System.Windows.Forms.Label();
             this.cboxPaymentMethod = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lbType = new System.Windows.Forms.Label();
             this.cboxToBankAccount = new System.Windows.Forms.ComboBox();
             this.lableFromBankAccount = new System.Windows.Forms.Label();
             this.lbToAccount = new System.Windows.Forms.Label();
@@ -104,14 +104,14 @@
             this.dateTimePickerIncome.TabIndex = 10;
             this.dateTimePickerIncome.ValueChanged += new System.EventHandler(this.dateTimePickerIncome_ValueChanged);
             // 
-            // label3
+            // lbPersonName
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 170);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(76, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "&Người nộp tiền";
+            this.lbPersonName.AutoSize = true;
+            this.lbPersonName.Location = new System.Drawing.Point(20, 170);
+            this.lbPersonName.Name = "lbPersonName";
+            this.lbPersonName.Size = new System.Drawing.Size(76, 13);
+            this.lbPersonName.TabIndex = 3;
+            this.lbPersonName.Text = "&Người nộp tiền";
             // 
             // txtPayerName
             // 
@@ -369,9 +369,9 @@
             this.cboxReceivableFromCustomer.AutoSize = true;
             this.cboxReceivableFromCustomer.Location = new System.Drawing.Point(101, 94);
             this.cboxReceivableFromCustomer.Name = "cboxReceivableFromCustomer";
-            this.cboxReceivableFromCustomer.Size = new System.Drawing.Size(87, 17);
+            this.cboxReceivableFromCustomer.Size = new System.Drawing.Size(75, 17);
             this.cboxReceivableFromCustomer.TabIndex = 40;
-            this.cboxReceivableFromCustomer.Text = "Th&u công nợ";
+            this.cboxReceivableFromCustomer.Text = "Đơn Hàng";
             this.cboxReceivableFromCustomer.UseVisualStyleBackColor = true;
             this.cboxReceivableFromCustomer.CheckedChanged += new System.EventHandler(this.cboxReceivableFromCustomer_CheckedChanged);
             // 
@@ -398,14 +398,14 @@
             this.cboxPaymentMethod.TabIndex = 20;
             this.cboxPaymentMethod.SelectedIndexChanged += new System.EventHandler(this.cboxPaymentMethod_SelectedIndexChanged);
             // 
-            // label10
+            // lbType
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(22, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 13);
-            this.label10.TabIndex = 28;
-            this.label10.Text = "Loại thu";
+            this.lbType.AutoSize = true;
+            this.lbType.Location = new System.Drawing.Point(22, 74);
+            this.lbType.Name = "lbType";
+            this.lbType.Size = new System.Drawing.Size(45, 13);
+            this.lbType.TabIndex = 28;
+            this.lbType.Text = "Loại thu";
             // 
             // cboxToBankAccount
             // 
@@ -454,14 +454,14 @@
             this.panel1.Controls.Add(this.lbToAccount);
             this.panel1.Controls.Add(this.cboxFromBankAccount);
             this.panel1.Controls.Add(this.lableFromBankAccount);
-            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.lbType);
             this.panel1.Controls.Add(this.dateTimePickerIncome);
             this.panel1.Controls.Add(this.cboxPaymentMethod);
             this.panel1.Controls.Add(this.lbIncomeHeader);
             this.panel1.Controls.Add(this.lbCostId);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.cboxReceivableFromCustomer);
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.lbPersonName);
             this.panel1.Controls.Add(this.lbOrderId);
             this.panel1.Controls.Add(this.txtPayerName);
             this.panel1.Controls.Add(this.lbIncomeId);
@@ -542,7 +542,7 @@
         private System.Windows.Forms.Label lbIncomeHeader;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePickerIncome;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbPersonName;
         private System.Windows.Forms.TextBox txtPayerName;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtReason;
@@ -568,7 +568,7 @@
         private System.Windows.Forms.ComboBox cboxToBankAccountFind;
         private System.Windows.Forms.Label lableToBankAccountFind;
         private System.Windows.Forms.ComboBox cboxPaymentMethod;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lbType;
         private System.Windows.Forms.ComboBox cboxToBankAccount;
         private System.Windows.Forms.Label lableFromBankAccount;
         private System.Windows.Forms.Label lbToAccount;
