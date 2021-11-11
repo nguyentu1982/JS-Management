@@ -72,6 +72,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.ucTextBoxCurrency1 = new JS_Manage.UCTextBoxCurrency();
             this.customerSelectUserControl1 = new JS_Manage.CustomerSelectUserControl();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grvIncome)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -193,9 +194,9 @@
             // 
             this.btAddNew.Location = new System.Drawing.Point(262, 250);
             this.btAddNew.Name = "btAddNew";
-            this.btAddNew.Size = new System.Drawing.Size(75, 23);
+            this.btAddNew.Size = new System.Drawing.Size(88, 23);
             this.btAddNew.TabIndex = 130;
-            this.btAddNew.Text = "&Tiếp tục thu";
+            this.btAddNew.Text = "Tạo phiếu thu";
             this.btAddNew.UseVisualStyleBackColor = true;
             this.btAddNew.Click += new System.EventHandler(this.btAddNew_Click);
             // 
@@ -448,6 +449,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.cboxToBankAccount);
             this.panel1.Controls.Add(this.ucTextBoxCurrency1);
             this.panel1.Controls.Add(this.customerSelectUserControl1);
@@ -500,6 +502,16 @@
             this.customerSelectUserControl1.Size = new System.Drawing.Size(553, 23);
             this.customerSelectUserControl1.TabIndex = 60;
             this.customerSelectUserControl1.TabIndexCustSelect = 1;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(356, 250);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(88, 23);
+            this.button1.TabIndex = 131;
+            this.button1.Text = "Tạo phiếu chi";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // IncomeForm
             // 
@@ -582,5 +594,6 @@
         private UCTextBoxCurrency ucTextBoxCurrency1;
         private CustomerSelectUserControl customerSelectUserControl1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button1;
     }
 }

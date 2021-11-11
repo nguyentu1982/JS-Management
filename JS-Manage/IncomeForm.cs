@@ -51,19 +51,26 @@ namespace JS_Manage
                 if (!CheckActiveDate(dateTimePickerIncome.Value)) return;
 
                 int incomeId;
-                result = MessageBox.Show("Bạn có chắc chắn thêm phiếu thu mới?", "Thêm phiếu thu mới", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                result = MessageBox.Show(string.Format("Bạn có chắc chắn thêm {0} mới?", lbIncomeHeader.Text), string.Format("Thêm {0} mới",lbIncomeHeader.Text), MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                 if (result == System.Windows.Forms.DialogResult.Cancel) return;
 
                 if (!InsertIncome(out incomeId))
                 {
-                    MessageBox.Show("Thêm phiếu thu KHÔNG thành công!", "Thêm phiếu thu KHÔNG thành công", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format("Thêm {0} KHÔNG thành công!", lbIncomeHeader.Text), string.Format("Thêm {0} KHÔNG thành công", lbIncomeHeader.Text), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                result = MessageBox.Show("Thêm phiếu thu thành công! Bạn có muốn thêm phiếu thu mới", "Thêm phiếu thu mới", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (result == System.Windows.Forms.DialogResult.OK)
+                result = MessageBox.Show(string.Format("Thêm {0} thành công! Bạn có muốn thêm phiếu thu mới", lbIncomeHeader.Text), string.Format("Thêm {0} mới", lbIncomeHeader.Text), MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (result == System.Windows.Forms.DialogResult.OK &&lbIncomeHeader.Text.ToLower() == Constant.Income.INCOME_HEADER_TEXT)
                 {
                     ClearData();
+                    txtIncomeNumber.Focus();
+                    return;
+                }
+
+                if (result == System.Windows.Forms.DialogResult.OK && lbIncomeHeader.Text.ToLower() == Constant.Income.COST_HEADER_TEXT)
+                {
+                    ClearDataCost();
                     txtIncomeNumber.Focus();
                     return;
                 }
@@ -193,6 +200,10 @@ namespace JS_Manage
             string payerName = txtPayerName.Text;
             string reason = txtReason.Text;
             decimal amount = ucTextBoxCurrency1.Value;
+            if(lbIncomeHeader.Text.ToLower()==Constant.Income.COST_HEADER_TEXT)
+            {
+                amount = -amount;
+            }
             string createdBy = LoginInfor.UserName;
             DateTime createdDate = DateTime.Now;
             int purchaseOrderId = int.Parse(lbOrderId.Text);
@@ -330,7 +341,7 @@ namespace JS_Manage
 
         private void ClearData()
         {
-            lbIncomeHeader.Text = "Tạo phiếu thu".ToUpper();
+            lbIncomeHeader.Text = "phiếu thu".ToUpper();
             lbIncomeId.Text = "0";
             txtIncomeNumber.Text = string.Empty;
             ucTextBoxCurrency1.Value = 0;
@@ -349,6 +360,29 @@ namespace JS_Manage
             lbToAccount.Text = "Đến Tài Khoản";
             lbPersonName.Text = "Người nộp tiền";
             lableFromBankAccount.Text = "Từ Tài Khoản";
+        }
+
+        private void ClearDataCost()
+        {
+            lbIncomeHeader.Text = "phiếu chi".ToUpper();
+            lbIncomeId.Text = "0";
+            txtIncomeNumber.Text = string.Empty;
+            ucTextBoxCurrency1.Value = 0;
+            txtPayerName.Text = string.Empty;
+            txtReason.Text = string.Empty;
+            cboxReceivableFromCustomer.Checked = false;
+            lbOrderId.Text = "0";
+            lbCostId.Text = "0";
+            dateTimePickerIncome.Value = DateTime.Now;
+            cboxPaymentMethod.SelectedItem = Constant.PaymentMethod.CASH;
+            cboxFromBankAccount.SelectedValue = 0;
+            customerSelectUserControl1.CustId = 0;
+            cboxPaymentMethod.SelectedIndex = 0;
+            customerSelectUserControl1.Enabled = true;
+            lbType.Text = "Loại chi";
+            lbToAccount.Text = "Từ Tài Khoản";
+            lbPersonName.Text = "Người trả tiền";
+            lableFromBankAccount.Text = "Đến Tài Khoản";
         }
 
         private bool ValidateIncome()
@@ -696,6 +730,12 @@ namespace JS_Manage
         }
 
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ClearDataCost();
+            txtIncomeNumber.Focus();
+        }
 
     }
 }

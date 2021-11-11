@@ -145,7 +145,8 @@ namespace JS_Manage
             public const string COMBOBOX_FROM_BANK_ACCOUNT_CONTROL_NAME = "cboxFromBankAccount";
             public const string LABEL_INCOME_HEADER_CONTROL_NAME = "lbIncomeHeader";
             public const string BANK_TRANSFER_BILL = "PHIẾU CHUYỂN TIỀN";
-
+            public const string INCOME_HEADER_TEXT = "phiếu thu";
+            public const string COST_HEADER_TEXT = "phiếu chi";
             public static class IncomeGrid
             {
                 public static string INCOME_ID_COLUMN_NAME = "IncomeId";

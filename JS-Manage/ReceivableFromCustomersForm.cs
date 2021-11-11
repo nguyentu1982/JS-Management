@@ -128,7 +128,8 @@ namespace JS_Manage
 
             lbOrderId.Text = purchaseOrderId.ToString();
             TextBox txtreason = incomeForm.Controls.Find("txtReason", true)[0] as TextBox;
-            txtreason.Text = string.Format("Thu nợ tiền hàng ngày {0} / Mã số bưu gửi: {1} / Đơn hàng: {2}", DateTime.Parse(row.Cells["OrderDate"].Value.ToString()).ToShortDateString(), row.Cells["BillNumber"].Value.ToString(), row.Cells["PurchaseReceiptOrderId"].Value.ToString());
+            Label incomeHeader = incomeForm.Controls.Find(Constant.Income.LABEL_INCOME_HEADER_CONTROL_NAME, true)[0] as Label;
+            txtreason.Text = string.Format("Lập {0} tiền ... ngày {1} / Mã số bưu gửi: {2} / Đơn hàng: {3}", incomeHeader.Text , DateTime.Parse(row.Cells["OrderDate"].Value.ToString()).ToShortDateString(), row.Cells["BillNumber"].Value.ToString(), row.Cells["PurchaseReceiptOrderId"].Value.ToString());
             UCTextBoxCurrency txtAmount = incomeForm.Controls.Find("ucTextBoxCurrency1", true)[0] as UCTextBoxCurrency;
             
             txtAmount.Value = totalAmount - totalIncome;
