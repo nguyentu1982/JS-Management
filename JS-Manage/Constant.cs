@@ -267,6 +267,7 @@ namespace JS_Manage
                 public const string CLOSING_BALANCE = "ClosingBalance";
                 public const string STORE_ID = "StoreId";
                 public const string ProdId = "ProdId";
+                public const string ImageUrls = "ImageUrls";
             }
 
             public static class ProductGridColumnHeader
@@ -295,6 +296,8 @@ namespace JS_Manage
                 public const string CLOSING_BALANCE = "ClosingBalance";
 
                 public const string IN_OUT_TYPE_CODE = "InOutTypeCode";
+
+                public const string ImageUrls = "ImageUrls";
             }
 
             public static class ProductInOutDetailGridColumnHeader

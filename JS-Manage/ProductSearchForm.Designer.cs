@@ -77,6 +77,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.comboBoxSizeFind = new System.Windows.Forms.ComboBox();
+            this.panelPicture = new System.Windows.Forms.Panel();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.jSManagementDataSet = new JS_Manage.JSManagementDataSet();
             this.getProductInOutDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -325,6 +326,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.panelPicture);
             this.groupBox2.Controls.Add(this.txtNote);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.lbProdId);
@@ -360,7 +362,7 @@
             this.txtNote.Location = new System.Drawing.Point(103, 121);
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(194, 80);
+            this.txtNote.Size = new System.Drawing.Size(194, 99);
             this.txtNote.TabIndex = 73;
             // 
             // label5
@@ -571,6 +573,14 @@
             this.comboBoxSizeFind.TabIndex = 68;
             this.comboBoxSizeFind.ValueMember = "Size";
             // 
+            // panelPicture
+            // 
+            this.panelPicture.AutoScroll = true;
+            this.panelPicture.Location = new System.Drawing.Point(304, 120);
+            this.panelPicture.Name = "panelPicture";
+            this.panelPicture.Size = new System.Drawing.Size(339, 100);
+            this.panelPicture.TabIndex = 75;
+            // 
             // productBindingSource
             // 
             this.productBindingSource.DataMember = "Product";
@@ -695,6 +705,7 @@
         private System.Windows.Forms.Label lbProdId;
         private System.Windows.Forms.TextBox txtNote;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panelPicture;
     }
 }
 

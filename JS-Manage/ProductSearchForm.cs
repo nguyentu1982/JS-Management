@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Globalization;
+using System.IO;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
 
@@ -349,6 +351,7 @@ namespace JS_Manage
             grvProductList.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
             grvProductList.ColumnHeadersHeight = 25;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.PRODUCT_ID].Visible = false;
+            grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.ImageUrls].Visible = false;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.PRODUCT_CODE].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.PRODUCT_CODE;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.BRAND].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.BRAND;
             grvProductList.Columns[Constant.ProductSearch.ProductGridColumnName.PRODUCT_TYPE].HeaderText = Constant.ProductSearch.ProductGridColumnHeader.PRODUCT_TYPE;
@@ -433,7 +436,8 @@ namespace JS_Manage
             decimal price3 = productDataTable[0].Price3;
             decimal price4 = productDataTable[0].Price4;
             string size = productDataTable[0].Size;
-            
+            string imageUrls = productDataTable[0].ImageUrls;
+
             lbProductHeader.Text = string.Format("Sửa mã hàng {0} Hiệu:{1} Size:{2}", productCode, brand, size);
             txtProductCode.Text = productCode;
             cbBoxProductType.Text = productType;
@@ -450,7 +454,57 @@ namespace JS_Manage
 
             grvProductInOutDetail.DataSource = getProductInOutDetailTableAdapter.GetProductInOutDetailByProductId(productId,storeId);
             FormatProductInOutDetailGridview();
+
+            panelPicture.Controls.Clear();
+            if(imageUrls !=null)
+            {
+
+                string[] imglinks = imageUrls.Split(',');
+                if(!imageUrls.Contains(","))
+                {
+                    imglinks.SetValue(imageUrls, 0);
+                }
+                int p = -80;
+                foreach (var link in imglinks)
+                {
+                    p += 80;
+                    WebRequest req = WebRequest.Create(link);
+
+                    WebResponse res = req.GetResponse();
+
+                    Stream imgStream = res.GetResponseStream();
+
+                    Image img1 = Image.FromStream(imgStream);
+
+                    imgStream.Close();
+                    PictureBox pic = new PictureBox();
+                    pic.Click += pic_Click;
+                    pic.Height = 80;
+                    pic.Width = 80;
+                    pic.Image = img1;
+                    pic.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pic.Location = new Point(p, 0);
+                    panelPicture.Controls.Add(pic);
+                }
+            }
             
+        }
+
+        void pic_Click(object sender, EventArgs e)
+        {
+            Form f = new Form();
+            f.Height = 800;
+            f.Width = 800;
+            PictureBox p = new PictureBox();
+            PictureBox p1 = sender as PictureBox;
+            p.Image = p1.Image;
+            p.Width = 800;
+            p.Height = 800;
+            p.SizeMode = PictureBoxSizeMode.StretchImage;
+            p.Location = new Point(0, 0);
+            f.Controls.Add(p);
+            f.Show();
+
         }
 
         private void FormatProductInOutDetailGridview()

@@ -3152,6 +3152,8 @@ namespace JS_Manage {
             
             private global::System.Data.DataColumn columnProdId;
             
+            private global::System.Data.DataColumn columnImageUrls;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ProductDataTable() {
@@ -3315,6 +3317,14 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ImageUrlsColumn {
+                get {
+                    return this.columnImageUrls;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3350,7 +3360,23 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ProductRow AddProductRow(string ProductCode, string Brand, string Size, decimal ProductCost, decimal Price, string ProductType, int OpeningBalance, int Input, int Output, int ClosingBalance, int StoreId, decimal Price2, decimal Price3, decimal Price4, int ProdId) {
+            public ProductRow AddProductRow(
+                        string ProductCode, 
+                        string Brand, 
+                        string Size, 
+                        decimal ProductCost, 
+                        decimal Price, 
+                        string ProductType, 
+                        int OpeningBalance, 
+                        int Input, 
+                        int Output, 
+                        int ClosingBalance, 
+                        int StoreId, 
+                        decimal Price2, 
+                        decimal Price3, 
+                        decimal Price4, 
+                        int ProdId, 
+                        string ImageUrls) {
                 ProductRow rowProductRow = ((ProductRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -3368,7 +3394,8 @@ namespace JS_Manage {
                         Price2,
                         Price3,
                         Price4,
-                        ProdId};
+                        ProdId,
+                        ImageUrls};
                 rowProductRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowProductRow);
                 return rowProductRow;
@@ -3407,6 +3434,7 @@ namespace JS_Manage {
                 this.columnPrice3 = base.Columns["Price3"];
                 this.columnPrice4 = base.Columns["Price4"];
                 this.columnProdId = base.Columns["ProdId"];
+                this.columnImageUrls = base.Columns["ImageUrls"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3444,6 +3472,8 @@ namespace JS_Manage {
                 base.Columns.Add(this.columnPrice4);
                 this.columnProdId = new global::System.Data.DataColumn("ProdId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnProdId);
+                this.columnImageUrls = new global::System.Data.DataColumn("ImageUrls", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnImageUrls);
                 this.columnProductId.AutoIncrement = true;
                 this.columnProductId.AutoIncrementSeed = -1;
                 this.columnProductId.AutoIncrementStep = -1;
@@ -19117,6 +19147,22 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ImageUrls {
+                get {
+                    if (this.IsImageUrlsNull()) {
+                        return null;
+                    }
+                    else {
+                        return ((string)(this[this.tableProduct.ImageUrlsColumn]));
+                    }
+                }
+                set {
+                    this[this.tableProduct.ImageUrlsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsProductCodeNull() {
                 return this.IsNull(this.tableProduct.ProductCodeColumn);
             }
@@ -19293,6 +19339,18 @@ namespace JS_Manage {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetProdIdNull() {
                 this[this.tableProduct.ProdIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsImageUrlsNull() {
+                return this.IsNull(this.tableProduct.ImageUrlsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetImageUrlsNull() {
+                this[this.tableProduct.ImageUrlsColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
