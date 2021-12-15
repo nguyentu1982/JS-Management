@@ -464,27 +464,31 @@ namespace JS_Manage
                 {
                     imglinks.SetValue(imageUrls, 0);
                 }
+                
                 int p = -80;
                 foreach (var link in imglinks)
                 {
-                    p += 80;
-                    WebRequest req = WebRequest.Create(link);
+                    if(link.Equals(imglinks[0]))
+                    {
+                        p += 80;
+                        WebRequest req = WebRequest.Create(link);
 
-                    WebResponse res = req.GetResponse();
+                        WebResponse res = req.GetResponse();
 
-                    Stream imgStream = res.GetResponseStream();
+                        Stream imgStream = res.GetResponseStream();
 
-                    Image img1 = Image.FromStream(imgStream);
+                        Image img1 = Image.FromStream(imgStream);
 
-                    imgStream.Close();
-                    PictureBox pic = new PictureBox();
-                    pic.Click += pic_Click;
-                    pic.Height = 80;
-                    pic.Width = 80;
-                    pic.Image = img1;
-                    pic.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pic.Location = new Point(p, 0);
-                    panelPicture.Controls.Add(pic);
+                        imgStream.Close();
+                        PictureBox pic = new PictureBox();
+                        pic.Click += pic_Click;
+                        pic.Height = 80;
+                        pic.Width = 80;
+                        pic.Image = img1;
+                        pic.SizeMode = PictureBoxSizeMode.StretchImage;
+                        pic.Location = new Point(p, 0);
+                        panelPicture.Controls.Add(pic);
+                    }                    
                 }
             }
             
