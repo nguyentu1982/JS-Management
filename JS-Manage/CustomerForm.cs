@@ -152,7 +152,8 @@ namespace JS_Manage
 
         private void txtCustNameSearch_TextChanged(object sender, EventArgs e)
         {
-            btFindCust_Click(sender, e);
+            if(txtCustNameSearch.Text.Length>3)
+                btFindCust_Click(sender, e);
         }
 
         private void btAddNew_Click(object sender, EventArgs e)
