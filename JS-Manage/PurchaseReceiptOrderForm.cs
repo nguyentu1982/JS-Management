@@ -808,7 +808,11 @@ namespace JS_Manage
                         {
                             for (int i = 0; i < incomeDataTable.Rows.Count; i++)
                             {
-                                incomeTableAdapter.DeleteIncomeById(int.Parse(incomeDataTable.Rows[i][INCOME_ID].ToString()));
+                                DialogResult diaResult = MessageBox.Show("Bạn có muốn xóa phiếu thu?", "Sửa phiếu xuất", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                                if (diaResult == System.Windows.Forms.DialogResult.OK)
+                                {
+                                    incomeTableAdapter.DeleteIncomeById(int.Parse(incomeDataTable.Rows[i][INCOME_ID].ToString()));
+                                }                                
                             }
                         }
                         else
@@ -1830,6 +1834,14 @@ namespace JS_Manage
         }
         private bool ValidateAndConfirmPurchaseOrderBeforeEdit(int purchaseReceiptOrderId, string action)
         {
+            if (LoginInfor.IsAdmin)
+            {
+                DialogResult dialogResult = MessageBox.Show(string.Format("Bạn có muốn {0} phiếu xuất hàng?", action), string.Format("{0} phiếu xuất hàng", action), MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (dialogResult == System.Windows.Forms.DialogResult.Cancel)
+                    return false;
+                return true;
+            }           
+
             JSManagementDataSet.PurchaseReceiptOrderDataTable purchaseReceiptOrder = purchaseReceiptOrderTableAdapter.GetById(purchaseReceiptOrderId);
             JSManagementDataSet.IncomeDataTable incomeDataTable = incomeTableAdapter.GetIncomesByPurchaseOrderId(purchaseReceiptOrderId);
             if (incomeDataTable.Rows.Count > 0 && purchaseReceiptOrder[0].IsCOD)
