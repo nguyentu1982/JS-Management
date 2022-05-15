@@ -80,7 +80,7 @@ namespace JS_Manage
             comboBoxProductTypeFind.SelectedIndexChanged += comboBoxProductTypeFind_SelectedIndexChanged;
             comboBoxBrandFind.SelectedIndexChanged +=comboBoxBrandFind_SelectedIndexChanged;
             comboBoxSizeFind.SelectedIndexChanged += comboBoxSizeFind_SelectedIndexChanged;
-            txtProductCode_TextChanged(new object(), new EventArgs());
+            //txtProductCode_TextChanged(new object(), new EventArgs());
         }
 
         private void txtProductCode_TextChanged(object sender, EventArgs e)

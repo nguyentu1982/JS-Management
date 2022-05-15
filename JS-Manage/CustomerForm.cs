@@ -59,7 +59,7 @@ namespace JS_Manage
             comboBoxCustomerType.DataSource = customerTypeTableAdapter.GetData();
             comboBoxCustomerType.DisplayMember = CUST_TYPE_NAME;
             comboBoxCustomerType.ValueMember = CUST_TYPE_ID;
-            txtCustIdFind.Text = CustId.ToString();
+            //txtCustIdFind.Text = CustId.ToString();
         }
         private void btSave_Click(object sender, EventArgs e)
         {
