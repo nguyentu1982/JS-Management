@@ -289,7 +289,7 @@ namespace JS_Manage
 
                         if (!CheckActiveDate(purchaseReceiptOrder[0].OrderDate)) return;
 
-                        if (cboxIsCod.Enabled == false)
+                        if (cboxIsCod.Enabled == false && !LoginInfor.IsAdmin)
                         {
                             MessageBox.Show("Phiếu xuất hàng đã có hóa đơn thanh toán, không cho phép xóa sản phẩm!");
                             return;
@@ -313,7 +313,7 @@ namespace JS_Manage
 
                             UpdateTotalAmountTextBox();
 
-                            if (incomeId > 0)
+                            if (incomeId > 0 && !purchaseOrderDetailTableAdapter.GetPurchaseReceiptOrderById(PurchaseReceiveOrderId)[0].IsCOD)
                             {
                                 incomeTableAdapter.UpdateAmountById(decimal.Parse(txtTotalAmount.Text), LoginInfor.UserName, DateTime.Now.ToString(), incomeId);
                             }
@@ -713,22 +713,6 @@ namespace JS_Manage
                         incomeId = int.Parse(incomeDataTable.Rows[0][INCOME_ID].ToString());
 
 
-
-                    purchaseReceiptOrderTableAdapter.UpdateById(
-                        dateTimePickerPerchaseReceiptDate.Value,
-                        CustId,
-                        txtBillNumber.Text,
-                        cboxIsCod.Checked,
-                        txtOrderNote.Text,
-                        outputTypeCode,
-                        DateTime.Now,
-                        LoginInfor.UserName,
-                        toBankAccountId,
-                        ucOutputStore.StoreId,
-                        null,
-                        DeliveryCost,
-                        PurchaseReceiveOrderId);
-
                     foreach (DataGridViewRow row in grvProducts.Rows)
                     {
                         if (!row.IsNewRow)
@@ -768,7 +752,7 @@ namespace JS_Manage
                                                                                         soldBy);
                             }
 
-                            if (!cboxIsCod.Checked && outputTypeCode == Constant.OutputType.XBH)
+                            if (outputTypeCode == Constant.OutputType.XBH)
                             {
                                 amount += soldPrice * quantity;
                             }
@@ -804,58 +788,69 @@ namespace JS_Manage
 
                     if (outputTypeCode == Constant.OutputType.XBH)
                     {
-                        if (cboxIsCod.Checked && !cboxPrePaid.Checked)
+                        if (purchaseOrderDetailTableAdapter.GetPurchaseReceiptOrderById(PurchaseReceiveOrderId)[0].IsCOD == false)
                         {
-                            for (int i = 0; i < incomeDataTable.Rows.Count; i++)
+                            if(cboxIsCod.Checked )
                             {
-                                DialogResult diaResult = MessageBox.Show("Bạn có muốn xóa phiếu thu?", "Sửa phiếu xuất", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                                if (diaResult == System.Windows.Forms.DialogResult.OK)
+                                for (int i = 0; i < incomeDataTable.Rows.Count; i++)
                                 {
-                                    incomeTableAdapter.DeleteIncomeById(int.Parse(incomeDataTable.Rows[i][INCOME_ID].ToString()));
-                                }                                
+                                    incomeTableAdapter.DeleteIncomeById(int.Parse(incomeDataTable.Rows[i][INCOME_ID].ToString()));                               
+                                }
                             }
-                        }
-                        else
-                        {
-                            if (incomeDataTable.Rows.Count == 0)
+                            else
                             {
-                                incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value,
+                                incomeTableAdapter.UpdateIncomeById(dateTimePickerPerchaseReceiptDate.Value,
                                                                         "",
                                                                         string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText),
                                                                         string.Format("Thu tiền đơn hàng mã số {0}", PurchaseReceiveOrderId.ToString()),
                                                                         paid,
                                                                         LoginInfor.UserName,
                                                                         DateTime.Now,
-                                                                        LoginInfor.UserName,
-                                                                        DateTime.Now,
                                                                         null,
                                                                         null,
+                                                                        incomeId,
                                                                         PurchaseReceiveOrderId,
                                                                         null,
                                                                         toBankAccountId,
-                                                                        ucCustomerSelect.CustId);
-                            }
-                            else
-                            {
-                                incomeTableAdapter.UpdateIncomeById(dateTimePickerPerchaseReceiptDate.Value,
-                                                                    "",
-                                                                    string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText),
-                                                                    string.Format("Thu tiền đơn hàng mã số {0}", PurchaseReceiveOrderId.ToString()),
-                                                                    paid,
-                                                                    LoginInfor.UserName,
-                                                                    DateTime.Now,
-                                                                    null,
-                                                                    null,
-                                                                    incomeId,
-                                                                    PurchaseReceiveOrderId,
-                                                                    null,
-                                                                    toBankAccountId,
-                                                                    ucCustomerSelect.CustId);
+                                                                        ucCustomerSelect.CustId);                               
                             }
                         }
-
+                        else
+                        {
+                            if(!cboxIsCod.Checked)
+                            {
+                                incomeTableAdapter.InsertIncomeReturnId(dateTimePickerPerchaseReceiptDate.Value,
+                                                                            "",
+                                                                            string.Format("Mã KH:{0} / {1}", ucCustomerSelect.CustId, ucCustomerSelect.CustInforText),
+                                                                            string.Format("Thu tiền đơn hàng mã số {0}", PurchaseReceiveOrderId.ToString()),
+                                                                            paid,
+                                                                            LoginInfor.UserName,
+                                                                            DateTime.Now,
+                                                                            LoginInfor.UserName,
+                                                                            DateTime.Now,
+                                                                            null,
+                                                                            null,
+                                                                            PurchaseReceiveOrderId,
+                                                                            null,
+                                                                            toBankAccountId,
+                                                                            ucCustomerSelect.CustId);
+                            }
+                        }
                     }
-
+                    purchaseReceiptOrderTableAdapter.UpdateById(
+                       dateTimePickerPerchaseReceiptDate.Value,
+                       CustId,
+                       txtBillNumber.Text,
+                       cboxIsCod.Checked,
+                       txtOrderNote.Text,
+                       outputTypeCode,
+                       DateTime.Now,
+                       LoginInfor.UserName,
+                       toBankAccountId,
+                       ucOutputStore.StoreId,
+                       null,
+                       DeliveryCost,
+                       PurchaseReceiveOrderId);
                     tran.Complete();
                 }
 
