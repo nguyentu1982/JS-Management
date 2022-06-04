@@ -54,12 +54,13 @@ namespace JS_Manage
         #region Event Handler
 
         private void CustomerForm_Load(object sender, EventArgs e)
-        {                    
+            {                    
             grvCustomer.CellEnter += grvCustomer_CellEnter;
             comboBoxCustomerType.DataSource = customerTypeTableAdapter.GetData();
             comboBoxCustomerType.DisplayMember = CUST_TYPE_NAME;
-            comboBoxCustomerType.ValueMember = CUST_TYPE_ID;
-            //txtCustIdFind.Text = CustId.ToString();
+            comboBoxCustomerType.ValueMember = CUST_TYPE_ID;     
+            if(CustId != 0)
+                txtCustIdFind.Text = CustId.ToString();
         }
         private void btSave_Click(object sender, EventArgs e)
         {
