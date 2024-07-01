@@ -152,6 +152,16 @@ namespace JS_Manage {
         
         private global::System.Data.DataRelation relationFK_ProductImage_ProductImage;
         
+        private global::System.Data.DataRelation relationFK_PurchaseReceiptOrder_Store;
+        
+        private global::System.Data.DataRelation relationFK_PurchaseReceiptOrder_StoreInput;
+        
+        private global::System.Data.DataRelation relationFK_ProductInputOrder_Store;
+        
+        private global::System.Data.DataRelation relationFK_ProductTransOrder_FromStore;
+        
+        private global::System.Data.DataRelation relationFK_ProductTransOrder_ToStore;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1328,6 +1338,11 @@ namespace JS_Manage {
             this.relationFK_ProductTransMapping_Product = this.Relations["FK_ProductTransMapping_Product"];
             this.relationFK_ProductTransMapping_ProductTransOrder = this.Relations["FK_ProductTransMapping_ProductTransOrder"];
             this.relationFK_ProductImage_ProductImage = this.Relations["FK_ProductImage_ProductImage"];
+            this.relationFK_PurchaseReceiptOrder_Store = this.Relations["FK_PurchaseReceiptOrder_Store"];
+            this.relationFK_PurchaseReceiptOrder_StoreInput = this.Relations["FK_PurchaseReceiptOrder_StoreInput"];
+            this.relationFK_ProductInputOrder_Store = this.Relations["FK_ProductInputOrder_Store"];
+            this.relationFK_ProductTransOrder_FromStore = this.Relations["FK_ProductTransOrder_FromStore"];
+            this.relationFK_ProductTransOrder_ToStore = this.Relations["FK_ProductTransOrder_ToStore"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1502,6 +1517,26 @@ namespace JS_Manage {
                         this.tableProd.ProdIdColumn}, new global::System.Data.DataColumn[] {
                         this.tableProductImage.ProdIdColumn}, false);
             this.Relations.Add(this.relationFK_ProductImage_ProductImage);
+            this.relationFK_PurchaseReceiptOrder_Store = new global::System.Data.DataRelation("FK_PurchaseReceiptOrder_Store", new global::System.Data.DataColumn[] {
+                        this.tableStore.StoreIdColumn}, new global::System.Data.DataColumn[] {
+                        this.tablePurchaseReceiptOrder.StoreIdColumn}, false);
+            this.Relations.Add(this.relationFK_PurchaseReceiptOrder_Store);
+            this.relationFK_PurchaseReceiptOrder_StoreInput = new global::System.Data.DataRelation("FK_PurchaseReceiptOrder_StoreInput", new global::System.Data.DataColumn[] {
+                        this.tableStore.StoreIdColumn}, new global::System.Data.DataColumn[] {
+                        this.tablePurchaseReceiptOrder.InputStoreIdColumn}, false);
+            this.Relations.Add(this.relationFK_PurchaseReceiptOrder_StoreInput);
+            this.relationFK_ProductInputOrder_Store = new global::System.Data.DataRelation("FK_ProductInputOrder_Store", new global::System.Data.DataColumn[] {
+                        this.tableStore.StoreIdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableProductInputOrder.StoreIdColumn}, false);
+            this.Relations.Add(this.relationFK_ProductInputOrder_Store);
+            this.relationFK_ProductTransOrder_FromStore = new global::System.Data.DataRelation("FK_ProductTransOrder_FromStore", new global::System.Data.DataColumn[] {
+                        this.tableStore.StoreIdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableProductTransOrder.FromStoreIdColumn}, false);
+            this.Relations.Add(this.relationFK_ProductTransOrder_FromStore);
+            this.relationFK_ProductTransOrder_ToStore = new global::System.Data.DataRelation("FK_ProductTransOrder_ToStore", new global::System.Data.DataColumn[] {
+                        this.tableStore.StoreIdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableProductTransOrder.ToStoreIdColumn}, false);
+            this.Relations.Add(this.relationFK_ProductTransOrder_ToStore);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8500,7 +8535,7 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PurchaseReceiptOrderRow AddPurchaseReceiptOrderRow(System.DateTime OrderDate, int CustId, string BillNumber, bool IsCOD, string OrderNote, System.DateTime CreatedDate, string CreatedBy, System.DateTime LastEditedDate, string LastEditedBy, int BankAccountId, int StoreId, string OutputTypeCode, int InputStoreId, decimal DeliveryCost, bool IsReturnSupplier) {
+            public PurchaseReceiptOrderRow AddPurchaseReceiptOrderRow(System.DateTime OrderDate, int CustId, string BillNumber, bool IsCOD, string OrderNote, System.DateTime CreatedDate, string CreatedBy, System.DateTime LastEditedDate, string LastEditedBy, int BankAccountId, StoreRow parentStoreRowByFK_PurchaseReceiptOrder_Store, string OutputTypeCode, StoreRow parentStoreRowByFK_PurchaseReceiptOrder_StoreInput, decimal DeliveryCost, bool IsReturnSupplier) {
                 PurchaseReceiptOrderRow rowPurchaseReceiptOrderRow = ((PurchaseReceiptOrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -8514,11 +8549,17 @@ namespace JS_Manage {
                         LastEditedDate,
                         LastEditedBy,
                         BankAccountId,
-                        StoreId,
+                        null,
                         OutputTypeCode,
-                        InputStoreId,
+                        null,
                         DeliveryCost,
                         IsReturnSupplier};
+                if ((parentStoreRowByFK_PurchaseReceiptOrder_Store != null)) {
+                    columnValuesArray[11] = parentStoreRowByFK_PurchaseReceiptOrder_Store[0];
+                }
+                if ((parentStoreRowByFK_PurchaseReceiptOrder_StoreInput != null)) {
+                    columnValuesArray[13] = parentStoreRowByFK_PurchaseReceiptOrder_StoreInput[0];
+                }
                 rowPurchaseReceiptOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPurchaseReceiptOrderRow);
                 return rowPurchaseReceiptOrderRow;
@@ -10122,7 +10163,7 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ProductInputOrderRow AddProductInputOrderRow(System.DateTime InputDate, CustomerRow parentCustomerRowByFK_ProductInputOrder_Customer, string CreatedBy, System.DateTime CreatedDate, string LastEditedBy, System.DateTime LastEditedDate, bool IsPaidLater, int StoreId) {
+            public ProductInputOrderRow AddProductInputOrderRow(System.DateTime InputDate, CustomerRow parentCustomerRowByFK_ProductInputOrder_Customer, string CreatedBy, System.DateTime CreatedDate, string LastEditedBy, System.DateTime LastEditedDate, bool IsPaidLater, StoreRow parentStoreRowByFK_ProductInputOrder_Store) {
                 ProductInputOrderRow rowProductInputOrderRow = ((ProductInputOrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -10133,9 +10174,12 @@ namespace JS_Manage {
                         LastEditedBy,
                         LastEditedDate,
                         IsPaidLater,
-                        StoreId};
+                        null};
                 if ((parentCustomerRowByFK_ProductInputOrder_Customer != null)) {
                     columnValuesArray[2] = parentCustomerRowByFK_ProductInputOrder_Customer[0];
+                }
+                if ((parentStoreRowByFK_ProductInputOrder_Store != null)) {
+                    columnValuesArray[8] = parentStoreRowByFK_ProductInputOrder_Store[0];
                 }
                 rowProductInputOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowProductInputOrderRow);
@@ -15108,7 +15152,6 @@ namespace JS_Manage {
                 this.columnStoreId.AllowDBNull = false;
                 this.columnStoreId.ReadOnly = true;
                 this.columnStoreId.Unique = true;
-                this.columnStoreName.AllowDBNull = false;
                 this.columnStoreName.MaxLength = 255;
                 this.columnDescription.MaxLength = 500;
             }
@@ -16632,13 +16675,13 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ProductTransOrderRow AddProductTransOrderRow(System.DateTime TransDate, int FromStoreId, int ToStoreId, string Note, bool Approved, string ApprovedBy, System.DateTime ApprovedDate, bool Deleted, System.DateTime CreatedDate, string CreatedBy, System.DateTime LastEditedDate, string LastEditedBy) {
+            public ProductTransOrderRow AddProductTransOrderRow(System.DateTime TransDate, StoreRow parentStoreRowByFK_ProductTransOrder_FromStore, StoreRow parentStoreRowByFK_ProductTransOrder_ToStore, string Note, bool Approved, string ApprovedBy, System.DateTime ApprovedDate, bool Deleted, System.DateTime CreatedDate, string CreatedBy, System.DateTime LastEditedDate, string LastEditedBy) {
                 ProductTransOrderRow rowProductTransOrderRow = ((ProductTransOrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         TransDate,
-                        FromStoreId,
-                        ToStoreId,
+                        null,
+                        null,
                         Note,
                         Approved,
                         ApprovedBy,
@@ -16648,6 +16691,12 @@ namespace JS_Manage {
                         CreatedBy,
                         LastEditedDate,
                         LastEditedBy};
+                if ((parentStoreRowByFK_ProductTransOrder_FromStore != null)) {
+                    columnValuesArray[2] = parentStoreRowByFK_ProductTransOrder_FromStore[0];
+                }
+                if ((parentStoreRowByFK_ProductTransOrder_ToStore != null)) {
+                    columnValuesArray[3] = parentStoreRowByFK_ProductTransOrder_ToStore[0];
+                }
                 rowProductTransOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowProductTransOrderRow);
                 return rowProductTransOrderRow;
@@ -21834,6 +21883,28 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public StoreRow StoreRowByFK_PurchaseReceiptOrder_Store {
+                get {
+                    return ((StoreRow)(this.GetParentRow(this.Table.ParentRelations["FK_PurchaseReceiptOrder_Store"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_PurchaseReceiptOrder_Store"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public StoreRow StoreRowByFK_PurchaseReceiptOrder_StoreInput {
+                get {
+                    return ((StoreRow)(this.GetParentRow(this.Table.ParentRelations["FK_PurchaseReceiptOrder_StoreInput"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_PurchaseReceiptOrder_StoreInput"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsBillNumberNull() {
                 return this.IsNull(this.tablePurchaseReceiptOrder.BillNumberColumn);
             }
@@ -22965,6 +23036,17 @@ namespace JS_Manage {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_ProductInputOrder_Customer"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public StoreRow StoreRow {
+                get {
+                    return ((StoreRow)(this.GetParentRow(this.Table.ParentRelations["FK_ProductInputOrder_Store"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_ProductInputOrder_Store"]);
                 }
             }
             
@@ -25804,7 +25886,12 @@ namespace JS_Manage {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string StoreName {
                 get {
-                    return ((string)(this[this.tableStore.StoreNameColumn]));
+                    try {
+                        return ((string)(this[this.tableStore.StoreNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StoreName\' in table \'Store\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableStore.StoreNameColumn] = value;
@@ -25829,6 +25916,18 @@ namespace JS_Manage {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsStoreNameNull() {
+                return this.IsNull(this.tableStore.StoreNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetStoreNameNull() {
+                this[this.tableStore.StoreNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsDescriptionNull() {
                 return this.IsNull(this.tableStore.DescriptionColumn);
             }
@@ -25847,6 +25946,61 @@ namespace JS_Manage {
                 }
                 else {
                     return ((UserStoreMappingRow[])(base.GetChildRows(this.Table.ChildRelations["FK_UserStoreMapping_Store"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PurchaseReceiptOrderRow[] GetPurchaseReceiptOrderRowsByFK_PurchaseReceiptOrder_Store() {
+                if ((this.Table.ChildRelations["FK_PurchaseReceiptOrder_Store"] == null)) {
+                    return new PurchaseReceiptOrderRow[0];
+                }
+                else {
+                    return ((PurchaseReceiptOrderRow[])(base.GetChildRows(this.Table.ChildRelations["FK_PurchaseReceiptOrder_Store"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public PurchaseReceiptOrderRow[] GetPurchaseReceiptOrderRowsByFK_PurchaseReceiptOrder_StoreInput() {
+                if ((this.Table.ChildRelations["FK_PurchaseReceiptOrder_StoreInput"] == null)) {
+                    return new PurchaseReceiptOrderRow[0];
+                }
+                else {
+                    return ((PurchaseReceiptOrderRow[])(base.GetChildRows(this.Table.ChildRelations["FK_PurchaseReceiptOrder_StoreInput"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ProductInputOrderRow[] GetProductInputOrderRows() {
+                if ((this.Table.ChildRelations["FK_ProductInputOrder_Store"] == null)) {
+                    return new ProductInputOrderRow[0];
+                }
+                else {
+                    return ((ProductInputOrderRow[])(base.GetChildRows(this.Table.ChildRelations["FK_ProductInputOrder_Store"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ProductTransOrderRow[] GetProductTransOrderRowsByFK_ProductTransOrder_FromStore() {
+                if ((this.Table.ChildRelations["FK_ProductTransOrder_FromStore"] == null)) {
+                    return new ProductTransOrderRow[0];
+                }
+                else {
+                    return ((ProductTransOrderRow[])(base.GetChildRows(this.Table.ChildRelations["FK_ProductTransOrder_FromStore"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public ProductTransOrderRow[] GetProductTransOrderRowsByFK_ProductTransOrder_ToStore() {
+                if ((this.Table.ChildRelations["FK_ProductTransOrder_ToStore"] == null)) {
+                    return new ProductTransOrderRow[0];
+                }
+                else {
+                    return ((ProductTransOrderRow[])(base.GetChildRows(this.Table.ChildRelations["FK_ProductTransOrder_ToStore"])));
                 }
             }
         }
@@ -26447,6 +26601,28 @@ namespace JS_Manage {
                 }
                 set {
                     this[this.tableProductTransOrder.LastEditedByColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public StoreRow StoreRowByFK_ProductTransOrder_FromStore {
+                get {
+                    return ((StoreRow)(this.GetParentRow(this.Table.ParentRelations["FK_ProductTransOrder_FromStore"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_ProductTransOrder_FromStore"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public StoreRow StoreRowByFK_ProductTransOrder_ToStore {
+                get {
+                    return ((StoreRow)(this.GetParentRow(this.Table.ParentRelations["FK_ProductTransOrder_ToStore"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_ProductTransOrder_ToStore"]);
                 }
             }
             
@@ -43864,36 +44040,6 @@ SELECT UserStoreMappingId, UserId, StoreId, IsDefault FROM UserStoreMapping WHER
             tableMapping.ColumnMappings.Add("StoreName", "StoreName");
             tableMapping.ColumnMappings.Add("Description", "Description");
             this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Store] WHERE (([StoreId] = @Original_StoreId) AND ([StoreName]" +
-                " = @Original_StoreName) AND ((@IsNull_Description = 1 AND [Description] IS NULL)" +
-                " OR ([Description] = @Original_Description)))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StoreId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StoreId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StoreName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StoreName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Description", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Store] ([StoreName], [Description]) VALUES (@StoreName, @Descr" +
-                "iption);\r\nSELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = SCO" +
-                "PE_IDENTITY())";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StoreName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StoreName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Store] SET [StoreName] = @StoreName, [Description] = @Description WHERE (([StoreId] = @Original_StoreId) AND ([StoreName] = @Original_StoreName) AND ((@IsNull_Description = 1 AND [Description] IS NULL) OR ([Description] = @Original_Description)));
-SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StoreName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StoreName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StoreId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StoreId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StoreName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StoreName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Description", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StoreId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "StoreId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -43909,12 +44055,12 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT StoreId, StoreName, Description FROM dbo.Store";
+            this._commandCollection[0].CommandText = "SELECT StoreId, StoreName, Description FROM dbo.Store\r\nunion \r\nSelect 0 as StoreI" +
+                "d, \'All\' as StoreName, \'All\' as Description ";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT        StoreId, StoreName, Description\r\nFROM            Store\r\nWHERE      " +
-                "  (StoreId IN (@storeIds))";
+            this._commandCollection[1].CommandText = "SELECT Description, StoreId, StoreName FROM Store WHERE (StoreId IN (@storeIds))";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@storeIds", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -43967,161 +44113,6 @@ SELECT StoreId, StoreName, Description FROM Store WHERE (StoreId = @StoreId)";
             JSManagementDataSet.StoreDataTable dataTable = new JSManagementDataSet.StoreDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(JSManagementDataSet.StoreDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(JSManagementDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Store");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_StoreId, string Original_StoreName, string Original_Description) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_StoreId));
-            if ((Original_StoreName == null)) {
-                throw new global::System.ArgumentNullException("Original_StoreName");
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_StoreName));
-            }
-            if ((Original_Description == null)) {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((string)(Original_Description));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string StoreName, string Description) {
-            if ((StoreName == null)) {
-                throw new global::System.ArgumentNullException("StoreName");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(StoreName));
-            }
-            if ((Description == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Description));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string StoreName, string Description, int Original_StoreId, string Original_StoreName, string Original_Description, int StoreId) {
-            if ((StoreName == null)) {
-                throw new global::System.ArgumentNullException("StoreName");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(StoreName));
-            }
-            if ((Description == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Description));
-            }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_StoreId));
-            if ((Original_StoreName == null)) {
-                throw new global::System.ArgumentNullException("Original_StoreName");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_StoreName));
-            }
-            if ((Original_Description == null)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_Description));
-            }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(StoreId));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string StoreName, string Description, int Original_StoreId, string Original_StoreName, string Original_Description) {
-            return this.Update(StoreName, Description, Original_StoreId, Original_StoreName, Original_Description, Original_StoreId);
         }
     }
     
@@ -47791,8 +47782,6 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
         
         private UserStoreMappingTableAdapter _userStoreMappingTableAdapter;
         
-        private StoreTableAdapter _storeTableAdapter;
-        
         private OutputTypeTableAdapter _outputTypeTableAdapter;
         
         private InputTypeTableAdapter _inputTypeTableAdapter;
@@ -48049,20 +48038,6 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public StoreTableAdapter StoreTableAdapter {
-            get {
-                return this._storeTableAdapter;
-            }
-            set {
-                this._storeTableAdapter = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
-            "a", "System.Drawing.Design.UITypeEditor")]
         public OutputTypeTableAdapter OutputTypeTableAdapter {
             get {
                 return this._outputTypeTableAdapter;
@@ -48225,10 +48200,6 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                             && (this._userStoreMappingTableAdapter.Connection != null))) {
                     return this._userStoreMappingTableAdapter.Connection;
                 }
-                if (((this._storeTableAdapter != null) 
-                            && (this._storeTableAdapter.Connection != null))) {
-                    return this._storeTableAdapter.Connection;
-                }
                 if (((this._outputTypeTableAdapter != null) 
                             && (this._outputTypeTableAdapter.Connection != null))) {
                     return this._outputTypeTableAdapter.Connection;
@@ -48314,9 +48285,6 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                 if ((this._userStoreMappingTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._storeTableAdapter != null)) {
-                    count = (count + 1);
-                }
                 if ((this._outputTypeTableAdapter != null)) {
                     count = (count + 1);
                 }
@@ -48382,21 +48350,12 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._storeTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Store.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._productTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Product.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._storeTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._productTransOrderTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ProductTransOrder.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._productTransOrderTableAdapter.Update(updatedRows));
+                    result = (result + this._productTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -48409,12 +48368,12 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._productTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Product.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._productTransOrderTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ProductTransOrder.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._productTableAdapter.Update(updatedRows));
+                    result = (result + this._productTransOrderTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -48433,6 +48392,24 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._purchaseReceiptOrderTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._userStoreMappingTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.UserStoreMapping.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._userStoreMappingTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._productInputTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ProductInput.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._productInputTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -48460,24 +48437,6 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._productTransMappingTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._userStoreMappingTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.UserStoreMapping.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._userStoreMappingTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._productInputTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ProductInput.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._productInputTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -48595,19 +48554,11 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._storeTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Store.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._productTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Product.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._storeTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._productTransOrderTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ProductTransOrder.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._productTransOrderTableAdapter.Update(addedRows));
+                    result = (result + this._productTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -48619,11 +48570,11 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._productTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Product.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._productTransOrderTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ProductTransOrder.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._productTableAdapter.Update(addedRows));
+                    result = (result + this._productTransOrderTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -48640,6 +48591,22 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._purchaseReceiptOrderTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._userStoreMappingTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.UserStoreMapping.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._userStoreMappingTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._productInputTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ProductInput.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._productInputTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -48664,22 +48631,6 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._productTransMappingTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._userStoreMappingTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.UserStoreMapping.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._userStoreMappingTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._productInputTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ProductInput.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._productInputTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -48821,22 +48772,6 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._productInputTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProductInput.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._productInputTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._userStoreMappingTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.UserStoreMapping.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._userStoreMappingTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._productTransMappingTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.ProductTransMapping.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -48861,6 +48796,22 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._productInputTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProductInput.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._productInputTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._userStoreMappingTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.UserStoreMapping.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._userStoreMappingTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._purchaseReceiptOrderTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.PurchaseReceiptOrder.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -48877,11 +48828,11 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._productTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Product.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._productTransOrderTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProductTransOrder.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._productTableAdapter.Update(deletedRows));
+                    result = (result + this._productTransOrderTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -48893,19 +48844,11 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._productTransOrderTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProductTransOrder.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._productTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Product.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._productTransOrderTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._storeTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Store.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._storeTableAdapter.Update(deletedRows));
+                    result = (result + this._productTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -49057,11 +49000,6 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
             }
             if (((this._userStoreMappingTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._userStoreMappingTableAdapter.Connection) == false))) {
-                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
-                        "tring.");
-            }
-            if (((this._storeTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._storeTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -49271,15 +49209,6 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                         adaptersWithAcceptChangesDuringUpdate.Add(this._userStoreMappingTableAdapter.Adapter);
                     }
                 }
-                if ((this._storeTableAdapter != null)) {
-                    revertConnections.Add(this._storeTableAdapter, this._storeTableAdapter.Connection);
-                    this._storeTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
-                    this._storeTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
-                    if (this._storeTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._storeTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._storeTableAdapter.Adapter);
-                    }
-                }
                 if ((this._outputTypeTableAdapter != null)) {
                     revertConnections.Add(this._outputTypeTableAdapter, this._outputTypeTableAdapter.Connection);
                     this._outputTypeTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
@@ -49455,10 +49384,6 @@ SELECT ImageId, ImageLink, ProdId FROM ProductImage WHERE (ImageId = @ImageId)";
                 if ((this._userStoreMappingTableAdapter != null)) {
                     this._userStoreMappingTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._userStoreMappingTableAdapter]));
                     this._userStoreMappingTableAdapter.Transaction = null;
-                }
-                if ((this._storeTableAdapter != null)) {
-                    this._storeTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._storeTableAdapter]));
-                    this._storeTableAdapter.Transaction = null;
                 }
                 if ((this._outputTypeTableAdapter != null)) {
                     this._outputTypeTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._outputTypeTableAdapter]));
